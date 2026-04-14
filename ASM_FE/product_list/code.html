@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Shop | Precision Editorial</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary-fixed-dim": "#b4c5ff",
+              "on-secondary": "#ffffff",
+              "on-error-container": "#93000a",
+              "primary": "#004ac6",
+              "inverse-surface": "#213145",
+              "surface-container": "#e5eeff",
+              "on-tertiary-fixed-variant": "#005321",
+              "secondary-fixed": "#d3e4fe",
+              "surface-dim": "#cbdbf5",
+              "primary-container": "#2563eb",
+              "surface-tint": "#0053db",
+              "on-secondary-fixed-variant": "#38485d",
+              "on-secondary-container": "#54647a",
+              "primary-fixed": "#dbe1ff",
+              "on-tertiary-fixed": "#002109",
+              "tertiary-fixed-dim": "#4ae176",
+              "secondary-container": "#d0e1fb",
+              "error": "#ba1a1a",
+              "surface-container-low": "#eff4ff",
+              "surface-container-highest": "#d3e4fe",
+              "on-primary-fixed-variant": "#003ea8",
+              "outline": "#737686",
+              "tertiary-container": "#007e37",
+              "background": "#f8f9ff",
+              "on-surface": "#0b1c30",
+              "on-error": "#ffffff",
+              "tertiary-fixed": "#6bff8f",
+              "surface-bright": "#f8f9ff",
+              "surface-container-high": "#dce9ff",
+              "surface": "#f8f9ff",
+              "error-container": "#ffdad6",
+              "on-background": "#0b1c30",
+              "surface-variant": "#d3e4fe",
+              "on-primary": "#ffffff",
+              "tertiary": "#006229",
+              "secondary": "#505f76",
+              "on-tertiary": "#ffffff",
+              "on-primary-fixed": "#00174b",
+              "secondary-fixed-dim": "#b7c8e1",
+              "on-surface-variant": "#434655",
+              "outline-variant": "#c3c6d7",
+              "inverse-primary": "#b4c5ff",
+              "surface-container-lowest": "#ffffff",
+              "on-tertiary-container": "#c1ffc5",
+              "on-primary-container": "#eeefff",
+              "on-secondary-fixed": "#0b1c30",
+              "inverse-on-surface": "#eaf1ff"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3, .font-headline { font-family: 'Manrope', sans-serif; }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-[#f8f9ff]/70 backdrop-blur-xl flex justify-between items-center px-6 py-3 max-w-full">
+<div class="flex items-center gap-8">
+<span class="text-xl font-bold tracking-tighter text-[#0b1c30]">Precision Editorial</span>
+<!-- Desktop Navigation -->
+<div class="hidden md:flex items-center space-gap-6 gap-6 font-manrope text-sm font-semibold tracking-tight">
+<a class="text-[#434655] hover:text-[#0b1c30] transition-all duration-300" href="#">Home</a>
+<a class="text-[#004ac6] border-b-2 border-[#004ac6] pb-1 transition-all duration-300" href="#">Shop</a>
+<a class="text-[#434655] hover:text-[#0b1c30] transition-all duration-300" href="#">Collections</a>
+<a class="text-[#434655] hover:text-[#0b1c30] transition-all duration-300" href="#">Journal</a>
+</div>
+</div>
+<div class="flex items-center gap-4 flex-1 max-w-md mx-8">
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-sm">search</span>
+<input class="w-full bg-surface-container-highest border-none rounded-lg py-2 pl-10 pr-4 text-sm focus:ring-2 focus:ring-primary/40" placeholder="Search curated products..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<button class="p-2 rounded-lg hover:bg-[#d3e4fe]/50 transition-all duration-300 active:scale-90">
+<span class="material-symbols-outlined text-[#004ac6]">shopping_cart</span>
+</button>
+<button class="p-2 rounded-lg hover:bg-[#d3e4fe]/50 transition-all duration-300 active:scale-90">
+<span class="material-symbols-outlined text-[#004ac6]">account_circle</span>
+</button>
+</div>
+</nav>
+<main class="flex-grow pt-24 px-6 max-w-7xl mx-auto w-full pb-20">
+<!-- Breadcrumbs -->
+<nav class="mb-8 flex items-center gap-2 text-xs font-medium text-on-surface-variant uppercase tracking-widest">
+<a class="hover:text-primary" href="#">Home</a>
+<span class="material-symbols-outlined text-[10px]">chevron_right</span>
+<span class="text-on-surface">Shop</span>
+</nav>
+<div class="flex flex-col md:flex-row gap-12">
+<!-- Sidebar Filters -->
+<aside class="w-full md:w-64 flex-shrink-0 space-y-10">
+<!-- Categories -->
+<div>
+<h3 class="font-headline text-sm font-extrabold uppercase tracking-tighter mb-6 text-on-surface">Categories</h3>
+<ul class="space-y-3"><li><label class="flex items-center gap-3 group cursor-pointer"><input class="rounded border-outline-variant text-primary focus:ring-primary/20" type="checkbox"/><span class="text-sm text-on-surface-variant group-hover:text-on-surface transition-colors">Audio</span></label></li><li><label class="flex items-center gap-3 group cursor-pointer"><input class="rounded border-outline-variant text-primary focus:ring-primary/20" type="checkbox"/><span class="text-sm text-on-surface-variant group-hover:text-on-surface transition-colors">Smartphones</span></label></li><li><label class="flex items-center gap-3 group cursor-pointer"><input class="rounded border-outline-variant text-primary focus:ring-primary/20" type="checkbox"/><span class="text-sm text-on-surface-variant group-hover:text-on-surface transition-colors">Laptops</span></label></li><li><label class="flex items-center gap-3 group cursor-pointer"><input class="rounded border-outline-variant text-primary focus:ring-primary/20" type="checkbox"/><span class="text-sm text-on-surface-variant group-hover:text-on-surface transition-colors">Accessories</span></label></li></ul>
+</div>
+<!-- Price Range -->
+<div>
+<h3 class="font-headline text-sm font-extrabold uppercase tracking-tighter mb-6 text-on-surface">Price Range</h3>
+<input class="w-full h-1 bg-surface-container-highest rounded-lg appearance-none cursor-pointer accent-primary" type="range"/>
+<div class="flex justify-between mt-4 text-xs font-mono text-on-surface-variant">
+<span>$0</span>
+<span>$1,000+</span>
+</div>
+</div>
+<!-- Ratings -->
+<div>
+<h3 class="font-headline text-sm font-extrabold uppercase tracking-tighter mb-6 text-on-surface">Rating</h3>
+<div class="space-y-3">
+<button class="flex items-center gap-1 text-primary">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm">star</span>
+<span class="text-xs text-on-surface-variant ml-2">&amp; Up</span>
+</button>
+</div>
+</div>
+<!-- Promotional Spot -->
+<div class="rounded-xl overflow-hidden relative aspect-[3/4] group cursor-pointer bg-surface-container-low">
+<img class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="luxury designer watch with leather strap on a minimal stone pedestal with soft directional lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAW03hhKnxap7erD3vsYGpF4J1gtcx9n4fflLdRdBnVVUvTI6k4t__9C_rvuq4MzBvHUDOifKhBoVwnN6ajuQ_-L8RSf7gIhAtLygExiHOjn7b0PMelItgBagfEJiZsGb8HfhXmhWRXeFZ5wuUSS0WOWh7Ww-rXoYcX4_Wmykl73a_L9-zyB2of9oc6KOS7E3lqSsHRe34trOj2mvs4gMv-jp75NmzJH7nXDNLLwmy-csnh1DxEw5aQaZbZ8BsLPmuYEQHi4VPkcQk"/>
+<div class="absolute inset-0 bg-gradient-to-t from-on-surface/80 to-transparent p-6 flex flex-col justify-end">
+<p class="text-white/70 text-[10px] uppercase tracking-[0.2em] mb-1">New Arrival</p>
+<h4 class="text-white font-headline text-lg font-bold leading-tight">The Editor's Choice 2024</h4>
+</div>
+</div>
+</aside>
+<!-- Product Grid Content -->
+<div class="flex-1">
+<header class="flex justify-between items-end mb-10">
+<div>
+<h1 class="text-4xl font-extrabold tracking-tighter text-on-surface mb-2">Curated Selection</h1>
+<p class="text-on-surface-variant text-sm">Showing 1-12 of 84 precision-crafted items.</p>
+</div>
+<div class="flex items-center gap-4">
+<span class="text-xs font-bold uppercase tracking-widest text-on-surface-variant">Sort By</span>
+<select class="bg-transparent border-none text-sm font-semibold text-primary focus:ring-0 cursor-pointer">
+<option>Latest Release</option>
+<option>Price: Low to High</option>
+<option>Popularity</option>
+</select>
+</div>
+</header>
+<!-- Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-y-12 gap-x-8">
+<!-- Product Card 1 -->
+<div class="group">
+<div class="aspect-[4/5] bg-surface-container-low rounded-xl overflow-hidden relative mb-4">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="professional studio headphones on a minimalist wooden stand with soft architectural lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC_vgKU9dFE64OW1WawV6p7wF2njtN2jYLX8uxAHapnTPomkndjFPk-1IxSy9VPhZxRFnXInfeShgZqgdf5u9pxAtpr1fk3yLC3zdSK_6xvD44IzjkFrgYj3w8JY8QAtLyCkLnQRex8a289TU1SGd5CaWv_bQ9ZIdYDtZGnh31J054CSoz3oLJ2_oAORu3gPNyYL4a40mBgutwKOJMNiFcSX8amzhDvQB-qCtSaVatp2wFK3VW3Yx1YQHJ2Fg4Z6xCm4ZPNnZgPYgI"/>
+<div class="absolute top-4 left-4">
+<span class="bg-primary text-white text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wider">Premium</span>
+</div>
+<button class="absolute bottom-4 right-4 w-10 h-10 bg-white rounded-full flex items-center justify-center opacity-0 translate-y-4 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 shadow-lg">
+<span class="material-symbols-outlined text-primary text-xl">shopping_bag</span>
+</button>
+</div>
+<h3 class="font-headline font-bold text-on-surface group-hover:text-primary transition-colors">Acoustic Precision X1</h3>
+<p class="text-on-surface-variant text-xs mb-2">Electronics / Audio</p>
+<p class="text-primary font-bold">$299.00</p>
+</div>
+<!-- Product Card 2 -->
+<div class="group"><div class="aspect-[4/5] bg-surface-container-low rounded-xl overflow-hidden relative mb-4"><img alt="sleek modern titanium smartphone with a large triple-lens camera system on a minimalist marble background" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAuN5Pigege-KFely6K8k53OgrUqPgUZtSw5thsPhw13WYiXozehZi19s1U5JAJWHNwAraVF69FXENd5lC2-L7BK2vmoEm8qlgR0McfCs7PpAAQBbs5_AB4qzImrVzcdq_W2x0kLcWSABUVhSjvMDVX-YsZRDNBxUlOdMG_eye_Ozlgl6AI8pS6YOQQTjxGr_0_Zvo5f4aG6hCoZR3rRsfrdunZwvhiajwtO3yR-trOMkItfKVirjH6WgIkQV0msea1l_06Sedccis"/><button class="absolute bottom-4 right-4 w-10 h-10 bg-white rounded-full flex items-center justify-center opacity-0 translate-y-4 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 shadow-lg"><span class="material-symbols-outlined text-primary text-xl">shopping_bag</span></button></div><h3 class="font-headline font-bold text-on-surface group-hover:text-primary transition-colors">Zenith Phone 15 Pro</h3><p class="text-on-surface-variant text-xs mb-2">Smartphones / Mobile</p><p class="text-primary font-bold">$999.00</p></div>
+<!-- Product Card 3 -->
+<div class="group"><div class="aspect-[4/5] bg-surface-container-low rounded-xl overflow-hidden relative mb-4"><img alt="ultra-thin silver laptop open on a clean desk with soft shadows" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAtp7cKyUcnz9rkA0DdZqst3rkJGlYA1AFbbfbSwf99kAgbmHNUxGwxini8o0pP-0FZIyVa5t_PRxo_CJfP4c8qqAyMqXy1fz-MUUHKAbgtDwh6ewz9_KDgUtbpZLYeZa47bJ5RiwRDrYGKukvD8qIAtH3Dfi7WLc27U5JIXvakcgfoARN-S9SNMKqW1wItphbjmrvyUK_MzKYGUrOBrMto4FRhreiJgZ9GsRk-1XenQk_72agWBnVMRGv7urbFEcpLKOy2tMijIks"/><button class="absolute bottom-4 right-4 w-10 h-10 bg-white rounded-full flex items-center justify-center opacity-0 translate-y-4 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 shadow-lg"><span class="material-symbols-outlined text-primary text-xl">shopping_bag</span></button></div><h3 class="font-headline font-bold text-on-surface group-hover:text-primary transition-colors">VaporBook Air</h3><p class="text-on-surface-variant text-xs mb-2">Laptops / Ultraportable</p><p class="text-primary font-bold">$1,299.00</p></div>
+<!-- Product Card 4 -->
+<div class="group"><div class="aspect-[4/5] bg-surface-container-low rounded-xl overflow-hidden relative mb-4"><img alt="matte black wireless noise-canceling earbuds in their charging case on a textured surface" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBe5mspLTP6QbM1mpegZDfS_f5F2jCB5gIONmW7GM9W0STz_Djqe8kF3Aze29EBLF_TuOUBQg2S21RejVnctqFhFa7mJnrM-PgAyTAfbbn7JRKeo6khfHkQGxZrBDaSa7av3xR6B3-ggf1QOhqbl_XOQBDiDXcXe_yaTJc_sD0DNMEFeq9hEjnhq97UIp5p9zq_VcJKpKFgxKiJntZhQ9gjFkFek_2QUyvb0U1yJpqk1HgELfVDu7pbZWAntV_5V2z2-l3vrJHfL3E"/><button class="absolute bottom-4 right-4 w-10 h-10 bg-white rounded-full flex items-center justify-center opacity-0 translate-y-4 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 shadow-lg"><span class="material-symbols-outlined text-primary text-xl">shopping_bag</span></button></div><h3 class="font-headline font-bold text-on-surface group-hover:text-primary transition-colors">Sonic Buds Pro</h3><p class="text-on-surface-variant text-xs mb-2">Audio / Wireless</p><p class="text-primary font-bold">$249.00</p></div>
+<!-- Product Card 5 -->
+<div class="group"><div class="aspect-[4/5] bg-surface-container-low rounded-xl overflow-hidden relative mb-4"><img alt="innovative foldable smartphone displaying a vibrant digital wallpaper" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-SaUZatV9hSi0SGpf_lui-hIvjcfzFM2r8sMovvrFPUlMWZlSDkRkLG1Sa1qcA1JtKk_AQsb-X1dTJEGuInp7zuOHEtSPhivE3B19HSfjmKQxIdLHmGOZE2j5KGTpwTvO_e6P-VSlPB3fqciTjXEQqLqOfLduk_cEfND2igwnUYsgldP8BPj14RP5ksSqhFLF5M1tv6Ql5QqwaA6tvWkLVvgCI-QYvTx17gOHODIDy5veylRra14fxVKKmrnGtB3Tv_5CS7eaoHM"/><button class="absolute bottom-4 right-4 w-10 h-10 bg-white rounded-full flex items-center justify-center opacity-0 translate-y-4 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 shadow-lg"><span class="material-symbols-outlined text-primary text-xl">shopping_bag</span></button></div><h3 class="font-headline font-bold text-on-surface group-hover:text-primary transition-colors">Fold X5</h3><p class="text-on-surface-variant text-xs mb-2">Smartphones / Premium</p><p class="text-primary font-bold">$1,799.00</p></div>
+<!-- Product Card 6 -->
+<div class="group"><div class="aspect-[4/5] bg-surface-container-low rounded-xl overflow-hidden relative mb-4"><img alt="powerful black workstation laptop with a backlit keyboard in a dark office setting" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC841gjJ2YNDUUSJAjwyZ2mbh7P-uRx_k6I_bKp_T2ahmyaXbx0-SPnxyHC-E1bTaQHS39eGWk9JMwypfjR1smbTX7VYH61Ce-JNluVZ6uv17JJdIcy0InvlqHFgOcLdhR7yqBU_g-QqBGTlk8Akf9RwB6OPCoB11Uo4J7_dZYGex8qmW67WAB_s_ZrwMnbDfnHBvn6o1-0YCBTmmqKz81WD5WpKpvGzEnA_jlqSgmzZKHpKaUp0HkYNXlpFt2PqUhREkw-dVTkQig"/><button class="absolute bottom-4 right-4 w-10 h-10 bg-white rounded-full flex items-center justify-center opacity-0 translate-y-4 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 shadow-lg"><span class="material-symbols-outlined text-primary text-xl">shopping_bag</span></button></div><h3 class="font-headline font-bold text-on-surface group-hover:text-primary transition-colors">Titan Studio 16</h3><p class="text-on-surface-variant text-xs mb-2">Laptops / Professional</p><p class="text-primary font-bold">$2,499.00</p></div>
+<!-- Product Card 7 -->
+<div class="group"><div class="aspect-[4/5] bg-surface-container-low rounded-xl overflow-hidden relative mb-4"><img alt="custom mechanical keyboard with RGB lighting and premium keycaps" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBpfdA5r6z01ufo-CnL0wrh4ZgOnbgRX9dlV-DNERriuFgYyvetiEyiiwMwLRXlTXtXJL3CatJzOXoKhXqFXyTQIdj4OgNCJoA68L794dXEdPumW8rl71YwqhRML6ErkMoMX24gCsmLflwGVpFK5BoEKvBIHE-oJ82YOdzbxyMUbsopH_4YNjItYxqJmgXpD1fYtU7Ryp5Q3JquAj_xe2a3b4UCiZlh6lYIq7m7c9hF8m4s7vF9fDEhScrZd9J1hFp0sPV2HCw-PLM"/><button class="absolute bottom-4 right-4 w-10 h-10 bg-white rounded-full flex items-center justify-center opacity-0 translate-y-4 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 shadow-lg"><span class="material-symbols-outlined text-primary text-xl">shopping_bag</span></button></div><h3 class="font-headline font-bold text-on-surface group-hover:text-primary transition-colors">Tactile K1</h3><p class="text-on-surface-variant text-xs mb-2">Accessories / Computing</p><p class="text-primary font-bold">$189.00</p></div>
+<!-- Product Card 8 -->
+<div class="group"><div class="aspect-[4/5] bg-surface-container-low rounded-xl overflow-hidden relative mb-4"><img alt="ergonomic gaming mouse with precision optical sensor on a dark desk mat" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCgxRUzWiuTl4aD96nG_aUHmRGbU1Rf3-j0hmePfv0PEIOY-XLPqjm1fsRHdTeP3pe9LbYB43eIfz4QErlOTNqp28gQMGaF_D6J0Rtya5H-0tMJU3mZ4JZtzNKQOudj5Ewy4bRqxdLNPBDX2zl_2srcF56AUFoEi8aOg6EzE5X8qPKhbB2NdAODYDatqYnK0SaM0HL54ORooXFuamU6lEiPZRrJxAKyeAJWR69OpqK3VLpMw3dxoYotIsKgniP_GEEV22FggDiNWvw"/><button class="absolute bottom-4 right-4 w-10 h-10 bg-white rounded-full flex items-center justify-center opacity-0 translate-y-4 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 shadow-lg"><span class="material-symbols-outlined text-primary text-xl">shopping_bag</span></button></div><h3 class="font-headline font-bold text-on-surface group-hover:text-primary transition-colors">Swift G-Series</h3><p class="text-on-surface-variant text-xs mb-2">Accessories / Gaming</p><p class="text-primary font-bold">$95.00</p></div>
+</div>
+<!-- Pagination -->
+<div class="mt-20 flex justify-center items-center gap-2">
+<button class="w-10 h-10 flex items-center justify-center rounded-lg hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg bg-primary text-white font-bold">1</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg hover:bg-surface-container-high transition-colors text-on-surface-variant">2</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg hover:bg-surface-container-high transition-colors text-on-surface-variant">3</button>
+<span class="px-2 text-on-surface-variant">...</span>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg hover:bg-surface-container-high transition-colors text-on-surface-variant">7</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-[#eff4ff] grid grid-cols-1 md:grid-cols-3 gap-8 px-12 py-16 w-full border-t border-transparent">
+<div class="space-y-6">
+<span class="font-manrope font-bold text-[#0b1c30] text-2xl">Precision Editorial</span>
+<p class="text-xs text-[#434655] max-w-xs leading-relaxed">
+                Elevating everyday objects through intentional design and uncompromising quality. Curated for those who appreciate the finer details.
+            </p>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="space-y-4">
+<h4 class="text-[10px] font-bold uppercase tracking-widest text-[#0b1c30]">Company</h4>
+<ul class="space-y-2">
+<li><a class="text-xs text-[#434655] hover:text-[#004ac6] transition-colors" href="#">About Us</a></li>
+<li><a class="text-xs text-[#434655] hover:text-[#004ac6] transition-colors" href="#">Privacy Policy</a></li>
+<li><a class="text-xs text-[#434655] hover:text-[#004ac6] transition-colors" href="#">Terms of Service</a></li>
+</ul>
+</div>
+<div class="space-y-4">
+<h4 class="text-[10px] font-bold uppercase tracking-widest text-[#0b1c30]">Customer Care</h4>
+<ul class="space-y-2">
+<li><a class="text-xs text-[#434655] hover:text-[#004ac6] transition-colors" href="#">Contact</a></li>
+<li><a class="text-xs text-[#434655] hover:text-[#004ac6] transition-colors" href="#">Shipping</a></li>
+<li><a class="text-xs text-[#434655] hover:text-[#004ac6] transition-colors" href="#">Returns</a></li>
+</ul>
+</div>
+</div>
+<div class="space-y-6">
+<h4 class="text-[10px] font-bold uppercase tracking-widest text-[#0b1c30]">Newsletter</h4>
+<div class="flex">
+<input class="flex-grow bg-white/50 border-none rounded-l-lg px-4 py-2 text-xs focus:ring-1 focus:ring-primary/40" placeholder="Email address" type="email"/>
+<button class="bg-primary text-white text-[10px] font-bold px-4 py-2 rounded-r-lg hover:bg-primary-container transition-colors uppercase tracking-wider">Join</button>
+</div>
+<p class="text-[10px] text-[#434655]">© 2024 Precision Editorial. All rights reserved.</p>
+</div>
+</footer>
+</body></html>

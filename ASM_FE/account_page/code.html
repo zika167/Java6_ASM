@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>User Profile | Precision Editorial</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "tertiary-fixed-dim": "#4ae176",
+                        "on-primary-fixed": "#00174b",
+                        "on-secondary-fixed-variant": "#38485d",
+                        "primary-container": "#2563eb",
+                        "on-tertiary-fixed": "#002109",
+                        "on-surface-variant": "#434655",
+                        "on-primary-fixed-variant": "#003ea8",
+                        "surface-container": "#e5eeff",
+                        "background": "#f8f9ff",
+                        "tertiary-container": "#007e37",
+                        "surface-container-high": "#dce9ff",
+                        "on-primary-container": "#eeefff",
+                        "primary": "#004ac6",
+                        "tertiary": "#006229",
+                        "surface-variant": "#d3e4fe",
+                        "inverse-surface": "#213145",
+                        "on-secondary-container": "#54647a",
+                        "on-secondary": "#ffffff",
+                        "on-secondary-fixed": "#0b1c30",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary-fixed-variant": "#005321",
+                        "surface-tint": "#0053db",
+                        "secondary-fixed": "#d3e4fe",
+                        "error-container": "#ffdad6",
+                        "secondary-fixed-dim": "#b7c8e1",
+                        "primary-fixed-dim": "#b4c5ff",
+                        "surface": "#f8f9ff",
+                        "secondary": "#505f76",
+                        "on-surface": "#0b1c30",
+                        "on-error-container": "#93000a",
+                        "surface-container-low": "#eff4ff",
+                        "outline-variant": "#c3c6d7",
+                        "on-primary": "#ffffff",
+                        "surface-bright": "#f8f9ff",
+                        "inverse-on-surface": "#eaf1ff",
+                        "surface-dim": "#cbdbf5",
+                        "inverse-primary": "#b4c5ff",
+                        "on-error": "#ffffff",
+                        "error": "#ba1a1a",
+                        "on-background": "#0b1c30",
+                        "tertiary-fixed": "#6bff8f",
+                        "secondary-container": "#d0e1fb",
+                        "outline": "#737686",
+                        "on-tertiary-container": "#c1ffc5",
+                        "surface-container-highest": "#d3e4fe",
+                        "primary-fixed": "#dbe1ff",
+                        "on-tertiary": "#ffffff"
+                    },
+                    fontFamily: {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f9ff;
+        }
+        .editorial-header {
+            font-family: 'Manrope', sans-serif;
+        }
+    </script>
+</head>
+<body class="bg-surface text-on-surface">
+
+    <nav class="bg-[#f8f9ff]/70 backdrop-blur-xl fixed top-0 w-full z-50 flex justify-between items-center px-8 py-4 max-w-full mx-auto font-['Manrope'] tracking-tight">
+        <div class="text-2xl font-bold tracking-tighter text-[#0b1c30]">The Precision Editorial</div>
+        
+        <div class="hidden md:flex items-center gap-8">
+            <a href="#" class="text-[#434655] hover:text-[#0b1c30] transition-colors">Shop</a>
+            <a href="#" class="text-[#434655] hover:text-[#0b1c30] transition-colors">Collections</a>
+            <a href="#" class="text-[#434655] hover:text-[#0b1c30] transition-colors">About</a>
+        </div>
+
+        <div class="flex items-center gap-6">
+            <div class="relative hidden lg:block">
+                <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+                <input type="text" placeholder="Search curated electronics..." class="bg-surface-container-low border-none rounded-lg pl-10 pr-4 py-2 text-sm w-64 focus:ring-2 focus:ring-primary/40">
+            </div>
+            <button class="hover:bg-[#eff4ff] p-2 rounded-full transition-all duration-300">
+                <span class="material-symbols-outlined" data-icon="shopping_cart">shopping_cart</span>
+            </button>
+            <button class="hover:bg-[#eff4ff] p-2 rounded-full transition-all duration-300 text-[#004ac6] border-b-2 border-[#004ac6] pb-1">
+                <span class="material-symbols-outlined" data-icon="person">person</span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="pt-28 pb-20 px-6 max-w-7xl mx-auto">
+        <div class="flex flex-col lg:flex-row gap-12">
+            
+            <aside class="w-full lg:w-64 flex-shrink-0">
+                <div class="sticky top-28 space-y-8">
+                    <div class="flex flex-col items-center lg:items-start space-y-4 px-4">
+                        <div class="relative group">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=256&h=256&auto=format&fit=crop" 
+                                 data-alt="Close-up studio portrait of a professional man in a navy blue suit with a minimalist grey background and soft lighting"
+                                 class="w-24 h-24 rounded-xl object-cover ring-4 ring-surface-container shadow-xl">
+                            <button class="absolute -bottom-2 -right-2 bg-primary text-white p-2 rounded-lg shadow-lg hover:scale-105 transition-transform">
+                                <span class="material-symbols-outlined text-sm">edit</span>
+                            </button>
+                        </div>
+                        <div class="text-center lg:text-left">
+                            <h2 class="font-headline font-bold text-xl text-on-surface">Julian Vance</h2>
+                            <p class="text-on-surface-variant text-sm">Premium Member</p>
+                        </div>
+                    </div>
+
+                    <nav class="flex flex-col gap-1">
+                        <a href="#" class="flex items-center gap-4 px-4 py-3 rounded-lg bg-primary-container text-on-primary-container font-semibold transition-all">
+                            <span class="material-symbols-outlined">person</span>
+                            <span class="font-body">Profile</span>
+                        </a>
+                        <a href="#" class="flex items-center gap-4 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-all">
+                            <span class="material-symbols-outlined">package_2</span>
+                            <span class="font-body">Orders</span>
+                        </a>
+                        <a href="#" class="flex items-center gap-4 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-all">
+                            <span class="material-symbols-outlined">security</span>
+                            <span class="font-body">Security</span>
+                        </a>
+                        <a href="#" class="flex items-center gap-4 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-all">
+                            <span class="material-symbols-outlined">settings</span>
+                            <span class="font-body">Preferences</span>
+                        </a>
+                    </nav>
+
+                    <div class="bg-surface-container-low p-6 rounded-xl border-l-4 border-primary">
+                        <p class="text-xs font-label uppercase tracking-widest text-primary font-bold mb-2">Editorial Perks</p>
+                        <p class="text-sm text-on-surface-variant leading-relaxed">You have <span class="text-on-surface font-bold">12,400</span> points. Redeem for Precision Care extensions.</p>
+                    </div>
+                </div>
+            </aside>
+
+            <section class="flex-grow space-y-12">
+                <header>
+                    <h1 class="font-headline text-4xl font-extrabold tracking-tight text-on-surface mb-2">Account Identity</h1>
+                    <p class="text-on-surface-variant text-lg">Manage your personal presence and shipping preferences.</p>
+                </header>
+
+                <div class="bg-surface-container-lowest rounded-xl p-8 shadow-[0_4px_24px_rgba(11,28,48,0.04)]">
+                    <h3 class="font-headline text-xl font-bold mb-8 text-on-surface flex items-center gap-2">
+                        <span class="material-symbols-outlined text-primary">badge</span>
+                        Personal Information
+                    </h3>
+                    <form class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
+                        <div class="space-y-2">
+                            <label class="block text-sm font-label font-semibold text-on-surface-variant">Full Name</label>
+                            <input type="text" value="Julian Vance" class="w-full bg-surface-container-low border-none rounded-lg px-4 py-3 focus:ring-2 focus:ring-primary/20 text-on-surface">
+                        </div>
+                        <div class="space-y-2">
+                            <label class="block text-sm font-label font-semibold text-on-surface-variant">Email Address</label>
+                            <input type="email" value="julian.vance@precision.com" class="w-full bg-surface-container-low border-none rounded-lg px-4 py-3 focus:ring-2 focus:ring-primary/20 text-on-surface">
+                        </div>
+                        <div class="space-y-2">
+                            <label class="block text-sm font-label font-semibold text-on-surface-variant">Phone Number</label>
+                            <input type="tel" value="+1 (555) 012-3456" class="w-full bg-surface-container-low border-none rounded-lg px-4 py-3 focus:ring-2 focus:ring-primary/20 text-on-surface">
+                        </div>
+                        <div class="space-y-2">
+                            <label class="block text-sm font-label font-semibold text-on-surface-variant">Country / Region</label>
+                            <select class="w-full bg-surface-container-low border-none rounded-lg px-4 py-3 focus:ring-2 focus:ring-primary/20 text-on-surface">
+                                <option>United States</option>
+                                <option>Canada</option>
+                                <option>United Kingdom</option>
+                            </select>
+                        </div>
+                        <div class="md:col-span-2 space-y-2">
+                            <label class="block text-sm font-label font-semibold text-on-surface-variant">Shipping Address</label>
+                            <textarea rows="3" class="w-full bg-surface-container-low border-none rounded-lg px-4 py-3 focus:ring-2 focus:ring-primary/20 text-on-surface">882 Editorial Lane, Silicon Valley, CA 94025</textarea>
+                        </div>
+                        <div class="md:col-span-2 flex justify-end pt-4">
+                            <button class="bg-gradient-to-br from-primary to-primary-container text-white px-8 py-3 rounded-lg font-semibold shadow-lg hover:opacity-90 transition-all">Save Profile Changes</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="bg-surface-container-lowest rounded-xl p-8 shadow-[0_4px_24px_rgba(11,28,48,0.04)]">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8">
+                        <div>
+                            <h3 class="font-headline text-xl font-bold text-on-surface flex items-center gap-2">
+                                <span class="material-symbols-outlined text-primary">lock_reset</span>
+                                Security & Password
+                            </h3>
+                            <p class="text-on-surface-variant text-sm mt-1">Last updated 3 months ago. We recommend refreshing every 6 months.</p>
+                        </div>
+                    </div>
+                    
+                    <form class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="space-y-2">
+                            <label class="block text-sm font-label font-semibold text-on-surface-variant">Current Password</label>
+                            <input type="password" placeholder="••••••••" class="w-full bg-surface-container-low border-none rounded-lg px-4 py-3 focus:ring-2 focus:ring-primary/20 text-on-surface">
+                        </div>
+                        <div class="space-y-2">
+                            <label class="block text-sm font-label font-semibold text-on-surface-variant">New Password</label>
+                            <input type="password" placeholder="Min. 12 characters" class="w-full bg-surface-container-low border-none rounded-lg px-4 py-3 focus:ring-2 focus:ring-primary/20 text-on-surface">
+                        </div>
+                        <div class="space-y-2">
+                            <label class="block text-sm font-label font-semibold text-on-surface-variant">Confirm Password</label>
+                            <input type="password" placeholder="••••••••" class="w-full bg-surface-container-low border-none rounded-lg px-4 py-3 focus:ring-2 focus:ring-primary/20 text-on-surface">
+                        </div>
+                        <div class="md:col-span-3 flex items-center justify-between border-t border-outline-variant/20 pt-8 mt-2">
+                            <div class="flex items-center gap-2 text-on-surface-variant">
+                                <span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">verified_user</span>
+                                <span class="text-sm">Two-Factor Authentication is <span class="text-tertiary font-bold">Active</span></span>
+                            </div>
+                            <button class="bg-surface-container-highest text-primary px-6 py-3 rounded-lg font-semibold hover:bg-surface-container-high transition-all">Update Credentials</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-surface-container-low p-8 rounded-xl flex items-start gap-6">
+                        <div class="bg-white p-3 rounded-lg shadow-sm">
+                            <span class="material-symbols-outlined text-primary text-3xl">credit_card</span>
+                        </div>
+                        <div>
+                            <h4 class="font-headline font-bold text-on-surface mb-2">Payment Methods</h4>
+                            <p class="text-sm text-on-surface-variant mb-4">Visa ending in 4242 • Expires 08/26</p>
+                            <button class="text-primary font-semibold text-sm hover:underline">Manage Wallet</button>
+                        </div>
+                    </div>
+                    <div class="bg-surface-container-low p-8 rounded-xl flex items-start gap-6">
+                        <div class="bg-white p-3 rounded-lg shadow-sm">
+                            <span class="material-symbols-outlined text-primary text-3xl">history</span>
+                        </div>
+                        <div>
+                            <h4 class="font-headline font-bold text-on-surface mb-2">Recent Order</h4>
+                            <p class="text-sm text-on-surface-variant mb-4">Precision X1 Studio Monitors • Delivered Aug 12</p>
+                            <button class="text-primary font-semibold text-sm hover:underline">Track Shipments</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="bg-[#eff4ff] w-full mt-auto">
+        <div class="flex flex-col md:flex-row justify-between items-center px-12 py-16 gap-8 w-full max-w-7xl mx-auto">
+            <div class="text-center md:text-left">
+                <div class="font-['Manrope'] font-bold text-[#0b1c30] text-xl mb-2">Precision Editorial</div>
+                <p class="font-['Inter'] text-sm uppercase tracking-widest text-[#434655]">© 2024 Precision Editorial Electronics. All rights reserved.</p>
+            </div>
+            
+            <div class="flex flex-wrap justify-center gap-8">
+                <a href="#" class="font-['Inter'] text-sm uppercase tracking-widest text-[#434655] hover:text-[#004ac6] transition-colors">Privacy Policy</a>
+                <a href="#" class="font-['Inter'] text-sm uppercase tracking-widest text-[#434655] hover:text-[#004ac6] transition-colors">Terms of Service</a>
+                <a href="#" class="font-['Inter'] text-sm uppercase tracking-widest text-[#434655] hover:text-[#004ac6] transition-colors">Support</a>
+                <a href="#" class="font-['Inter'] text-sm uppercase tracking-widest text-[#434655] hover:text-[#004ac6] transition-colors">Shipping</a>
+            </div>
+
+            <div class="flex gap-4">
+                <a href="#" class="w-10 h-10 flex items-center justify-center rounded-full bg-white text-primary hover:scale-105 transition-transform">
+                    <span class="material-symbols-outlined text-lg">share</span>
+                </a>
+                <a href="#" class="w-10 h-10 flex items-center justify-center rounded-full bg-white text-primary hover:scale-105 transition-transform">
+                    <span class="material-symbols-outlined text-lg">mail</span>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html></style></head><body></body></html>

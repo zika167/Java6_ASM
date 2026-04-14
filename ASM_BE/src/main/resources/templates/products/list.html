@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+      layout:decorate="~{layout/layout}">
+<head>
+    <title>Shop | Precision Digital</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="flex-grow pt-4 px-6 max-w-7xl mx-auto w-full pb-20">
+        <!-- Breadcrumbs -->
+        <nav class="mb-8 flex items-center gap-2 text-xs font-medium text-on-surface-variant uppercase tracking-widest">
+            <a class="hover:text-primary" th:href="@{/}">Home</a>
+            <span class="material-symbols-outlined text-[10px]">chevron_right</span>
+            <span class="text-on-surface">Shop</span>
+        </nav>
+        
+        <div class="flex flex-col md:flex-row gap-12">
+            <!-- Sidebar Filters -->
+            <aside class="w-full md:w-64 flex-shrink-0 space-y-10">
+                <!-- Categories -->
+                <div>
+                    <h3 class="font-headline text-sm font-extrabold uppercase tracking-tighter mb-6 text-on-surface">Categories</h3>
+                    <ul class="space-y-3">
+                        <li th:each="category : ${categories}">
+                            <label class="flex items-center gap-3 group cursor-pointer">
+                                <input class="rounded border-outline-variant text-primary focus:ring-primary/20" 
+                                       type="checkbox" 
+                                       th:value="${category.id}"
+                                       name="categoryIds"/>
+                                <span class="text-sm text-on-surface-variant group-hover:text-on-surface transition-colors" 
+                                      th:text="${category.name}">Category</span>
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Price Range -->
+                <div>
+                    <h3 class="font-headline text-sm font-extrabold uppercase tracking-tighter mb-6 text-on-surface">Price Range</h3>
+                    <input class="w-full h-1 bg-surface-container-highest rounded-lg appearance-none cursor-pointer accent-primary" 
+                           type="range" id="priceRange" min="0" max="3000" value="3000"/>
+                    <div class="flex justify-between mt-4 text-xs font-mono text-on-surface-variant">
+                        <span>$0</span>
+                        <span id="maxPrice">$3,000+</span>
+                    </div>
+                </div>
+            </aside>
+            
+            <!-- Product Grid Content -->
+            <div class="flex-1">
+                <header class="flex justify-between items-end mb-10">
+                    <div>
+                        <h1 class="text-4xl font-extrabold tracking-tighter text-on-surface mb-2">Curated Selection</h1>
+                        <p class="text-on-surface-variant text-sm" th:text="'Showing ' + ${products.size()} + ' precision-crafted items.'">
+                            Showing products
+                        </p>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <span class="text-xs font-bold uppercase tracking-widest text-on-surface-variant">Sort By</span>
+                        <select class="bg-transparent border-none text-sm font-semibold text-primary focus:ring-0 cursor-pointer" 
+                                id="sortBy">
+                            <option value="latest">Latest Release</option>
+                            <option value="price-asc">Price: Low to High</option>
+                            <option value="price-desc">Price: High to Low</option>
+                            <option value="name">Name A-Z</option>
+                        </select>
+                    </div>
+                </header>
+                
+                <!-- Grid -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-y-12 gap-x-8" id="productGrid">
+                    <div th:each="product : ${products}" class="group product-card" 
+                         th:data-category="${product.categoryId}" 
+                         th:data-price="${product.price}">
+                        <div class="aspect-[4/5] bg-surface-container-low rounded-xl overflow-hidden relative mb-4">
+                            <img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" 
+                                 th:src="${product.image}" 
+                                 th:alt="${product.name}"/>
+                            <div class="absolute top-4 left-4" th:if="${product.categoryName == 'Premium'}">
+                                <span class="bg-primary text-white text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wider">Premium</span>
+                            </div>
+                            <button class="absolute bottom-4 right-4 w-10 h-10 bg-white rounded-full flex items-center justify-center opacity-0 translate-y-4 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 shadow-lg add-to-cart-btn"
+                                    th:data-product-id="${product.id}">
+                                <span class="material-symbols-outlined text-primary text-xl">shopping_bag</span>
+                            </button>
+                        </div>
+                        <a th:href="@{/products/{id}(id=${product.id})}">
+                            <h3 class="font-headline font-bold text-on-surface group-hover:text-primary transition-colors" 
+                                th:text="${product.name}">Product Name</h3>
+                        </a>
+                        <p class="text-on-surface-variant text-xs mb-2" th:text="${product.categoryName}">Category</p>
+                        <p class="text-primary font-bold" th:text="'$' + ${product.price}">$0.00</p>
+                    </div>
+                </div>
+                
+                <!-- Pagination -->
+                <div class="mt-20 flex justify-center items-center gap-2" th:if="${totalPages > 1}">
+                    <a th:href="@{/products(page=${currentPage - 1})}" 
+                       th:if="${currentPage > 0}"
+                       class="w-10 h-10 flex items-center justify-center rounded-lg hover:bg-surface-container-high transition-colors">
+                        <span class="material-symbols-outlined">chevron_left</span>
+                    </a>
+                    
+                    <span th:each="pageNum : ${#numbers.sequence(0, totalPages - 1)}">
+                        <a th:href="@{/products(page=${pageNum})}" 
+                           th:class="${pageNum == currentPage} ? 'w-10 h-10 flex items-center justify-center rounded-lg bg-primary text-white font-bold' : 'w-10 h-10 flex items-center justify-center rounded-lg hover:bg-surface-container-high transition-colors text-on-surface-variant'"
+                           th:text="${pageNum + 1}">1</a>
+                    </span>
+                    
+                    <a th:href="@{/products(page=${currentPage + 1})}" 
+                       th:if="${currentPage < totalPages - 1}"
+                       class="w-10 h-10 flex items-center justify-center rounded-lg hover:bg-surface-container-high transition-colors">
+                        <span class="material-symbols-outlined">chevron_right</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Vue.js App for dynamic filtering -->
+    <script>
+        const { createApp } = Vue;
+        
+        createApp({
+            data() {
+                return {
+                    products: /*[[${products}]]*/ [],
+                    categories: /*[[${categories}]]*/ [],
+                    filteredProducts: [],
+                    selectedCategories: [],
+                    maxPrice: 3000,
+                    sortBy: 'latest'
+                }
+            },
+            mounted() {
+                this.filteredProducts = [...this.products];
+                this.setupEventListeners();
+            },
+            methods: {
+                setupEventListeners() {
+                    // Category filter
+                    document.querySelectorAll('input[name="categoryIds"]').forEach(checkbox => {
+                        checkbox.addEventListener('change', this.filterProducts);
+                    });
+                    
+                    // Price range
+                    document.getElementById('priceRange').addEventListener('input', (e) => {
+                        this.maxPrice = parseInt(e.target.value);
+                        document.getElementById('maxPrice').textContent = '$' + this.maxPrice.toLocaleString() + '+';
+                        this.filterProducts();
+                    });
+                    
+                    // Sort
+                    document.getElementById('sortBy').addEventListener('change', (e) => {
+                        this.sortBy = e.target.value;
+                        this.sortProducts();
+                    });
+                    
+                    // Add to cart buttons
+                    document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
+                        btn.addEventListener('click', this.addToCart);
+                    });
+                },
+                
+                filterProducts() {
+                    const selectedCategories = Array.from(document.querySelectorAll('input[name="categoryIds"]:checked'))
+                        .map(cb => parseInt(cb.value));
+                    
+                    const productCards = document.querySelectorAll('.product-card');
+                    
+                    productCards.forEach(card => {
+                        const categoryId = parseInt(card.dataset.category);
+                        const price = parseFloat(card.dataset.price);
+                        
+                        const categoryMatch = selectedCategories.length === 0 || selectedCategories.includes(categoryId);
+                        const priceMatch = price <= this.maxPrice;
+                        
+                        if (categoryMatch && priceMatch) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                },
+                
+                sortProducts() {
+                    const grid = document.getElementById('productGrid');
+                    const cards = Array.from(grid.children);
+                    
+                    cards.sort((a, b) => {
+                        const priceA = parseFloat(a.dataset.price);
+                        const priceB = parseFloat(b.dataset.price);
+                        const nameA = a.querySelector('h3').textContent;
+                        const nameB = b.querySelector('h3').textContent;
+                        
+                        switch(this.sortBy) {
+                            case 'price-asc':
+                                return priceA - priceB;
+                            case 'price-desc':
+                                return priceB - priceA;
+                            case 'name':
+                                return nameA.localeCompare(nameB);
+                            default:
+                                return 0;
+                        }
+                    });
+                    
+                    cards.forEach(card => grid.appendChild(card));
+                },
+                
+                async addToCart(event) {
+                    const productId = event.currentTarget.dataset.productId;
+                    
+                    try {
+                        const response = await axios.post('/api/v1/cart/add', null, {
+                            params: { productId: productId, quantity: 1 },
+                            withCredentials: true
+                        });
+                        
+                        if (response.data.status === 200) {
+                            // Show success message
+                            this.showNotification('Product added to cart!', 'success');
+                        }
+                    } catch (error) {
+                        if (error.response?.status === 401) {
+                            window.location.href = '/login';
+                        } else {
+                            this.showNotification('Failed to add product to cart', 'error');
+                        }
+                    }
+                },
+                
+                showNotification(message, type) {
+                    // Simple notification - you can enhance this
+                    const notification = document.createElement('div');
+                    notification.className = `fixed top-4 right-4 p-4 rounded-lg text-white z-50 ${type === 'success' ? 'bg-green-500' : 'bg-red-500'}`;
+                    notification.textContent = message;
+                    document.body.appendChild(notification);
+                    
+                    setTimeout(() => {
+                        notification.remove();
+                    }, 3000);
+                }
+            }
+        }).mount('body');
+    </script>
+</div>
+</body>
+</html>

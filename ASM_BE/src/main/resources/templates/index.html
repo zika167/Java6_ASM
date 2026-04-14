@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+      layout:decorate="~{layout/layout}">
+<head>
+    <title>Home | Precision Digital</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <!-- Hero Section -->
+    <section class="relative h-[870px] flex items-center overflow-hidden bg-surface-container-low">
+        <div class="container mx-auto px-8 grid grid-cols-1 md:grid-cols-2 gap-12 items-center z-10">
+            <div class="space-y-8">
+                <div class="inline-block px-4 py-1.5 bg-primary-container/10 text-primary font-semibold text-sm tracking-wide rounded-full">
+                    NEW ARRIVAL
+                </div>
+                <h1 class="text-6xl md:text-8xl font-extrabold font-headline leading-[1.1] text-on-surface tracking-tighter">
+                    Smartphone <br/><span class="text-primary">X Elite</span>
+                </h1>
+                <p class="text-lg text-on-surface-variant max-w-md font-medium leading-relaxed">
+                    Redefining precision engineering. Experience the pinnacle of mobile performance and cinematic visual depth.
+                </p>
+                <div class="flex gap-4 pt-4">
+                    <a th:href="@{/products}" class="editorial-gradient text-on-primary px-8 py-4 rounded-lg font-semibold shadow-lg hover:shadow-primary/20 transition-all scale-100 active:scale-95">
+                        Shop Now
+                    </a>
+                    <button class="bg-surface-container-highest text-primary px-8 py-4 rounded-lg font-semibold hover:bg-surface-container-high transition-all">
+                        Learn More
+                    </button>
+                </div>
+            </div>
+            <div class="relative flex justify-center">
+                <img class="w-full max-w-lg object-contain drop-shadow-2xl" 
+                     alt="Modern smartphone with titanium finish" 
+                     src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-6zkx4EQwpkzZ9ZL2XEJ4HFqo4mAFMTBmH-NBUNE5GchHuVbt_KLYPcdMbAoUmJhurJS5GuwjKyKHgpIpVIcbse264OdSvoif116maRJt672hYQrSFzv6RlBIEybb_exwU7MYyNasQihnnCmkQ6Mvnl-OCVdzxoYKSco9EOuAbErho-mJ5U2Mt_sluro_TmfRWgTpAVePX4nRGf4tp7Uw5pm_gbTxCm4mUcEZWrHCZoydU3hsr3jNjj0QlTyPSy_lBNdxMiXZ6rM"/>
+            </div>
+        </div>
+        <div class="absolute -right-20 top-20 w-96 h-96 bg-primary/5 rounded-full blur-[100px]"></div>
+    </section>
+
+    <!-- Featured Categories -->
+    <section class="py-32 container mx-auto px-8">
+        <div class="mb-16">
+            <h2 class="text-4xl font-extrabold font-headline tracking-tighter mb-4">Explore Collections</h2>
+            <p class="text-on-surface-variant max-w-xl">Curated technology designed to integrate seamlessly into your professional ecosystem.</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-4 md:grid-rows-2 gap-6 h-auto md:h-[600px]">
+            <div class="md:col-span-2 md:row-span-2 bg-surface-container-lowest p-10 rounded-xl relative group overflow-hidden flex flex-col justify-end">
+                <img class="absolute inset-0 w-full h-full object-cover opacity-10 group-hover:scale-105 transition-transform duration-700" 
+                     alt="Professional studio headphones" 
+                     src="https://lh3.googleusercontent.com/aida-public/AB6AXuB6bYn5g2aZoXNb7szm2wm5HZ7kwcocfgQfQBR9UtkZ08bTVpB41oDD-5Iq1iCt7JfKs6PbpBauSrt8swV4wetUyOs4vgpyJECYel2HraKLoue85t919spgYb5RyyjJLF2oU_C-D2EauukrDUFZ5HoglkWMo5R-L6ef_og6bi8lu13-LizGQG4XDgaxskLCkwc2LeoWzWwk8i5ftO2m3ZfKVcdw4-JyPzREakx98jVb2qVLrhwToO1MaIFc_ySgaxfNztgj7tWJE70"/>
+                <div class="z-10 relative">
+                    <span class="material-symbols-outlined text-primary text-4xl mb-6">headphones</span>
+                    <h3 class="text-3xl font-bold font-headline mb-2">Audio</h3>
+                    <p class="text-on-surface-variant mb-6">Lossless clarity for every note.</p>
+                    <a th:href="@{/products/category/audio}" class="text-primary font-bold inline-flex items-center gap-2 group">
+                        Explore <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                    </a>
+                </div>
+            </div>
+            <div class="md:col-span-2 bg-surface-container-lowest p-10 rounded-xl relative group overflow-hidden flex items-center">
+                <img class="absolute inset-0 w-full h-full object-cover opacity-10 group-hover:scale-105 transition-transform duration-700" 
+                     alt="High-end metallic laptop" 
+                     src="https://lh3.googleusercontent.com/aida-public/AB6AXuATZggAojL1F1V9CARuzPeY8NWXkvRk-uRJgL2mKIVPnwqn605KFh_KOiSuFxGOriaKmd4KOfS58co41fqqh-viO-PDxJx2iAljYry7ReEF74Sj8GA0-LGjRWHUn5ebYTlt-ySC1A04G1qitcrA8f2Y4-IuhqU-1r_ux51yGT8kHPfwJ21166q_v9SbIC5NGhZXYGiNGTvySYOd_2aUrPRtSngVUxExq7H43pWtzgeco157rFNob806mglO4BFd3bt949GsGPXYcPI"/>
+                <div class="z-10 relative w-full">
+                    <span class="material-symbols-outlined text-primary text-4xl mb-4">laptop_mac</span>
+                    <h3 class="text-2xl font-bold font-headline mb-2">Computing</h3>
+                    <a th:href="@{/products/category/computing}" class="text-primary font-bold inline-flex items-center gap-2">
+                        View Series <span class="material-symbols-outlined">chevron_right</span>
+                    </a>
+                </div>
+            </div>
+            <div class="bg-surface-container-low p-8 rounded-xl group hover:bg-primary-container/5 transition-colors">
+                <span class="material-symbols-outlined text-primary text-3xl mb-4">smartphone</span>
+                <h3 class="text-xl font-bold font-headline mb-2">Mobile</h3>
+                <p class="text-sm text-on-surface-variant">The future of portability.</p>
+            </div>
+            <div class="bg-surface-container-low p-8 rounded-xl group hover:bg-primary-container/5 transition-colors">
+                <span class="material-symbols-outlined text-primary text-3xl mb-4">tv</span>
+                <h3 class="text-xl font-bold font-headline mb-2">Visual</h3>
+                <p class="text-sm text-on-surface-variant">4K immersion redefine.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Editor's Choice -->
+    <section class="py-32 bg-surface-container-low">
+        <div class="container mx-auto px-8">
+            <div class="flex justify-between items-end mb-16">
+                <div>
+                    <h2 class="text-4xl font-extrabold font-headline tracking-tighter mb-4">Editor's Choice</h2>
+                    <p class="text-on-surface-variant">Rigorous testing. Unmatched quality. Our top picks for this month.</p>
+                </div>
+                <a th:href="@{/products}" class="text-primary font-bold border-b-2 border-primary/20 hover:border-primary transition-all pb-1">
+                    View Full Selection
+                </a>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                <div th:each="product : ${featuredProducts}" class="group">
+                    <div class="bg-surface-container-lowest p-8 rounded-xl mb-6 relative overflow-hidden">
+                        <img class="w-full aspect-square object-contain group-hover:scale-105 transition-transform duration-500" 
+                             th:src="${product.image}" 
+                             th:alt="${product.name}"/>
+                        <a th:href="@{/products/{id}(id=${product.id})}" 
+                           class="absolute bottom-4 left-4 right-4 bg-on-surface text-surface py-3 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 font-semibold text-sm text-center">
+                            Quick View
+                        </a>
+                    </div>
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h4 class="font-headline font-bold text-lg" th:text="${product.name}">Product Name</h4>
+                            <p class="text-on-surface-variant text-sm" th:text="${product.categoryName}">Category</p>
+                        </div>
+                        <span class="font-bold text-primary" th:text="'$' + ${product.price}">$0.00</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Brand Promise -->
+    <section class="py-24 container mx-auto px-8">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-16">
+            <div class="flex flex-col items-center text-center space-y-4">
+                <div class="w-16 h-16 rounded-full bg-primary/5 flex items-center justify-center text-primary">
+                    <span class="material-symbols-outlined text-3xl">local_shipping</span>
+                </div>
+                <h3 class="text-xl font-bold font-headline">Free Shipping</h3>
+                <p class="text-on-surface-variant text-sm leading-relaxed max-w-xs">Complimentary express shipping on all orders over $500, handled with utmost care.</p>
+            </div>
+            <div class="flex flex-col items-center text-center space-y-4">
+                <div class="w-16 h-16 rounded-full bg-primary/5 flex items-center justify-center text-primary">
+                    <span class="material-symbols-outlined text-3xl">verified</span>
+                </div>
+                <h3 class="text-xl font-bold font-headline">2-Year Warranty</h3>
+                <p class="text-on-surface-variant text-sm leading-relaxed max-w-xs">Our precision hardware is built to last. We stand by it with a comprehensive guarantee.</p>
+            </div>
+            <div class="flex flex-col items-center text-center space-y-4">
+                <div class="w-16 h-16 rounded-full bg-primary/5 flex items-center justify-center text-primary">
+                    <span class="material-symbols-outlined text-3xl">support_agent</span>
+                </div>
+                <h3 class="text-xl font-bold font-headline">Expert Support</h3>
+                <p class="text-on-surface-variant text-sm leading-relaxed max-w-xs">Direct access to technical specialists who understand your workflow.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="py-32 px-8">
+        <div class="max-w-5xl mx-auto editorial-gradient rounded-3xl p-16 relative overflow-hidden text-center text-on-primary">
+            <div class="relative z-10 max-w-2xl mx-auto">
+                <h2 class="text-4xl font-extrabold font-headline mb-6 tracking-tighter">Stay Ahead of the Curve</h2>
+                <p class="text-primary-container font-medium mb-10 opacity-90">Join our newsletter for exclusive early access to product launches and editorial insights into the future of digital tech.</p>
+                <form class="flex flex-col md:flex-row gap-4">
+                    <input class="flex-1 px-6 py-4 rounded-xl bg-white/10 border-white/20 text-white placeholder:text-white/60 focus:ring-2 focus:ring-white/40 focus:border-transparent outline-none transition-all font-body" 
+                           placeholder="Enter your professional email" type="email"/>
+                    <button class="bg-white text-primary px-10 py-4 rounded-xl font-bold hover:bg-opacity-90 transition-all shadow-xl">
+                        Subscribe
+                    </button>
+                </form>
+            </div>
+            <div class="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -mr-20 -mt-20 blur-3xl"></div>
+            <div class="absolute bottom-0 left-0 w-64 h-64 bg-black/5 rounded-full -ml-20 -mb-20 blur-3xl"></div>
+        </div>
+    </section>
+</div>
+</body>
+</html>

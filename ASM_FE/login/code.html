@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Login | Precision Editorial</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary-fixed-dim": "#b4c5ff",
+              "on-secondary": "#ffffff",
+              "on-error-container": "#93000a",
+              "primary": "#004ac6",
+              "inverse-surface": "#213145",
+              "surface-container": "#e5eeff",
+              "on-tertiary-fixed-variant": "#005321",
+              "secondary-fixed": "#d3e4fe",
+              "surface-dim": "#cbdbf5",
+              "primary-container": "#2563eb",
+              "surface-tint": "#0053db",
+              "on-secondary-fixed-variant": "#38485d",
+              "on-secondary-container": "#54647a",
+              "primary-fixed": "#dbe1ff",
+              "on-tertiary-fixed": "#002109",
+              "tertiary-fixed-dim": "#4ae176",
+              "secondary-container": "#d0e1fb",
+              "error": "#ba1a1a",
+              "surface-container-low": "#eff4ff",
+              "surface-container-highest": "#d3e4fe",
+              "on-primary-fixed-variant": "#003ea8",
+              "outline": "#737686",
+              "tertiary-container": "#007e37",
+              "background": "#f8f9ff",
+              "on-surface": "#0b1c30",
+              "on-error": "#ffffff",
+              "tertiary-fixed": "#6bff8f",
+              "surface-bright": "#f8f9ff",
+              "surface-container-high": "#dce9ff",
+              "surface": "#f8f9ff",
+              "error-container": "#ffdad6",
+              "on-background": "#0b1c30",
+              "surface-variant": "#d3e4fe",
+              "on-primary": "#ffffff",
+              "tertiary": "#006229",
+              "secondary": "#505f76",
+              "on-tertiary": "#ffffff",
+              "on-primary-fixed": "#00174b",
+              "secondary-fixed-dim": "#b7c8e1",
+              "on-surface-variant": "#434655",
+              "outline-variant": "#c3c6d7",
+              "inverse-primary": "#b4c5ff",
+              "surface-container-lowest": "#ffffff",
+              "on-tertiary-container": "#c1ffc5",
+              "on-primary-container": "#eeefff",
+              "on-secondary-fixed": "#0b1c30",
+              "inverse-on-surface": "#eaf1ff"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      .glass-effect {
+        background: rgba(248, 249, 255, 0.7);
+        backdrop-filter: blur(12px);
+      }
+      .bg-editorial-gradient {
+        background: radial-gradient(circle at top left, #eff4ff 0%, #f8f9ff 100%);
+      }
+    </style>
+</head>
+<body class="bg-editorial-gradient font-body text-on-surface min-h-screen flex flex-col">
+<!-- Header / Brand Anchor -->
+<header class="w-full px-6 py-8 flex justify-center md:justify-start">
+<div class="flex items-center gap-2">
+<span class="text-2xl font-black tracking-tighter text-on-surface font-headline">Precision Editorial</span>
+</div>
+</header>
+<!-- Main Content: Centralized Login Card -->
+<main class="flex-grow flex items-center justify-center px-4 pb-20">
+<div class="w-full max-w-[440px] relative">
+<!-- Visual Accent Decor -->
+<div class="absolute -top-12 -right-12 w-32 h-32 bg-primary-container/5 rounded-full blur-3xl"></div>
+<div class="absolute -bottom-12 -left-12 w-40 h-40 bg-tertiary/5 rounded-full blur-3xl"></div>
+<!-- Login Card -->
+<div class="bg-surface-container-lowest rounded-xl p-8 md:p-10 shadow-[0_24px_48px_-12px_rgba(11,28,48,0.04)] relative z-10 border border-outline-variant/10">
+<div class="mb-8">
+<h1 class="font-headline text-3xl font-extrabold tracking-tight text-on-surface mb-2">Welcome back</h1>
+<p class="text-on-surface-variant text-sm">Enter your credentials to access your dashboard.</p>
+</div>
+<!-- Form -->
+<form class="space-y-5">
+<!-- Error State Example (Hidden by default, shown for styling reference) -->
+<div class="hidden flex items-center gap-3 p-3 rounded-lg bg-error-container text-on-error-container text-xs font-medium">
+<span class="material-symbols-outlined text-sm" data-icon="error">error</span>
+                        Invalid username or password. Please try again.
+                    </div>
+<!-- Email Field -->
+<div class="space-y-1.5">
+<label class="block text-xs font-semibold uppercase tracking-wider text-on-surface-variant ml-1" for="email">Email or Username</label>
+<div class="relative group">
+<input class="w-full px-4 py-3.5 bg-surface-container-highest/40 border-0 rounded-lg text-on-surface placeholder:text-outline focus:ring-2 focus:ring-primary/40 transition-all font-medium text-sm" id="email" name="email" placeholder="name@precision.com" type="text"/>
+<div class="absolute inset-y-0 right-4 flex items-center pointer-events-none text-outline group-focus-within:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="alternate_email">alternate_email</span>
+</div>
+</div>
+</div>
+<!-- Password Field -->
+<div class="space-y-1.5">
+<label class="block text-xs font-semibold uppercase tracking-wider text-on-surface-variant ml-1" for="password">Password</label>
+<div class="relative group">
+<input class="w-full px-4 py-3.5 bg-surface-container-highest/40 border-0 rounded-lg text-on-surface placeholder:text-outline focus:ring-2 focus:ring-primary/40 transition-all font-medium text-sm" id="password" name="password" placeholder="••••••••" type="password"/>
+<button class="absolute inset-y-0 right-4 flex items-center text-outline hover:text-on-surface transition-colors cursor-pointer" type="button">
+<span class="material-symbols-outlined" data-icon="visibility">visibility</span>
+</button>
+</div>
+</div>
+<!-- Options Row -->
+<div class="flex items-center justify-between py-1">
+<label class="flex items-center gap-2 cursor-pointer group">
+<div class="relative flex items-center">
+<input class="peer h-4 w-4 rounded border-outline-variant bg-surface-container-highest text-primary focus:ring-primary/20 transition-all" type="checkbox"/>
+</div>
+<span class="text-xs font-medium text-on-surface-variant group-hover:text-on-surface transition-colors">Remember Me</span>
+</label>
+<a class="text-xs font-bold text-primary hover:text-primary-container transition-colors" href="#">Forgot Password?</a>
+</div>
+<!-- Login Button -->
+<button class="w-full py-4 bg-gradient-to-br from-primary to-primary-container text-on-primary font-bold rounded-lg shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 active:scale-[0.98] transition-all flex items-center justify-center gap-2" type="submit">
+<span>Login</span>
+<span class="material-symbols-outlined text-sm" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</form>
+<!-- Footer Link -->
+<div class="mt-8 pt-8 border-t border-outline-variant/10 text-center">
+<p class="text-sm text-on-surface-variant">
+                        Don't have an account? 
+                        <a class="text-primary font-bold hover:underline decoration-2 underline-offset-4 ml-1" href="#">Register Now</a>
+</p>
+</div>
+</div>
+<!-- Social Proof / Decorative Text -->
+<div class="mt-8 text-center">
+<p class="text-[10px] font-bold uppercase tracking-[0.2em] text-outline">Trusted by industry leaders worldwide</p>
+<div class="flex justify-center gap-6 mt-4 opacity-30 grayscale">
+<span class="material-symbols-outlined text-xl" data-icon="auto_awesome">auto_awesome</span>
+<span class="material-symbols-outlined text-xl" data-icon="verified">verified</span>
+<span class="material-symbols-outlined text-xl" data-icon="shield">shield</span>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer Component from Blueprint -->
+<footer class="w-full mt-auto bg-surface-container-low">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8 px-12 py-10 w-full items-center">
+<div class="flex flex-col items-center md:items-start">
+<span class="font-manrope font-bold text-on-surface text-lg">Precision Editorial</span>
+<p class="text-xs text-on-surface-variant mt-1 font-inter">© 2024 Precision Editorial. All rights reserved.</p>
+</div>
+<div class="flex justify-center gap-6">
+<a class="text-xs text-on-surface-variant hover:text-primary transition-opacity font-inter" href="#">About Us</a>
+<a class="text-xs text-on-surface-variant hover:text-primary transition-opacity font-inter" href="#">Contact</a>
+</div>
+<div class="flex justify-center md:justify-end gap-6">
+<a class="text-xs text-on-surface-variant hover:text-primary transition-opacity font-inter" href="#">Privacy Policy</a>
+<a class="text-xs text-on-surface-variant hover:text-primary transition-opacity font-inter" href="#">Terms of Service</a>
+</div>
+</div>
+</footer>
+</body></html>

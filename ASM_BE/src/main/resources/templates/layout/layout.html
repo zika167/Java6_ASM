@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" 
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title layout:title-pattern="$CONTENT_TITLE">Precision Digital</title>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@500;700;800&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "secondary-fixed-dim": "#b7c8e1",
+                        "tertiary-fixed-dim": "#4ae176",
+                        "surface-variant": "#d3e4fe",
+                        "on-error-container": "#93000a",
+                        "surface": "#f8f9ff",
+                        "secondary": "#505f76",
+                        "on-surface": "#0b1c30",
+                        "tertiary-fixed": "#6bff8f",
+                        "surface-bright": "#f8f9ff",
+                        "on-tertiary-fixed-variant": "#005321",
+                        "tertiary": "#006229",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary-fixed": "#0b1c30",
+                        "on-background": "#0b1c30",
+                        "tertiary-container": "#007e37",
+                        "error": "#ba1a1a",
+                        "on-primary-container": "#eeefff",
+                        "error-container": "#ffdad6",
+                        "primary-fixed-dim": "#b4c5ff",
+                        "primary": "#004ac6",
+                        "on-tertiary-container": "#c1ffc5",
+                        "inverse-surface": "#213145",
+                        "background": "#f8f9ff",
+                        "secondary-container": "#d0e1fb",
+                        "on-tertiary-fixed": "#002109",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-highest": "#d3e4fe",
+                        "surface-container-high": "#dce9ff",
+                        "outline-variant": "#c3c6d7",
+                        "primary-fixed": "#dbe1ff",
+                        "inverse-on-surface": "#eaf1ff",
+                        "inverse-primary": "#b4c5ff",
+                        "on-secondary-container": "#54647a",
+                        "on-secondary": "#ffffff",
+                        "surface-container-low": "#eff4ff",
+                        "primary-container": "#2563eb",
+                        "secondary-fixed": "#d3e4fe",
+                        "outline": "#737686",
+                        "on-error": "#ffffff",
+                        "on-surface-variant": "#434655",
+                        "surface-dim": "#cbdbf5",
+                        "surface-tint": "#0053db",
+                        "on-primary-fixed": "#00174b",
+                        "on-primary": "#ffffff",
+                        "surface-container": "#e5eeff",
+                        "on-primary-fixed-variant": "#003ea8",
+                        "on-secondary-fixed-variant": "#38485d"
+                    },
+                    fontFamily: {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+    
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        .editorial-gradient {
+            background: linear-gradient(135deg, #004ac6 0%, #2563eb 100%);
+        }
+        .glass-nav {
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface selection:bg-primary-container selection:text-white">
+
+<!-- Navigation -->
+<nav th:fragment="navigation" class="fixed top-0 w-full z-50 glass-nav bg-surface/70 shadow-sm">
+    <div class="flex justify-between items-center px-8 py-4 max-w-full mx-auto">
+        <div class="flex items-center gap-12">
+            <a th:href="@{/}" class="text-xl font-bold tracking-tighter text-slate-900 font-headline">Precision Digital</a>
+            <div class="hidden md:flex gap-8 items-center">
+                <a class="font-manrope tracking-tight font-medium text-slate-600 hover:text-slate-900 transition-colors" 
+                   th:href="@{/products/category/audio}">Audio</a>
+                <a class="font-manrope tracking-tight font-medium text-slate-600 hover:text-slate-900 transition-colors" 
+                   th:href="@{/products/category/computing}">Computing</a>
+                <a class="font-manrope tracking-tight font-medium text-slate-600 hover:text-slate-900 transition-colors" 
+                   th:href="@{/products/category/mobile}">Mobile</a>
+                <a class="font-manrope tracking-tight font-medium text-slate-600 hover:text-slate-900 transition-colors" 
+                   th:href="@{/products/category/visual}">Visual</a>
+                <a class="font-manrope tracking-tight font-medium text-slate-600 hover:text-slate-900 transition-colors" 
+                   th:href="@{/products}">All Products</a>
+            </div>
+        </div>
+        <div class="flex items-center gap-6">
+            <button class="text-slate-600 hover:bg-blue-50/50 p-2 rounded-full transition-all">
+                <span class="material-symbols-outlined">search</span>
+            </button>
+            <a th:href="@{/cart}" class="text-slate-600 hover:bg-blue-50/50 p-2 rounded-full transition-all relative">
+                <span class="material-symbols-outlined">shopping_cart</span>
+                <!-- Cart badge could be added here with Vue.js -->
+            </a>
+            <div sec:authorize="isAuthenticated()">
+                <a th:href="@{/account}" class="text-slate-600 hover:bg-blue-50/50 p-2 rounded-full transition-all">
+                    <span class="material-symbols-outlined">account_circle</span>
+                </a>
+            </div>
+            <div sec:authorize="!isAuthenticated()">
+                <a th:href="@{/login}" class="text-slate-600 hover:bg-blue-50/50 p-2 rounded-full transition-all">
+                    <span class="material-symbols-outlined">account_circle</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- Main Content -->
+<main class="pt-20">
+    <div layout:fragment="content">
+        <!-- Page content will be inserted here -->
+    </div>
+</main>
+
+<!-- Footer -->
+<footer th:fragment="footer" class="bg-slate-100 mt-auto border-t border-slate-200/10">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-12 px-12 py-16 w-full max-w-full">
+        <div class="space-y-6">
+            <span class="text-lg font-black text-slate-900 font-headline">Precision Digital</span>
+            <p class="text-slate-500 font-inter text-sm antialiased leading-relaxed">Defining the nexus of high-end engineering and digital lifestyle since 2012.</p>
+            <div class="flex gap-4">
+                <span class="material-symbols-outlined text-slate-400 hover:text-blue-600 cursor-pointer transition-colors">brand_awareness</span>
+                <span class="material-symbols-outlined text-slate-400 hover:text-blue-600 cursor-pointer transition-colors">share</span>
+                <span class="material-symbols-outlined text-slate-400 hover:text-blue-600 cursor-pointer transition-colors">public</span>
+            </div>
+        </div>
+        <div>
+            <h4 class="font-bold font-headline mb-6 text-slate-900">Products</h4>
+            <ul class="space-y-4">
+                <li><a class="text-slate-500 font-inter text-sm antialiased hover:translate-x-1 transition-transform duration-200 block hover:text-blue-500" 
+                       th:href="@{/products/category/audio}">Audio Experience</a></li>
+                <li><a class="text-slate-500 font-inter text-sm antialiased hover:translate-x-1 transition-transform duration-200 block hover:text-blue-500" 
+                       th:href="@{/products/category/computing}">Computing Core</a></li>
+                <li><a class="text-slate-500 font-inter text-sm antialiased hover:translate-x-1 transition-transform duration-200 block hover:text-blue-500" 
+                       th:href="@{/products/category/mobile}">Mobile Ecosystem</a></li>
+                <li><a class="text-slate-500 font-inter text-sm antialiased hover:translate-x-1 transition-transform duration-200 block hover:text-blue-500" 
+                       th:href="@{/products/category/visual}">Visual Mastery</a></li>
+            </ul>
+        </div>
+        <div>
+            <h4 class="font-bold font-headline mb-6 text-slate-900">Support</h4>
+            <ul class="space-y-4">
+                <li><a class="text-slate-500 font-inter text-sm antialiased hover:translate-x-1 transition-transform duration-200 block hover:text-blue-500" href="#">Help Center</a></li>
+                <li><a class="text-slate-500 font-inter text-sm antialiased hover:translate-x-1 transition-transform duration-200 block hover:text-blue-500" href="#">Warranty Policy</a></li>
+                <li><a class="text-slate-500 font-inter text-sm antialiased hover:translate-x-1 transition-transform duration-200 block hover:text-blue-500" href="#">Shipping Details</a></li>
+                <li><a class="text-slate-500 font-inter text-sm antialiased hover:translate-x-1 transition-transform duration-200 block hover:text-blue-500" href="#">Track Order</a></li>
+            </ul>
+        </div>
+        <div>
+            <h4 class="font-bold font-headline mb-6 text-slate-900">Corporate</h4>
+            <ul class="space-y-4">
+                <li><a class="text-slate-500 font-inter text-sm antialiased hover:translate-x-1 transition-transform duration-200 block hover:text-blue-500" href="#">Sustainability</a></li>
+                <li><a class="text-slate-500 font-inter text-sm antialiased hover:translate-x-1 transition-transform duration-200 block hover:text-blue-500" href="#">Privacy Policy</a></li>
+                <li><a class="text-slate-500 font-inter text-sm antialiased hover:translate-x-1 transition-transform duration-200 block hover:text-blue-500" href="#">Terms of Service</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="px-12 py-8 border-t border-slate-200 flex flex-col md:flex-row justify-between items-center gap-4">
+        <p class="text-slate-500 font-inter text-sm antialiased">© 2024 Precision Editorial. All rights reserved.</p>
+        <div class="flex gap-6">
+            <span class="text-xs text-slate-400 font-inter antialiased uppercase tracking-widest">Designed for Excellence</span>
+        </div>
+    </div>
+</footer>
+
+<!-- Vue.js for dynamic features -->
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+      layout:decorate="~{layout/layout}">
+<head>
+    <title th:text="${product.name} + ' | Precision Digital'">Product Detail | Precision Digital</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="pt-4 pb-16 px-6 max-w-7xl mx-auto">
+        <!-- Breadcrumbs -->
+        <nav class="flex items-center gap-2 text-xs font-medium text-on-surface-variant mb-8 uppercase tracking-widest">
+            <a class="hover:text-primary" th:href="@{/}">Home</a>
+            <span class="material-symbols-outlined text-xs">chevron_right</span>
+            <a class="hover:text-primary" th:href="@{/products}">Shop</a>
+            <span class="material-symbols-outlined text-xs">chevron_right</span>
+            <a class="hover:text-primary" th:href="@{/products/category/{categoryName}(categoryName=${product.categoryName})}" 
+               th:text="${product.categoryName}">Category</a>
+            <span class="material-symbols-outlined text-xs">chevron_right</span>
+            <span class="text-on-surface" th:text="${product.name}">Product Name</span>
+        </nav>
+        
+        <!-- Product Hero Section -->
+        <section class="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-24">
+            <!-- Left: Product Image & Gallery -->
+            <div class="lg:col-span-7 flex flex-col md:flex-row-reverse gap-4">
+                <div class="flex-1 aspect-[4/5] bg-surface-container-lowest rounded-xl overflow-hidden relative">
+                    <img th:alt="${product.name}" 
+                         class="w-full h-full object-cover" 
+                         th:src="${product.image}"
+                         id="mainImage"/>
+                </div>
+                <div class="flex md:flex-col gap-4 overflow-x-auto md:overflow-visible pb-2 md:pb-0">
+                    <button class="w-20 h-20 rounded-lg bg-surface-container-lowest border-2 border-primary overflow-hidden flex-shrink-0">
+                        <img class="w-full h-full object-cover" th:src="${product.image}" th:alt="${product.name}"/>
+                    </button>
+                    <!-- Additional product images would go here -->
+                </div>
+            </div>
+            
+            <!-- Right: Product Details -->
+            <div class="lg:col-span-5 flex flex-col justify-center" id="productDetail">
+                <span class="text-primary font-bold text-sm tracking-widest uppercase mb-2">Editor's Choice</span>
+                <h1 class="text-4xl lg:text-5xl font-extrabold text-on-surface mb-4 leading-tight" 
+                    th:text="${product.name}">Product Name</h1>
+                
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="flex text-primary">
+                        <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+                        <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+                        <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+                        <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+                        <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0.5;">star_half</span>
+                    </div>
+                    <span class="text-sm font-medium text-on-surface-variant">(1,284 Verified Reviews)</span>
+                </div>
+                
+                <div class="text-3xl font-bold text-on-surface mb-6" th:text="'$' + ${product.price}">
+                    $0.00
+                </div>
+                
+                <p class="text-on-surface-variant leading-relaxed mb-8 border-l-2 border-surface-container-highest pl-6 italic" 
+                   th:text="${product.description}">
+                    Product description goes here.
+                </p>
+                
+                <div class="space-y-6">
+                    <div class="flex items-center gap-4">
+                        <label class="font-bold text-sm uppercase tracking-wider text-on-surface-variant">Quantity</label>
+                        <div class="flex items-center bg-surface-container-low rounded-lg p-1">
+                            <button class="p-2 hover:bg-surface-container-high rounded transition-colors" @click="decreaseQuantity">
+                                <span class="material-symbols-outlined text-sm">remove</span>
+                            </button>
+                            <span class="px-6 font-bold" v-text="quantity">1</span>
+                            <button class="p-2 hover:bg-surface-container-high rounded transition-colors" @click="increaseQuantity">
+                                <span class="material-symbols-outlined text-sm">add</span>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <button class="flex-1 bg-gradient-to-br from-primary to-primary-container text-on-primary font-bold py-4 rounded-lg shadow-xl shadow-primary/20 hover:scale-[1.02] active:scale-95 transition-all flex items-center justify-center gap-2"
+                                @click="addToCart" :disabled="loading">
+                            <span class="material-symbols-outlined">shopping_bag</span>
+                            <span v-if="!loading">Add to Cart</span>
+                            <span v-else>Adding...</span>
+                        </button>
+                        <button class="flex-1 bg-surface-container-highest text-primary font-bold py-4 rounded-lg hover:bg-surface-container-high hover:scale-[1.02] active:scale-95 transition-all">
+                            Buy Now
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="mt-10 grid grid-cols-2 gap-4">
+                    <div class="flex items-center gap-3 p-3 bg-surface-container-low rounded-lg">
+                        <span class="material-symbols-outlined text-primary">local_shipping</span>
+                        <span class="text-xs font-semibold">Free Express Shipping</span>
+                    </div>
+                    <div class="flex items-center gap-3 p-3 bg-surface-container-low rounded-lg">
+                        <span class="material-symbols-outlined text-primary">verified_user</span>
+                        <span class="text-xs font-semibold">3-Year Pro Care Warranty</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Tabbed Information Section -->
+        <section class="mb-24">
+            <div class="flex border-b border-surface-container-high gap-8 mb-8">
+                <button class="pb-4 border-b-2 border-primary text-on-surface font-bold text-sm uppercase tracking-widest tab-btn active" 
+                        data-tab="specifications">Product Specifications</button>
+                <button class="pb-4 text-on-surface-variant font-bold text-sm uppercase tracking-widest hover:text-primary transition-colors tab-btn" 
+                        data-tab="reviews">Reviews</button>
+                <button class="pb-4 text-on-surface-variant font-bold text-sm uppercase tracking-widest hover:text-primary transition-colors tab-btn" 
+                        data-tab="shipping">Shipping Information</button>
+            </div>
+            
+            <div class="bg-surface-container-low rounded-2xl p-8 lg:p-12">
+                <div id="specifications" class="tab-content">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-6">
+                        <div class="flex justify-between border-b border-outline-variant/20 pb-4">
+                            <span class="text-on-surface-variant font-medium">Category</span>
+                            <span class="text-on-surface font-bold" th:text="${product.categoryName}">Category</span>
+                        </div>
+                        <div class="flex justify-between border-b border-outline-variant/20 pb-4">
+                            <span class="text-on-surface-variant font-medium">Price</span>
+                            <span class="text-on-surface font-bold" th:text="'$' + ${product.price}">$0.00</span>
+                        </div>
+                        <div class="flex justify-between border-b border-outline-variant/20 pb-4">
+                            <span class="text-on-surface-variant font-medium">Availability</span>
+                            <span class="text-on-surface font-bold" th:text="${product.isActive ? 'In Stock' : 'Out of Stock'}">In Stock</span>
+                        </div>
+                        <div class="flex justify-between border-b border-outline-variant/20 pb-4">
+                            <span class="text-on-surface-variant font-medium">SKU</span>
+                            <span class="text-on-surface font-bold" th:text="'PD-' + ${product.id}">SKU</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="reviews" class="tab-content hidden">
+                    <div class="text-center py-8">
+                        <h3 class="text-xl font-bold mb-4">Customer Reviews</h3>
+                        <p class="text-on-surface-variant">Reviews feature coming soon...</p>
+                    </div>
+                </div>
+                
+                <div id="shipping" class="tab-content hidden">
+                    <div class="space-y-4">
+                        <h3 class="text-xl font-bold mb-4">Shipping Information</h3>
+                        <p class="text-on-surface-variant">Free shipping on orders over $500. Standard delivery takes 3-5 business days.</p>
+                        <p class="text-on-surface-variant">Express delivery available for $15 (1-2 business days).</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Related Products -->
+        <section th:if="${relatedProducts != null and !relatedProducts.empty}">
+            <div class="flex justify-between items-end mb-10">
+                <div>
+                    <span class="text-primary font-bold text-xs uppercase tracking-widest">Curated Selections</span>
+                    <h2 class="text-3xl font-extrabold text-on-surface mt-2">Complete the Ecosystem</h2>
+                </div>
+                <a th:href="@{/products}" class="text-primary font-bold text-sm flex items-center gap-1 hover:underline">
+                    View All <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                </a>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div th:each="relatedProduct : ${relatedProducts}" 
+                     class="group bg-surface-container-lowest p-4 rounded-xl transition-all hover:bg-white hover:shadow-2xl hover:shadow-primary/5">
+                    <div class="aspect-square bg-surface-container-low rounded-lg mb-4 overflow-hidden relative">
+                        <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" 
+                             th:src="${relatedProduct.image}" 
+                             th:alt="${relatedProduct.name}"/>
+                    </div>
+                    <h3 class="font-bold text-on-surface mb-1" th:text="${relatedProduct.name}">Product Name</h3>
+                    <p class="text-sm text-on-surface-variant mb-4" th:text="'$' + ${relatedProduct.price}">$0.00</p>
+                    <a th:href="@{/products/{id}(id=${relatedProduct.id})}" 
+                       class="w-full py-2 bg-surface-container-highest text-primary font-bold text-xs rounded-lg hover:bg-primary hover:text-white transition-colors uppercase tracking-widest block text-center">
+                        Quick View
+                    </a>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Vue.js App for product detail interactions -->
+    <script>
+        const { createApp } = Vue;
+        
+        createApp({
+            data() {
+                return {
+                    quantity: 1,
+                    loading: false,
+                    productId: /*[[${product.id}]]*/ 0
+                }
+            },
+            mounted() {
+                this.setupTabs();
+            },
+            methods: {
+                increaseQuantity() {
+                    this.quantity++;
+                },
+                
+                decreaseQuantity() {
+                    if (this.quantity > 1) {
+                        this.quantity--;
+                    }
+                },
+                
+                async addToCart() {
+                    this.loading = true;
+                    
+                    try {
+                        const response = await axios.post('/api/v1/cart/add', null, {
+                            params: { 
+                                productId: this.productId, 
+                                quantity: this.quantity 
+                            },
+                            withCredentials: true
+                        });
+                        
+                        if (response.data.status === 200) {
+                            this.showNotification('Product added to cart!', 'success');
+                        }
+                    } catch (error) {
+                        if (error.response?.status === 401) {
+                            window.location.href = '/login';
+                        } else {
+                            this.showNotification('Failed to add product to cart', 'error');
+                        }
+                    } finally {
+                        this.loading = false;
+                    }
+                },
+                
+                setupTabs() {
+                    document.querySelectorAll('.tab-btn').forEach(btn => {
+                        btn.addEventListener('click', (e) => {
+                            const tabId = e.target.dataset.tab;
+                            
+                            // Remove active class from all tabs
+                            document.querySelectorAll('.tab-btn').forEach(b => {
+                                b.classList.remove('border-primary', 'text-on-surface');
+                                b.classList.add('text-on-surface-variant');
+                            });
+                            
+                            // Add active class to clicked tab
+                            e.target.classList.add('border-primary', 'text-on-surface');
+                            e.target.classList.remove('text-on-surface-variant');
+                            
+                            // Hide all tab contents
+                            document.querySelectorAll('.tab-content').forEach(content => {
+                                content.classList.add('hidden');
+                            });
+                            
+                            // Show selected tab content
+                            document.getElementById(tabId).classList.remove('hidden');
+                        });
+                    });
+                },
+                
+                showNotification(message, type) {
+                    const notification = document.createElement('div');
+                    notification.className = `fixed top-4 right-4 p-4 rounded-lg text-white z-50 ${type === 'success' ? 'bg-green-500' : 'bg-red-500'}`;
+                    notification.textContent = message;
+                    document.body.appendChild(notification);
+                    
+                    setTimeout(() => {
+                        notification.remove();
+                    }, 3000);
+                }
+            }
+        }).mount('#productDetail');
+    </script>
+</div>
+</body>
+</html>

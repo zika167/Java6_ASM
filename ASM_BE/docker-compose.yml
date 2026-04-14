@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  mariadb:
+    image: mariadb:10.11 # Sử dụng bản MariaDB ổn định
+    container_name: java6_mariadb
+    environment:
+      # Thiết lập tài khoản root và database mặc định
+      MARIADB_ROOT_PASSWORD: root_password
+      MARIADB_DATABASE: java6_estore
+      MARIADB_USER: estore_user
+      MARIADB_PASSWORD: estore_password
+    ports:
+      # Ánh xạ port 3306 của container ra port 3306 của máy host
+      - "3306:3306"
+    volumes:
+      # Lưu trữ dữ liệu ra ngoài container để không bị mất khi restart/xóa container
+      - mariadb_data:/var/lib/mysql
+    restart: unless-stopped
+
+volumes:
+  mariadb_data:

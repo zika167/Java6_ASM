@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Precision Editorial | Admin Management Dashboard</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary-fixed-dim": "#b4c5ff",
+              "on-secondary": "#ffffff",
+              "on-error-container": "#93000a",
+              "primary": "#004ac6",
+              "inverse-surface": "#213145",
+              "surface-container": "#e5eeff",
+              "on-tertiary-fixed-variant": "#005321",
+              "secondary-fixed": "#d3e4fe",
+              "surface-dim": "#cbdbf5",
+              "primary-container": "#2563eb",
+              "surface-tint": "#0053db",
+              "on-secondary-fixed-variant": "#38485d",
+              "on-secondary-container": "#54647a",
+              "primary-fixed": "#dbe1ff",
+              "on-tertiary-fixed": "#002109",
+              "tertiary-fixed-dim": "#4ae176",
+              "secondary-container": "#d0e1fb",
+              "error": "#ba1a1a",
+              "surface-container-low": "#eff4ff",
+              "surface-container-highest": "#d3e4fe",
+              "on-primary-fixed-variant": "#003ea8",
+              "outline": "#737686",
+              "tertiary-container": "#007e37",
+              "background": "#f8f9ff",
+              "on-surface": "#0b1c30",
+              "on-error": "#ffffff",
+              "tertiary-fixed": "#6bff8f",
+              "surface-bright": "#f8f9ff",
+              "surface-container-high": "#dce9ff",
+              "surface": "#f8f9ff",
+              "error-container": "#ffdad6",
+              "on-background": "#0b1c30",
+              "surface-variant": "#d3e4fe",
+              "on-primary": "#ffffff",
+              "tertiary": "#006229",
+              "secondary": "#505f76",
+              "on-tertiary": "#ffffff",
+              "on-primary-fixed": "#00174b",
+              "secondary-fixed-dim": "#b7c8e1",
+              "on-surface-variant": "#434655",
+              "outline-variant": "#c3c6d7",
+              "inverse-primary": "#b4c5ff",
+              "surface-container-lowest": "#ffffff",
+              "on-tertiary-container": "#c1ffc5",
+              "on-primary-container": "#eeefff",
+              "on-secondary-fixed": "#0b1c30",
+              "inverse-on-surface": "#eaf1ff"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f9ff;
+        }
+        h1, h2, h3, .font-headline {
+            font-family: 'Manrope', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface flex min-h-screen">
+<!-- SideNavBar (Authority: JSON & Design System) -->
+<aside class="h-screen w-64 fixed left-0 top-0 bg-[#f8f9ff] dark:bg-[#0b1c30] flex flex-col p-4 space-y-2 z-40">
+<div class="mb-10 px-4">
+<h2 class="font-black text-[#0b1c30] dark:text-[#f8f9ff] text-xl tracking-tight">Admin Panel</h2>
+<p class="text-xs text-on-surface-variant font-medium">Management Suite</p>
+</div>
+<nav class="flex-1 space-y-1">
+<!-- Active Tab: Dashboard -->
+<a class="flex items-center gap-3 px-4 py-3 bg-[#d3e4fe] dark:bg-[#2563eb]/20 text-[#004ac6] dark:text-[#2563eb] font-bold rounded-lg hover:translate-x-1 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-manrope text-sm">Dashboard</span>
+</a>
+<!-- Inactive Tabs -->
+<a class="flex items-center gap-3 px-4 py-3 text-[#434655] dark:text-[#c3c6d7] hover:bg-[#eff4ff] dark:hover:bg-[#1e293b] rounded-lg hover:translate-x-1 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
+<span class="font-manrope text-sm">Products</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-[#434655] dark:text-[#c3c6d7] hover:bg-[#eff4ff] dark:hover:bg-[#1e293b] rounded-lg hover:translate-x-1 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span class="font-manrope text-sm">Users</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-[#434655] dark:text-[#c3c6d7] hover:bg-[#eff4ff] dark:hover:bg-[#1e293b] rounded-lg hover:translate-x-1 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="receipt_long">receipt_long</span>
+<span class="font-manrope text-sm">Orders</span>
+</a>
+</nav>
+<div class="pt-4 mt-auto">
+<a class="flex items-center gap-3 px-4 py-3 text-[#434655] dark:text-[#c3c6d7] hover:bg-[#eff4ff] dark:hover:bg-[#1e293b] rounded-lg hover:translate-x-1 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+<span class="font-manrope text-sm">Logout</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Shell -->
+<main class="ml-64 flex-1 flex flex-col min-h-screen">
+<!-- Top Header (Custom Content) -->
+<header class="sticky top-0 z-30 bg-surface/70 backdrop-blur-xl flex justify-between items-center px-8 py-6">
+<div>
+<h1 class="text-2xl font-extrabold text-on-surface tracking-tight">Welcome, Admin</h1>
+<p class="text-sm text-on-surface-variant font-medium">Monday, 24 June 2024</p>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative">
+<button class="p-2 bg-surface-container-low rounded-full hover:bg-surface-container-highest transition-colors">
+<span class="material-symbols-outlined text-primary" data-icon="notifications">notifications</span>
+</button>
+<span class="absolute top-0 right-0 w-2 h-2 bg-error rounded-full ring-2 ring-surface"></span>
+</div>
+<div class="flex items-center gap-3 pl-4 border-l border-outline-variant/30">
+<img class="w-10 h-10 rounded-full object-cover" data-alt="professional portrait of a creative director in a minimalist studio setting with soft natural lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDst2jAtH2N8LLJW5L_pozLW-PpzA3L6SQrAJHzr6miaMQWDCKLt_6Z3CwAsO4govAELhcFfNNEm1aQZUicaNqO1ksfPT9MichtquxoMwM8sc-U4B3nLHH1b8fh5N9GnG8l-J3lTIJyxtwGlDyFQMKBsH6mSUByN7sERrCDZEANOxxsQ4YNcYMX5ZTxizdNp7tqqPnWVv-cKevdE7KiKEspaM826rgyTclsnCuWr7w8ZOJU4rBKyMw1c8Qy0Z8yMhHMz608Mu5_G7Y"/>
+<div class="hidden lg:block">
+<p class="text-sm font-bold text-on-surface leading-none">Julian Thorne</p>
+<p class="text-[10px] text-on-surface-variant font-semibold tracking-wider uppercase mt-1">Super Admin</p>
+</div>
+</div>
+</div>
+</header>
+<div class="p-8 space-y-10">
+<!-- Metric Cards (Bento-style Grid) -->
+<section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+<!-- Total Sales -->
+<div class="bg-surface-container-lowest p-6 rounded-xl group transition-all duration-300 hover:shadow-[0_24px_40px_-15px_rgba(11,28,48,0.04)]">
+<div class="flex justify-between items-start mb-4">
+<div class="p-3 bg-primary/10 rounded-lg">
+<span class="material-symbols-outlined text-primary" data-icon="payments">payments</span>
+</div>
+<span class="text-xs font-bold text-tertiary flex items-center gap-1">
+                            +12.5% <span class="material-symbols-outlined text-xs" data-icon="trending_up">trending_up</span>
+</span>
+</div>
+<p class="text-on-surface-variant text-xs font-bold tracking-wider uppercase mb-1">Total Sales</p>
+<p class="text-2xl font-black text-on-surface tracking-tighter">$142,500.00</p>
+</div>
+<!-- Total Orders -->
+<div class="bg-surface-container-lowest p-6 rounded-xl group transition-all duration-300 hover:shadow-[0_24px_40px_-15px_rgba(11,28,48,0.04)]">
+<div class="flex justify-between items-start mb-4">
+<div class="p-3 bg-secondary-container/30 rounded-lg text-on-secondary-container">
+<span class="material-symbols-outlined" data-icon="shopping_basket">shopping_basket</span>
+</div>
+<span class="text-xs font-bold text-tertiary flex items-center gap-1">
+                            +5.2% <span class="material-symbols-outlined text-xs" data-icon="trending_up">trending_up</span>
+</span>
+</div>
+<p class="text-on-surface-variant text-xs font-bold tracking-wider uppercase mb-1">Total Orders</p>
+<p class="text-2xl font-black text-on-surface tracking-tighter">1,284</p>
+</div>
+<!-- Active Users -->
+<div class="bg-surface-container-lowest p-6 rounded-xl group transition-all duration-300 hover:shadow-[0_24px_40px_-15px_rgba(11,28,48,0.04)]">
+<div class="flex justify-between items-start mb-4">
+<div class="p-3 bg-tertiary/10 rounded-lg text-tertiary">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+</div>
+<span class="text-xs font-bold text-error flex items-center gap-1">
+                            -1.4% <span class="material-symbols-outlined text-xs" data-icon="trending_down">trending_down</span>
+</span>
+</div>
+<p class="text-on-surface-variant text-xs font-bold tracking-wider uppercase mb-1">Active Users</p>
+<p class="text-2xl font-black text-on-surface tracking-tighter">8,922</p>
+</div>
+<!-- Products in Stock -->
+<div class="bg-surface-container-lowest p-6 rounded-xl group transition-all duration-300 hover:shadow-[0_24px_40px_-15px_rgba(11,28,48,0.04)]">
+<div class="flex justify-between items-start mb-4">
+<div class="p-3 bg-surface-container-high rounded-lg text-primary">
+<span class="material-symbols-outlined" data-icon="inventory">inventory</span>
+</div>
+<button class="text-primary hover:underline text-xs font-bold uppercase tracking-widest">Restock</button>
+</div>
+<p class="text-on-surface-variant text-xs font-bold tracking-wider uppercase mb-1">Products In Stock</p>
+<p class="text-2xl font-black text-on-surface tracking-tighter">452</p>
+</div>
+</section>
+<!-- Middle Section: Chart and Top Products -->
+<section class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- Sales Overview Chart Mock -->
+<div class="lg:col-span-2 bg-surface-container-lowest p-8 rounded-xl">
+<div class="flex justify-between items-center mb-10">
+<div>
+<h3 class="text-lg font-extrabold text-on-surface">Sales Overview</h3>
+<p class="text-xs text-on-surface-variant font-medium">Monthly revenue progression for 2024</p>
+</div>
+<div class="flex gap-2">
+<button class="px-3 py-1 text-xs font-bold bg-surface-container-low text-on-surface-variant rounded">7D</button>
+<button class="px-3 py-1 text-xs font-bold bg-primary text-on-primary rounded">30D</button>
+<button class="px-3 py-1 text-xs font-bold bg-surface-container-low text-on-surface-variant rounded">1Y</button>
+</div>
+</div>
+<!-- Mock Line Chart Representation -->
+<div class="h-64 flex items-end justify-between gap-1 relative px-4">
+<div class="absolute inset-x-0 top-0 bottom-0 flex flex-col justify-between opacity-10 pointer-events-none">
+<div class="border-b border-on-surface h-0 w-full"></div>
+<div class="border-b border-on-surface h-0 w-full"></div>
+<div class="border-b border-on-surface h-0 w-full"></div>
+<div class="border-b border-on-surface h-0 w-full"></div>
+</div>
+<!-- Bar Mock Visualizing trend -->
+<div class="w-full h-24 bg-surface-container-low rounded-t-lg"></div>
+<div class="w-full h-32 bg-surface-container-low rounded-t-lg"></div>
+<div class="w-full h-48 bg-surface-container-low rounded-t-lg"></div>
+<div class="w-full h-40 bg-surface-container-low rounded-t-lg"></div>
+<div class="w-full h-56 bg-primary/20 rounded-t-lg border-t-4 border-primary"></div>
+<div class="w-full h-64 bg-primary/40 rounded-t-lg border-t-4 border-primary"></div>
+<div class="w-full h-52 bg-surface-container-low rounded-t-lg"></div>
+</div>
+<div class="flex justify-between mt-4 text-[10px] text-on-surface-variant font-bold tracking-widest uppercase">
+<span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span><span>May</span><span>Jun</span><span>Jul</span>
+</div>
+</div>
+<!-- Top Selling Products -->
+<div class="bg-surface-container-low p-8 rounded-xl">
+<h3 class="text-lg font-extrabold text-on-surface mb-6">Top Products</h3>
+<div class="space-y-6">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 bg-surface-container-lowest rounded-lg overflow-hidden shrink-0">
+<img class="w-full h-full object-cover" data-alt="minimalist smart watch in silver with a clean white interface and elegant leather strap on neutral background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB5M9bYuVvvWCQwJ98oru8f9LIebzsfVO0GbazB_auvJa11ujjCvVYz7w8RJf6-H6bqvDsznMPY-NEohoI1E9F5yFlHUcBY1oyi7sYeqR_7nV-SlNJzCBdr47SiaQBL8WkLHYwyoFqdC4QBiSVu5U8s2ZG_ECkGaHAiIfM35pYXnZCOZ-ssT2y_WuybVJBeiftcuz3gzlGNkG_wLwWcNv5BUWyeJtoT4f_pr1GKNJr6C45-SFSNJg3LJr3zBzmJ5xNKIKl-mQ3tFm8"/>
+</div>
+<div class="flex-1 min-w-0">
+<p class="text-sm font-bold text-on-surface truncate">Vanguard Chrono</p>
+<p class="text-xs text-on-surface-variant">248 sales</p>
+</div>
+<p class="text-sm font-black text-primary">$299</p>
+</div>
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 bg-surface-container-lowest rounded-lg overflow-hidden shrink-0">
+<img class="w-full h-full object-cover" data-alt="high-end wireless noise-canceling headphones in matte black with sleek industrial design and premium textures" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC3W7kncyEYHS1R0jvM7jGyEB_og2gIcCMiOb6Ld4AX6TgAj25vplC7IsLNZN4XRS1ABWpYkDmg5nFxgSKT1h77_T-2cJdCPgZxnVkatLNUtelfcnsT-6Kmrc16LWgdCbHqJ4tmiWYvBPzXk1qnN-CbLaK0WVw44hZWw03xmksD-6qHCiorzRZ3o1BZQQBriIxn15qz3iL56-93TRA5HdWWuHGDatxSboYGGb_XrqddQoESmi9gSp9Ld376FnsRvO_B3_Z0Cmo9v4E"/>
+</div>
+<div class="flex-1 min-w-0">
+<p class="text-sm font-bold text-on-surface truncate">Sonic-X Over-Ear</p>
+<p class="text-xs text-on-surface-variant">192 sales</p>
+</div>
+<p class="text-sm font-black text-primary">$450</p>
+</div>
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 bg-surface-container-lowest rounded-lg overflow-hidden shrink-0">
+<img class="w-full h-full object-cover" data-alt="vintage-style professional rangefinder camera in black leather and chrome finish on a dark wooden table" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAwxYHA3h_arNcXBecUfXmVx41Usw2Q9-uo8BqkFvtTHNF1MFbMqDb8BzxMirMx-DbWSp-UtOpTFZi9tZYMX456op_16Yy8KDB4dy2sChk0Y-BWrNkzCj-gXpMPhyEJU4S05b3ezW3wT1g2Sdm-np2gzQHsk3CfQyAN_9M4-w-OdTlSSBTJfIoZy9lVOsKl3CNeaxzZV837mU72Jbdq-5EUTsyTgdrkUG41-ezrve589XZcApQAFPGaawQ_BoEEIe0lKoqwLDJourQ"/>
+</div>
+<div class="flex-1 min-w-0">
+<p class="text-sm font-bold text-on-surface truncate">Retro-Cam M1</p>
+<p class="text-xs text-on-surface-variant">156 sales</p>
+</div>
+<p class="text-sm font-black text-primary">$1,200</p>
+</div>
+</div>
+<button class="w-full mt-8 py-3 text-xs font-bold text-primary bg-surface-container-highest rounded-lg hover:bg-primary hover:text-on-primary transition-all">View Full Catalog</button>
+</div>
+</section>
+<!-- Bottom Section: Recent Orders Table -->
+<section class="bg-surface-container-lowest rounded-xl overflow-hidden">
+<div class="px-8 py-6 border-b border-surface-container flex justify-between items-center">
+<h3 class="text-lg font-extrabold text-on-surface">Recent Orders</h3>
+<div class="flex gap-4">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-sm" data-icon="search">search</span>
+<input class="pl-10 pr-4 py-2 bg-surface-container-low border-none rounded-lg text-xs font-medium focus:ring-2 focus:ring-primary/40 w-64" placeholder="Filter orders..." type="text"/>
+</div>
+<button class="flex items-center gap-2 px-4 py-2 bg-surface-container-low text-on-surface-variant rounded-lg text-xs font-bold hover:bg-surface-container-highest transition-colors">
+<span class="material-symbols-outlined text-sm" data-icon="filter_list">filter_list</span>
+                            Filter
+                        </button>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead class="bg-surface-container-low">
+<tr>
+<th class="px-8 py-4 text-[10px] font-bold text-on-surface-variant uppercase tracking-[0.1em]">Order ID</th>
+<th class="px-8 py-4 text-[10px] font-bold text-on-surface-variant uppercase tracking-[0.1em]">Customer</th>
+<th class="px-8 py-4 text-[10px] font-bold text-on-surface-variant uppercase tracking-[0.1em]">Date</th>
+<th class="px-8 py-4 text-[10px] font-bold text-on-surface-variant uppercase tracking-[0.1em]">Total</th>
+<th class="px-8 py-4 text-[10px] font-bold text-on-surface-variant uppercase tracking-[0.1em]">Status</th>
+<th class="px-8 py-4 text-[10px] font-bold text-on-surface-variant uppercase tracking-[0.1em]">Action</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container-low">
+<tr class="hover:bg-surface-container-low/30 transition-colors">
+<td class="px-8 py-5 text-sm font-bold text-on-surface">#ORD-9421</td>
+<td class="px-8 py-5 text-sm text-on-surface font-medium">Eleanor Shellstrop</td>
+<td class="px-8 py-5 text-sm text-on-surface-variant">Jun 24, 2024</td>
+<td class="px-8 py-5 text-sm font-black text-on-surface">$599.00</td>
+<td class="px-8 py-5">
+<span class="px-3 py-1 bg-tertiary-container/10 text-tertiary-container text-[10px] font-bold uppercase tracking-widest rounded-full">Completed</span>
+</td>
+<td class="px-8 py-5">
+<button class="text-primary hover:text-primary-container"><span class="material-symbols-outlined" data-icon="more_horiz">more_horiz</span></button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low/30 transition-colors">
+<td class="px-8 py-5 text-sm font-bold text-on-surface">#ORD-9420</td>
+<td class="px-8 py-5 text-sm text-on-surface font-medium">Chidi Anagonye</td>
+<td class="px-8 py-5 text-sm text-on-surface-variant">Jun 24, 2024</td>
+<td class="px-8 py-5 text-sm font-black text-on-surface">$1,250.50</td>
+<td class="px-8 py-5">
+<span class="px-3 py-1 bg-secondary-container/50 text-secondary text-[10px] font-bold uppercase tracking-widest rounded-full">Shipping</span>
+</td>
+<td class="px-8 py-5">
+<button class="text-primary hover:text-primary-container"><span class="material-symbols-outlined" data-icon="more_horiz">more_horiz</span></button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low/30 transition-colors">
+<td class="px-8 py-5 text-sm font-bold text-on-surface">#ORD-9419</td>
+<td class="px-8 py-5 text-sm text-on-surface font-medium">Tahani Al-Jamil</td>
+<td class="px-8 py-5 text-sm text-on-surface-variant">Jun 23, 2024</td>
+<td class="px-8 py-5 text-sm font-black text-on-surface">$3,400.00</td>
+<td class="px-8 py-5">
+<span class="px-3 py-1 bg-error-container text-error text-[10px] font-bold uppercase tracking-widest rounded-full">Pending</span>
+</td>
+<td class="px-8 py-5">
+<button class="text-primary hover:text-primary-container"><span class="material-symbols-outlined" data-icon="more_horiz">more_horiz</span></button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low/30 transition-colors">
+<td class="px-8 py-5 text-sm font-bold text-on-surface">#ORD-9418</td>
+<td class="px-8 py-5 text-sm text-on-surface font-medium">Jason Mendoza</td>
+<td class="px-8 py-5 text-sm text-on-surface-variant">Jun 23, 2024</td>
+<td class="px-8 py-5 text-sm font-black text-on-surface">$89.99</td>
+<td class="px-8 py-5">
+<span class="px-3 py-1 bg-tertiary-container/10 text-tertiary-container text-[10px] font-bold uppercase tracking-widest rounded-full">Completed</span>
+</td>
+<td class="px-8 py-5">
+<button class="text-primary hover:text-primary-container"><span class="material-symbols-outlined" data-icon="more_horiz">more_horiz</span></button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="px-8 py-6 border-t border-surface-container flex justify-between items-center bg-surface-container-lowest">
+<p class="text-xs text-on-surface-variant font-medium">Showing 4 of 1,284 orders</p>
+<div class="flex gap-2">
+<button class="p-2 border border-outline-variant/30 rounded-lg text-on-surface-variant hover:bg-surface-container-low"><span class="material-symbols-outlined" data-icon="chevron_left">chevron_left</span></button>
+<button class="p-2 border border-outline-variant/30 rounded-lg text-on-surface-variant hover:bg-surface-container-low"><span class="material-symbols-outlined" data-icon="chevron_right">chevron_right</span></button>
+</div>
+</div>
+</section>
+</div>
+<!-- Footer (Authority: JSON) -->
+<footer class="w-full mt-auto bg-[#eff4ff] dark:bg-[#0b1c30]">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8 px-12 py-16 w-full">
+<div class="col-span-1">
+<span class="font-manrope font-bold text-[#0b1c30] text-lg">Precision Editorial</span>
+<p class="mt-4 font-inter text-xs text-[#434655] dark:text-[#c3c6d7] max-w-xs leading-relaxed">
+                        The ultimate high-trust administration suite for modern editorial commerce. Curating experiences through data.
+                    </p>
+</div>
+<div class="col-span-1">
+<div class="flex flex-col gap-3">
+<span class="font-manrope font-bold text-[#0b1c30] text-[10px] uppercase tracking-widest mb-2">Internal Links</span>
+<a class="font-inter text-xs text-[#434655] hover:text-[#004ac6] transition-opacity" href="#">About Us</a>
+<a class="font-inter text-xs text-[#434655] hover:text-[#004ac6] transition-opacity" href="#">Contact</a>
+<a class="font-inter text-xs text-[#434655] hover:text-[#004ac6] transition-opacity" href="#">Privacy Policy</a>
+<a class="font-inter text-xs text-[#434655] hover:text-[#004ac6] transition-opacity" href="#">Terms of Service</a>
+</div>
+</div>
+<div class="col-span-1">
+<p class="font-inter text-xs text-[#434655] dark:text-[#c3c6d7] mt-auto">
+                        © 2024 Precision Editorial. All rights reserved.
+                    </p>
+</div>
+</div>
+</footer>
+</main>
+</body></html>

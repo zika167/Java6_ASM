@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Precision Editorial | Product Management</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary-fixed-dim": "#b4c5ff",
+                        "on-secondary": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "primary": "#004ac6",
+                        "inverse-surface": "#213145",
+                        "surface-container": "#e5eeff",
+                        "on-tertiary-fixed-variant": "#005321",
+                        "secondary-fixed": "#d3e4fe",
+                        "surface-dim": "#cbdbf5",
+                        "primary-container": "#2563eb",
+                        "surface-tint": "#0053db",
+                        "on-secondary-fixed-variant": "#38485d",
+                        "on-secondary-container": "#54647a",
+                        "primary-fixed": "#dbe1ff",
+                        "on-tertiary-fixed": "#002109",
+                        "tertiary-fixed-dim": "#4ae176",
+                        "secondary-container": "#d0e1fb",
+                        "error": "#ba1a1a",
+                        "surface-container-low": "#eff4ff",
+                        "surface-container-highest": "#d3e4fe",
+                        "on-primary-fixed-variant": "#003ea8",
+                        "outline": "#737686",
+                        "tertiary-container": "#007e37",
+                        "background": "#f8f9ff",
+                        "on-surface": "#0b1c30",
+                        "on-error": "#ffffff",
+                        "tertiary-fixed": "#6bff8f",
+                        "surface-bright": "#f8f9ff",
+                        "surface-container-high": "#dce9ff",
+                        "surface": "#f8f9ff",
+                        "error-container": "#ffdad6",
+                        "on-background": "#0b1c30",
+                        "surface-variant": "#d3e4fe",
+                        "on-primary": "#ffffff",
+                        "tertiary": "#006229",
+                        "secondary": "#505f76",
+                        "on-tertiary": "#ffffff",
+                        "on-primary-fixed": "#00174b",
+                        "secondary-fixed-dim": "#b7c8e1",
+                        "on-surface-variant": "#434655",
+                        "outline-variant": "#c3c6d7",
+                        "inverse-primary": "#b4c5ff",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary-container": "#c1ffc5",
+                        "on-primary-container": "#eeefff",
+                        "on-secondary-fixed": "#0b1c30",
+                        "inverse-on-surface": "#eaf1ff"
+                    },
+                    fontFamily: {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f9ff;
+            color: #0b1c30;
+        }
+        h1, h2, h3, .font-headline {
+            font-family: 'Manrope', sans-serif;
+        }
+        .bg-primary-gradient {
+            background: linear-gradient(135deg, #004ac6 0%, #2563eb 100%);
+        }
+    </style>
+</head>
+<body class="flex min-h-screen">
+<!-- SideNavBar Component -->
+<aside class="h-screen w-64 bg-[#f8f9ff] dark:bg-[#0b1c30] flex flex-col p-4 space-y-2 border-r-0 fixed left-0 top-0 z-40">
+<div class="mb-8 px-2">
+<h1 class="font-black text-[#0b1c30] dark:text-[#f8f9ff] text-2xl tracking-tighter">Admin Panel</h1>
+<p class="text-xs text-on-surface-variant font-medium">Management Suite</p>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center space-x-3 px-4 py-2.5 text-[#434655] dark:text-[#c3c6d7] hover:bg-[#eff4ff] dark:hover:bg-[#1e293b] hover:translate-x-1 transition-transform group rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-manrope text-sm">Dashboard</span>
+</a>
+<a class="flex items-center space-x-3 px-4 py-2.5 bg-[#d3e4fe] dark:bg-[#2563eb]/20 text-[#004ac6] dark:text-[#2563eb] font-bold rounded-lg group" href="#">
+<span class="material-symbols-outlined" data-icon="inventory_2" style="font-variation-settings: 'FILL' 1;">inventory_2</span>
+<span class="font-manrope text-sm">Products</span>
+</a>
+<a class="flex items-center space-x-3 px-4 py-2.5 text-[#434655] dark:text-[#c3c6d7] hover:bg-[#eff4ff] dark:hover:bg-[#1e293b] hover:translate-x-1 transition-transform group rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span class="font-manrope text-sm">Users</span>
+</a>
+<a class="flex items-center space-x-3 px-4 py-2.5 text-[#434655] dark:text-[#c3c6d7] hover:bg-[#eff4ff] dark:hover:bg-[#1e293b] hover:translate-x-1 transition-transform group rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="receipt_long">receipt_long</span>
+<span class="font-manrope text-sm">Orders</span>
+</a>
+</nav>
+<div class="mt-auto border-t border-outline-variant/10 pt-4">
+<a class="flex items-center space-x-3 px-4 py-2.5 text-[#434655] dark:text-[#c3c6d7] hover:bg-error-container/20 hover:text-error transition-all rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+<span class="font-manrope text-sm">Logout</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Wrapper -->
+<main class="flex-1 ml-64 min-h-screen flex flex-col">
+<!-- TopAppBar Component -->
+<header class="fixed top-0 left-64 right-0 z-30 bg-[#f8f9ff]/70 backdrop-blur-xl flex justify-between items-center px-8 py-4">
+<div class="flex items-center gap-6 flex-1">
+<div class="relative w-full max-w-md group">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant group-focus-within:text-primary transition-colors">search</span>
+<input class="w-full bg-surface-container-highest border-none rounded-lg pl-11 pr-4 py-2 text-sm focus:ring-2 focus:ring-primary/40 transition-all font-body" placeholder="Search Products..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative inline-block text-left group">
+<button class="flex items-center gap-2 px-4 py-2 bg-surface-container-low text-on-surface-variant text-sm font-semibold rounded-lg hover:bg-surface-container-high transition-colors">
+                        Bulk Actions
+                        <span class="material-symbols-outlined text-sm">expand_more</span>
+</button>
+<!-- Dropdown Mockup (Hidden by default, shown here conceptually via hover group for visual only) -->
+<div class="absolute right-0 mt-2 w-48 origin-top-right rounded-lg bg-surface-container-lowest shadow-xl ring-1 ring-on-surface/5 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50 p-1">
+<a class="block px-4 py-2 text-sm text-on-surface hover:bg-surface-container-low rounded-md" href="#">Activate Selected</a>
+<a class="block px-4 py-2 text-sm text-on-surface hover:bg-surface-container-low rounded-md" href="#">Archive Selected</a>
+<a class="block px-4 py-2 text-sm text-error hover:bg-error-container/20 rounded-md" href="#">Delete Selected</a>
+</div>
+</div>
+<button class="bg-primary-gradient text-on-primary px-5 py-2 rounded-lg font-headline text-sm font-bold flex items-center gap-2 scale-95 active:scale-90 transition-transform shadow-lg shadow-primary/20">
+<span class="material-symbols-outlined text-lg">add</span>
+                    Add New Product
+                </button>
+<div class="h-8 w-[1px] bg-outline-variant/30 mx-2"></div>
+<div class="flex gap-2">
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-highest rounded-full transition-colors">
+<span class="material-symbols-outlined">shopping_cart</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-highest rounded-full transition-colors">
+<span class="material-symbols-outlined">account_circle</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Product Table Area -->
+<div class="pt-24 px-8 pb-12 flex-1">
+<div class="mb-8">
+<h2 class="text-3xl font-extrabold tracking-tight text-on-surface font-headline">Product Management</h2>
+<p class="text-on-surface-variant font-body">Manage your editorial inventory and digital assets.</p>
+</div>
+<!-- Bento Styled Table Container -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm overflow-hidden ring-1 ring-outline-variant/5">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low">
+<th class="px-6 py-4 text-[11px] font-bold uppercase tracking-wider text-on-surface-variant">
+<input class="rounded border-outline-variant text-primary focus:ring-primary/40" type="checkbox"/>
+</th>
+<th class="px-6 py-4 text-[11px] font-bold uppercase tracking-wider text-on-surface-variant font-label">Product</th>
+<th class="px-6 py-4 text-[11px] font-bold uppercase tracking-wider text-on-surface-variant font-label">Category</th>
+<th class="px-6 py-4 text-[11px] font-bold uppercase tracking-wider text-on-surface-variant font-label">Price</th>
+<th class="px-6 py-4 text-[11px] font-bold uppercase tracking-wider text-on-surface-variant font-label">Stock</th>
+<th class="px-6 py-4 text-[11px] font-bold uppercase tracking-wider text-on-surface-variant font-label">Status</th>
+<th class="px-6 py-4 text-[11px] font-bold uppercase tracking-wider text-on-surface-variant font-label text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container-low">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container-low/30 transition-colors">
+<td class="px-6 py-4"><input class="rounded border-outline-variant text-primary" type="checkbox"/></td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-4">
+<div class="h-12 w-12 rounded-lg bg-surface-container overflow-hidden flex-shrink-0">
+<img alt="Product Image" class="h-full w-full object-cover" data-alt="High-resolution studio shot of a premium hardcover book with gold foil lettering on a minimalist white background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCovvEtyoaQSZ1MWhxcKrfhsJZUNbrbDL78qZxyE25vZR4Hof2dq__tm3qrB3X-U_rlUr_19TCQV0Xg9TKO0oFlrtIj4uwXXJU9Ik0te7qxyje5Wer6ubfQuGOuWAIX90YDFKKt69kyshjGHaBz1PCE6ZcMLcZmG-sxyOU2YnskS_49oKlXA2VVuis6l196IQ3zDGUNPs-RG8MxsgMTqFXEsApq1DcwGbN-Ru3AzQhxLpaMrGceaSrgOSfLhokeI_kYlNIjAt8jaN0"/>
+</div>
+<div>
+<div class="font-bold text-on-surface text-sm">The Minimalist Guide</div>
+<div class="text-xs text-on-surface-variant">SKU: EDIT-001</div>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 text-sm font-medium text-on-surface-variant">Editorial Design</td>
+<td class="px-6 py-4 text-sm font-bold text-on-surface">$59.00</td>
+<td class="px-6 py-4 text-sm text-on-surface-variant">1,240</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-tertiary-fixed text-on-tertiary-fixed-variant">
+                                        In Stock
+                                    </span>
+</td>
+<td class="px-6 py-4 text-right">
+<div class="flex items-center justify-end gap-2">
+<button class="p-1.5 text-on-surface-variant hover:text-primary hover:bg-primary/10 rounded transition-all">
+<span class="material-symbols-outlined text-xl">edit</span>
+</button>
+<button class="p-1.5 text-on-surface-variant hover:text-error hover:bg-error/10 rounded transition-all">
+<span class="material-symbols-outlined text-xl">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="bg-surface-container-low/40 hover:bg-surface-container-low/60 transition-colors">
+<td class="px-6 py-4"><input class="rounded border-outline-variant text-primary" type="checkbox"/></td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-4">
+<div class="h-12 w-12 rounded-lg bg-surface-container overflow-hidden flex-shrink-0">
+<img alt="Product Image" class="h-full w-full object-cover" data-alt="Close-up of a sleek professional titanium fountain pen resting on a piece of high-quality ivory-colored stationery" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCUimrQOxvmrMAIg7Dh-CH1PddL2UBRgHEDfkVWO9fBxx-ZYB9j3ZEulHTMyCj-uwGzIS7aWcLdgNdahhtVIXJKTNO3qqCmEo66b-AGaFMF0AfrMtmPPwvft_ZlEAxmYUSjqvYaFIN_HZ2vX5O4Mvg1O1yCy9A5SFfV7_JRlUxrfWHZyO0OfBxzu4OnViiTH6njhvcZTJ4Man4a9_zzJcgE0-uAVtX-PmLwlau-U38oDGr0LfHZiFhyoDL7f0PtXpIQ8WWX2XQGOAk"/>
+</div>
+<div>
+<div class="font-bold text-on-surface text-sm">Titanium Series Pen</div>
+<div class="text-xs text-on-surface-variant">SKU: ACC-442</div>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 text-sm font-medium text-on-surface-variant">Writing Tools</td>
+<td class="px-6 py-4 text-sm font-bold text-on-surface">$120.00</td>
+<td class="px-6 py-4 text-sm text-on-surface-variant">0</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-error-container text-on-error-container">
+                                        Out of Stock
+                                    </span>
+</td>
+<td class="px-6 py-4 text-right">
+<div class="flex items-center justify-end gap-2">
+<button class="p-1.5 text-on-surface-variant hover:text-primary hover:bg-primary/10 rounded transition-all">
+<span class="material-symbols-outlined text-xl">edit</span>
+</button>
+<button class="p-1.5 text-on-surface-variant hover:text-error hover:bg-error/10 rounded transition-all">
+<span class="material-symbols-outlined text-xl">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container-low/30 transition-colors">
+<td class="px-6 py-4"><input class="rounded border-outline-variant text-primary" type="checkbox"/></td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-4">
+<div class="h-12 w-12 rounded-lg bg-surface-container overflow-hidden flex-shrink-0">
+<img alt="Product Image" class="h-full w-full object-cover" data-alt="A collection of vibrant artistic ink bottles in shades of deep blue and emerald green arranged neatly on a wooden shelf" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDrMDUbncKPrgQ0IVUHsrR6xR0yMva_cnzuodaeibdDCjzVtNwDI-giiMn7Lv4hqeNXoMhjiKRdXxN1uckqaX8ZezqSHeAA3VAH1IL0JFBdWg_PK3vExB3MiMb886N4r4Ued5qkXiVGJdQTglnU_D-QH61DUPGQ28krA1UtoIenukIHG_irZPTs3CNRJCttuYjN6DJ4H1wSlZwLneRfUQrci8bsim4_R3zLmxWO2woJJvSDj-sZWqkceH1vc1ajaxqus_mGrOMMFwo"/>
+</div>
+<div>
+<div class="font-bold text-on-surface text-sm">Artisan Ink Set</div>
+<div class="text-xs text-on-surface-variant">SKU: ART-902</div>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 text-sm font-medium text-on-surface-variant">Art Supplies</td>
+<td class="px-6 py-4 text-sm font-bold text-on-surface">$45.00</td>
+<td class="px-6 py-4 text-sm text-on-surface-variant">42</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-tertiary-fixed text-on-tertiary-fixed-variant">
+                                        In Stock
+                                    </span>
+</td>
+<td class="px-6 py-4 text-right">
+<div class="flex items-center justify-end gap-2">
+<button class="p-1.5 text-on-surface-variant hover:text-primary hover:bg-primary/10 rounded transition-all">
+<span class="material-symbols-outlined text-xl">edit</span>
+</button>
+<button class="p-1.5 text-on-surface-variant hover:text-error hover:bg-error/10 rounded transition-all">
+<span class="material-symbols-outlined text-xl">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="bg-surface-container-low/40 hover:bg-surface-container-low/60 transition-colors">
+<td class="px-6 py-4"><input class="rounded border-outline-variant text-primary" type="checkbox"/></td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-4">
+<div class="h-12 w-12 rounded-lg bg-surface-container overflow-hidden flex-shrink-0">
+<img alt="Product Image" class="h-full w-full object-cover" data-alt="Modern leather-bound notebook with thick cream-colored pages lying open on a clean wooden desktop with natural window light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCe2zGz_-NSgZuRoFMefJ0OMZayZJ2VkRmqR8veZ9lCfpoN2Lfwpn4zlVoIKcr6Mx7NJty937JBIPrIEkdPA6OaQM1mSiF55xZ4hdV5ebrxTaU2Pf1g0mWynX59BsbPOE3D2yjsIPCAM8XI72h2YZnJV69HyoUznxOkhzr2x-UPdnywQHXGW3lGxGx7-3cubtCgYconRQpdZUdSLJs19UDnWZzE5gxwkUJJqd3AFMPbLH4YZ4jZSmmn-oslAo_RP5YHSBK9oHvnRFM"/>
+</div>
+<div>
+<div class="font-bold text-on-surface text-sm">Editor's Journal</div>
+<div class="text-xs text-on-surface-variant">SKU: EDIT-005</div>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 text-sm font-medium text-on-surface-variant">Editorial Design</td>
+<td class="px-6 py-4 text-sm font-bold text-on-surface">$32.00</td>
+<td class="px-6 py-4 text-sm text-on-surface-variant">891</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-tertiary-fixed text-on-tertiary-fixed-variant">
+                                        In Stock
+                                    </span>
+</td>
+<td class="px-6 py-4 text-right">
+<div class="flex items-center justify-end gap-2">
+<button class="p-1.5 text-on-surface-variant hover:text-primary hover:bg-primary/10 rounded transition-all">
+<span class="material-symbols-outlined text-xl">edit</span>
+</button>
+<button class="p-1.5 text-on-surface-variant hover:text-error hover:bg-error/10 rounded transition-all">
+<span class="material-symbols-outlined text-xl">delete</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination Footer -->
+<div class="px-6 py-4 bg-surface-container-low/50 flex items-center justify-between">
+<div class="text-xs text-on-surface-variant font-medium">
+                        Showing <span class="text-on-surface font-bold">1-4</span> of <span class="text-on-surface font-bold">124</span> products
+                    </div>
+<div class="flex items-center gap-2">
+<button class="p-2 rounded hover:bg-surface-container-highest transition-colors disabled:opacity-30" disabled="">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<button class="h-8 w-8 rounded-lg bg-primary text-on-primary text-xs font-bold">1</button>
+<button class="h-8 w-8 rounded-lg hover:bg-surface-container-highest text-on-surface text-xs font-medium transition-colors">2</button>
+<button class="h-8 w-8 rounded-lg hover:bg-surface-container-highest text-on-surface text-xs font-medium transition-colors">3</button>
+<span class="text-on-surface-variant px-1">...</span>
+<button class="h-8 w-8 rounded-lg hover:bg-surface-container-highest text-on-surface text-xs font-medium transition-colors">31</button>
+<button class="p-2 rounded hover:bg-surface-container-highest transition-colors">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer Component -->
+<footer class="w-full mt-auto bg-[#eff4ff] dark:bg-[#0b1c30] grid grid-cols-1 md:grid-cols-3 gap-8 px-12 py-12 border-t border-outline-variant/10">
+<div class="space-y-4">
+<div class="font-manrope font-bold text-[#0b1c30] text-xl">Precision Editorial</div>
+<p class="font-inter text-xs text-[#434655] dark:text-[#c3c6d7] max-w-xs leading-relaxed">
+                    Premium editorial tools and curation services for the modern digital workspace. Built for professionals, by professionals.
+                </p>
+<div class="font-inter text-xs text-[#434655] dark:text-[#c3c6d7]">
+                    © 2024 Precision Editorial. All rights reserved.
+                </div>
+</div>
+<div class="flex flex-col space-y-3">
+<div class="text-xs font-bold uppercase tracking-widest text-on-surface">Resources</div>
+<a class="font-inter text-xs text-[#434655] hover:text-[#004ac6] transition-opacity" href="#">About Us</a>
+<a class="font-inter text-xs text-[#434655] hover:text-[#004ac6] transition-opacity" href="#">Contact</a>
+<a class="font-inter text-xs text-[#434655] hover:text-[#004ac6] transition-opacity" href="#">Privacy Policy</a>
+<a class="font-inter text-xs text-[#434655] hover:text-[#004ac6] transition-opacity" href="#">Terms of Service</a>
+</div>
+<div class="space-y-4">
+<div class="text-xs font-bold uppercase tracking-widest text-on-surface">Stay Inspired</div>
+<div class="flex gap-2">
+<input class="bg-surface-container-lowest border-none rounded-lg text-xs p-2.5 flex-1 focus:ring-1 focus:ring-primary/40" placeholder="Email Address" type="email"/>
+<button class="bg-primary text-on-primary px-4 py-2 rounded-lg text-xs font-bold hover:opacity-90 transition-opacity">Join</button>
+</div>
+<div class="flex gap-4">
+<span class="material-symbols-outlined text-on-surface-variant hover:text-primary cursor-pointer transition-colors">public</span>
+<span class="material-symbols-outlined text-on-surface-variant hover:text-primary cursor-pointer transition-colors">share</span>
+<span class="material-symbols-outlined text-on-surface-variant hover:text-primary cursor-pointer transition-colors">mail</span>
+</div>
+</div>
+</footer>
+</main>
+</body></html>

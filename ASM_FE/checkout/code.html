@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Checkout | Precision Editorial</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary-fixed-dim": "#b4c5ff",
+                        "on-secondary": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "primary": "#004ac6",
+                        "inverse-surface": "#213145",
+                        "surface-container": "#e5eeff",
+                        "on-tertiary-fixed-variant": "#005321",
+                        "secondary-fixed": "#d3e4fe",
+                        "surface-dim": "#cbdbf5",
+                        "primary-container": "#2563eb",
+                        "surface-tint": "#0053db",
+                        "on-secondary-fixed-variant": "#38485d",
+                        "on-secondary-container": "#54647a",
+                        "primary-fixed": "#dbe1ff",
+                        "on-tertiary-fixed": "#002109",
+                        "tertiary-fixed-dim": "#4ae176",
+                        "secondary-container": "#d0e1fb",
+                        "error": "#ba1a1a",
+                        "surface-container-low": "#eff4ff",
+                        "surface-container-highest": "#d3e4fe",
+                        "on-primary-fixed-variant": "#003ea8",
+                        "outline": "#737686",
+                        "tertiary-container": "#007e37",
+                        "background": "#f8f9ff",
+                        "on-surface": "#0b1c30",
+                        "on-error": "#ffffff",
+                        "tertiary-fixed": "#6bff8f",
+                        "surface-bright": "#f8f9ff",
+                        "surface-container-high": "#dce9ff",
+                        "surface": "#f8f9ff",
+                        "error-container": "#ffdad6",
+                        "on-background": "#0b1c30",
+                        "surface-variant": "#d3e4fe",
+                        "on-primary": "#ffffff",
+                        "tertiary": "#006229",
+                        "secondary": "#505f76",
+                        "on-tertiary": "#ffffff",
+                        "on-primary-fixed": "#00174b",
+                        "secondary-fixed-dim": "#b7c8e1",
+                        "on-surface-variant": "#434655",
+                        "outline-variant": "#c3c6d7",
+                        "inverse-primary": "#b4c5ff",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary-container": "#c1ffc5",
+                        "on-primary-container": "#eeefff",
+                        "on-secondary-fixed": "#0b1c30",
+                        "inverse-on-surface": "#eaf1ff"
+                    },
+                    fontFamily: {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3, .font-headline { font-family: 'Manrope', sans-serif; }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-[#f8f9ff]/70 backdrop-blur-xl flex justify-between items-center px-6 py-3 max-w-full">
+<div class="flex items-center gap-8">
+<span class="text-xl font-bold tracking-tighter text-[#0b1c30]">Precision Editorial</span>
+<div class="hidden md:flex gap-6 items-center">
+<a class="font-manrope text-sm font-semibold tracking-tight text-[#434655] hover:text-[#0b1c30] transition-all duration-300" href="#">Home</a>
+<a class="font-manrope text-sm font-semibold tracking-tight text-[#434655] hover:text-[#0b1c30] transition-all duration-300" href="#">Shop</a>
+<a class="font-manrope text-sm font-semibold tracking-tight text-[#434655] hover:text-[#0b1c30] transition-all duration-300" href="#">New Arrivals</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="hidden md:flex items-center bg-surface-container-low px-4 py-1.5 rounded-full">
+<span class="material-symbols-outlined text-on-surface-variant text-sm mr-2">search</span>
+<input class="bg-transparent border-none text-sm focus:ring-0 p-0 text-on-surface placeholder:text-outline" placeholder="Search curated items..." type="text"/>
+</div>
+<button class="p-2 text-on-surface-variant hover:bg-[#d3e4fe]/50 rounded-full transition-all duration-300 scale-95 active:scale-90">
+<span class="material-symbols-outlined">shopping_cart</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:bg-[#d3e4fe]/50 rounded-full transition-all duration-300 scale-95 active:scale-90">
+<span class="material-symbols-outlined">account_circle</span>
+</button>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-grow pt-24 pb-16 px-6 md:px-12 max-w-7xl mx-auto w-full">
+<!-- Breadcrumbs -->
+<nav class="flex items-center gap-2 mb-8 text-sm font-medium">
+<a class="text-on-surface-variant hover:text-primary transition-colors" href="#">Home</a>
+<span class="material-symbols-outlined text-outline-variant text-base">chevron_right</span>
+<a class="text-on-surface-variant hover:text-primary transition-colors" href="#">Shop</a>
+<span class="material-symbols-outlined text-outline-variant text-base">chevron_right</span>
+<a class="text-on-surface-variant hover:text-primary transition-colors" href="#">Cart</a>
+<span class="material-symbols-outlined text-outline-variant text-base">chevron_right</span>
+<span class="text-primary font-bold">Checkout</span>
+</nav>
+<div class="flex flex-col lg:flex-row gap-12">
+<!-- Left Column: Checkout Forms (66%) -->
+<div class="lg:w-2/3 space-y-12">
+<!-- Section 1: Shipping Information -->
+<section>
+<div class="flex items-center gap-4 mb-8">
+<div class="bg-primary text-on-primary w-10 h-10 rounded-lg flex items-center justify-center font-bold">1</div>
+<h2 class="text-2xl font-extrabold tracking-tight text-on-surface">Shipping Information</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 bg-surface-container-low p-8 rounded-xl">
+<div class="flex flex-col gap-2">
+<label class="text-xs font-bold uppercase tracking-wider text-on-surface-variant">Full Name</label>
+<input class="bg-surface-container-lowest border-none rounded-lg px-4 py-3 focus:ring-2 focus:ring-primary/40 transition-shadow" placeholder="Johnathan Doe" type="text"/>
+</div>
+<div class="flex flex-col gap-2">
+<label class="text-xs font-bold uppercase tracking-wider text-on-surface-variant">Email Address</label>
+<input class="bg-surface-container-lowest border-none rounded-lg px-4 py-3 focus:ring-2 focus:ring-primary/40 transition-shadow" placeholder="john@example.com" type="email"/>
+</div>
+<div class="flex flex-col gap-2">
+<label class="text-xs font-bold uppercase tracking-wider text-on-surface-variant">Phone Number</label>
+<input class="bg-surface-container-lowest border-none rounded-lg px-4 py-3 focus:ring-2 focus:ring-primary/40 transition-shadow" placeholder="+1 (555) 000-0000" type="tel"/>
+</div>
+<div class="flex flex-col gap-2 md:col-span-2">
+<label class="text-xs font-bold uppercase tracking-wider text-on-surface-variant">Delivery Address</label>
+<input class="bg-surface-container-lowest border-none rounded-lg px-4 py-3 focus:ring-2 focus:ring-primary/40 transition-shadow" placeholder="Street name, Building, Apartment" type="text"/>
+</div>
+<div class="flex flex-col gap-2 md:col-span-2">
+<label class="text-xs font-bold uppercase tracking-wider text-on-surface-variant">Order Note (Optional)</label>
+<textarea class="bg-surface-container-lowest border-none rounded-lg px-4 py-3 focus:ring-2 focus:ring-primary/40 transition-shadow" placeholder="Special instructions for delivery..." rows="3"></textarea>
+</div>
+</div>
+</section>
+<!-- Section 2: Payment Method -->
+<section>
+<div class="flex items-center gap-4 mb-8">
+<div class="bg-primary text-on-primary w-10 h-10 rounded-lg flex items-center justify-center font-bold">2</div>
+<h2 class="text-2xl font-extrabold tracking-tight text-on-surface">Payment Method</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+<!-- COD Option -->
+<label class="relative cursor-pointer group">
+<input checked="" class="peer sr-only" name="payment" type="radio"/>
+<div class="p-6 rounded-xl bg-surface-container-low border-2 border-transparent peer-checked:border-primary peer-checked:bg-surface-container-highest transition-all duration-300">
+<span class="material-symbols-outlined text-primary mb-3 text-3xl">local_shipping</span>
+<h3 class="font-bold text-on-surface">COD</h3>
+<p class="text-xs text-on-surface-variant mt-1">Cash on Delivery</p>
+</div>
+</label>
+<!-- Bank Transfer -->
+<label class="relative cursor-pointer group">
+<input class="peer sr-only" name="payment" type="radio"/>
+<div class="p-6 rounded-xl bg-surface-container-low border-2 border-transparent peer-checked:border-primary peer-checked:bg-surface-container-highest transition-all duration-300">
+<span class="material-symbols-outlined text-primary mb-3 text-3xl">account_balance</span>
+<h3 class="font-bold text-on-surface">Bank Transfer</h3>
+<p class="text-xs text-on-surface-variant mt-1">Direct Bank Deposit</p>
+</div>
+</label>
+<!-- Credit Card -->
+<label class="relative cursor-pointer group">
+<input class="peer sr-only" name="payment" type="radio"/>
+<div class="p-6 rounded-xl bg-surface-container-low border-2 border-transparent peer-checked:border-primary peer-checked:bg-surface-container-highest transition-all duration-300">
+<span class="material-symbols-outlined text-primary mb-3 text-3xl">credit_card</span>
+<h3 class="font-bold text-on-surface">Credit Card</h3>
+<p class="text-xs text-on-surface-variant mt-1">Secure Online Pay</p>
+</div>
+</label>
+</div>
+</section>
+<!-- Security Badges -->
+<div class="flex flex-wrap items-center gap-8 pt-8 opacity-60 grayscale hover:grayscale-0 transition-all">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">verified_user</span>
+<span class="text-xs font-bold uppercase tracking-widest">Secure SSL</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">lock</span>
+<span class="text-xs font-bold uppercase tracking-widest">Encrypted Data</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">security</span>
+<span class="text-xs font-bold uppercase tracking-widest">Fraud Protected</span>
+</div>
+</div>
+</div>
+<!-- Right Column: Order Summary (33%) -->
+<div class="lg:w-1/3">
+<div class="sticky top-24 bg-surface-container-lowest p-8 rounded-2xl shadow-sm border border-outline-variant/15">
+<h2 class="text-xl font-extrabold tracking-tight text-on-surface mb-6">Your Order</h2>
+<!-- Item List -->
+<div class="space-y-6 mb-8 max-h-96 overflow-y-auto pr-2">
+<!-- Product Item 1 -->
+<div class="flex gap-4">
+<div class="w-20 h-20 rounded-lg bg-surface-container overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="Close-up of a premium leather bound journal with minimalist stationery on a clean white desk surface" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCFz9Fl9YzhO7CxgoEyqB5SpzUf7q9_QauiDKp32mUxiVerQfdFdU0k4NbnrRlidpO4IKa67uu30CApYAxqfaksl-iVus_hmqOE98xtxOH8KDlf6V3ciJksgbSqs5sVklBy9egYYrI9h2A5J4LC8bWlOdVmuXZOWBtOiU61e6J9rFnWOLb2AxCBMDnZ6KsXxgmf9n3kQr0komgJllWlx3nAKqLlyMb7vNEtVd4YVc3EHK4kkkHLbplqmRfd28J7fQAbjjDX0QbLa7M"/>
+</div>
+<div class="flex flex-col justify-center">
+<h4 class="font-bold text-sm text-on-surface">The Editorial Journal</h4>
+<p class="text-xs text-on-surface-variant">Sapphire Blue / A5</p>
+<div class="flex justify-between items-center mt-1">
+<span class="text-xs font-semibold">Qty: 1</span>
+<span class="text-sm font-bold text-primary">$45.00</span>
+</div>
+</div>
+</div>
+<!-- Product Item 2 -->
+<div class="flex gap-4">
+<div class="w-20 h-20 rounded-lg bg-surface-container overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="Matte black fountain pen resting on a piece of high quality cream colored textured paper with elegant script" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBh7F6BaWADa_eJqqz0-lIPjfUBnkb05ABtnEIYJSk2m6ulqp5A-ExiQuoYEvEcpDnvXV8jRCqgneITwARAD3Dclq1C7SZh2bsopjOHQ8Qu20NbEa7UjGmAkhh5Gr2Sbu9nsf6D_fyVdvZGAQaTiTk6xVbDE5WOnEYz5B1ny_uKIZk17JZDn6TTi7Pb4STD2IVwKq-Hz2ExBo3eN00_4XA3GptSH3UDDoBhnUVhVptSoif-GJoy3S3DLgj6XewTJ6KCKxOcWg-ziMc"/>
+</div>
+<div class="flex flex-col justify-center">
+<h4 class="font-bold text-sm text-on-surface">Precision Fountain Pen</h4>
+<p class="text-xs text-on-surface-variant">Matte Black / Fine Nib</p>
+<div class="flex justify-between items-center mt-1">
+<span class="text-xs font-semibold">Qty: 1</span>
+<span class="text-sm font-bold text-primary">$120.00</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Price Breakdown -->
+<div class="space-y-3 py-6 border-y border-outline-variant/15">
+<div class="flex justify-between text-sm">
+<span class="text-on-surface-variant">Subtotal</span>
+<span class="font-semibold text-on-surface">$165.00</span>
+</div>
+<div class="flex justify-between text-sm">
+<span class="text-on-surface-variant">Shipping</span>
+<span class="font-semibold text-on-surface">$12.50</span>
+</div>
+<div class="flex justify-between text-sm">
+<span class="text-on-surface-variant">Tax (Estimated)</span>
+<span class="font-semibold text-on-surface">$0.00</span>
+</div>
+</div>
+<!-- Grand Total -->
+<div class="flex justify-between items-center py-6">
+<span class="text-lg font-bold text-on-surface">Total</span>
+<span class="text-2xl font-extrabold text-primary">$177.50</span>
+</div>
+<!-- Place Order Button -->
+<button class="w-full bg-gradient-to-br from-primary to-primary-container text-on-primary py-4 rounded-lg font-bold text-lg hover:opacity-90 transition-all transform active:scale-[0.98] shadow-lg shadow-primary/20">
+                        Place Order
+                    </button>
+<p class="text-[10px] text-center text-on-surface-variant mt-4 leading-relaxed uppercase tracking-widest">
+                        By clicking "Place Order", you agree to our terms and conditions.
+                    </p>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-[#eff4ff] w-full mt-auto grid grid-cols-1 md:grid-cols-3 gap-8 px-12 py-16 w-full">
+<div class="space-y-4">
+<span class="font-manrope font-bold text-[#0b1c30] text-lg">Precision Editorial</span>
+<p class="font-inter text-xs text-[#434655] leading-loose">
+                Curating the finest editorial tools for the modern intellectual. Quality, precision, and soul in every piece.
+            </p>
+</div>
+<div class="flex flex-col gap-3">
+<h4 class="font-bold text-xs uppercase tracking-widest text-on-surface mb-2">Quick Links</h4>
+<a class="font-inter text-xs text-[#434655] hover:text-[#004ac6] transition-opacity" href="#">About Us</a>
+<a class="font-inter text-xs text-[#434655] hover:text-[#004ac6] transition-opacity" href="#">Contact</a>
+<a class="font-inter text-xs text-[#434655] hover:text-[#004ac6] transition-opacity" href="#">Privacy Policy</a>
+<a class="font-inter text-xs text-[#434655] hover:text-[#004ac6] transition-opacity" href="#">Terms of Service</a>
+</div>
+<div class="flex flex-col gap-4">
+<h4 class="font-bold text-xs uppercase tracking-widest text-on-surface mb-2">Stay Updated</h4>
+<div class="flex gap-2">
+<input class="bg-surface-container-lowest border-none px-4 py-2 rounded-lg text-xs w-full focus:ring-1 focus:ring-primary/40" placeholder="Your email" type="email"/>
+<button class="bg-primary text-on-primary px-4 py-2 rounded-lg text-xs font-bold transition-transform active:scale-95">Join</button>
+</div>
+<p class="font-inter text-xs text-[#434655]">© 2024 Precision Editorial. All rights reserved.</p>
+</div>
+</footer>
+</body></html>

@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Order History | The Precision Editorial</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "tertiary-fixed-dim": "#4ae176",
+              "on-primary-fixed": "#00174b",
+              "on-secondary-fixed-variant": "#38485d",
+              "primary-container": "#2563eb",
+              "on-tertiary-fixed": "#002109",
+              "on-surface-variant": "#434655",
+              "on-primary-fixed-variant": "#003ea8",
+              "surface-container": "#e5eeff",
+              "background": "#f8f9ff",
+              "tertiary-container": "#007e37",
+              "surface-container-high": "#dce9ff",
+              "on-primary-container": "#eeefff",
+              "primary": "#004ac6",
+              "tertiary": "#006229",
+              "surface-variant": "#d3e4fe",
+              "inverse-surface": "#213145",
+              "on-secondary-container": "#54647a",
+              "on-secondary": "#ffffff",
+              "on-secondary-fixed": "#0b1c30",
+              "surface-container-lowest": "#ffffff",
+              "on-tertiary-fixed-variant": "#005321",
+              "surface-tint": "#0053db",
+              "secondary-fixed": "#d3e4fe",
+              "error-container": "#ffdad6",
+              "secondary-fixed-dim": "#b7c8e1",
+              "primary-fixed-dim": "#b4c5ff",
+              "surface": "#f8f9ff",
+              "secondary": "#505f76",
+              "on-surface": "#0b1c30",
+              "on-error-container": "#93000a",
+              "surface-container-low": "#eff4ff",
+              "outline-variant": "#c3c6d7",
+              "on-primary": "#ffffff",
+              "surface-bright": "#f8f9ff",
+              "inverse-on-surface": "#eaf1ff",
+              "surface-dim": "#cbdbf5",
+              "inverse-primary": "#b4c5ff",
+              "on-error": "#ffffff",
+              "error": "#ba1a1a",
+              "on-background": "#0b1c30",
+              "tertiary-fixed": "#6bff8f",
+              "secondary-container": "#d0e1fb",
+              "outline": "#737686",
+              "on-tertiary-container": "#c1ffc5",
+              "surface-container-highest": "#d3e4fe",
+              "primary-fixed": "#dbe1ff",
+              "on-tertiary": "#ffffff"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3, .brand-font { font-family: 'Manrope', sans-serif; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface min-h-screen flex flex-col">
+<!-- TopNavBar -->
+<header class="fixed top-0 w-full z-50 bg-[#f8f9ff]/70 backdrop-blur-xl transition-all duration-300">
+<nav class="flex justify-between items-center px-8 py-4 max-w-full mx-auto">
+<div class="flex items-center gap-8">
+<span class="text-2xl font-bold tracking-tighter text-[#0b1c30] brand-font">The Precision Editorial</span>
+<div class="hidden md:flex gap-6 items-center">
+<a class="text-[#434655] hover:text-[#0b1c30] transition-colors font-['Manrope'] tracking-tight" href="#">Shop</a>
+<a class="text-[#434655] hover:text-[#0b1c30] transition-colors font-['Manrope'] tracking-tight" href="#">Collections</a>
+<a class="text-[#434655] hover:text-[#0b1c30] transition-colors font-['Manrope'] tracking-tight" href="#">About</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative hidden lg:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="pl-10 pr-4 py-2 bg-surface-container-low border-none rounded-lg focus:ring-2 focus:ring-primary/40 w-64 text-sm" placeholder="Search curated electronics..." type="text"/>
+</div>
+<button class="p-2 hover:bg-[#eff4ff] rounded-full transition-all duration-300">
+<span class="material-symbols-outlined text-blue-700" data-icon="shopping_cart">shopping_cart</span>
+</button>
+<button class="p-2 hover:bg-[#eff4ff] rounded-full transition-all duration-300 ring-2 ring-primary/20">
+<span class="material-symbols-outlined text-blue-700" data-icon="person">person</span>
+</button>
+</div>
+</nav>
+</header>
+<!-- Main Content Area -->
+<main class="flex-grow pt-24 pb-16 px-6 lg:px-12 max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12">
+<!-- Sidebar Navigation -->
+<aside class="lg:col-span-3">
+<div class="sticky top-32 space-y-8">
+<div>
+<h2 class="text-xs font-bold uppercase tracking-widest text-on-surface-variant mb-6 px-4">Account</h2>
+<nav class="flex flex-col gap-1">
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-all group" href="#">
+<span class="material-symbols-outlined text-xl group-hover:text-primary">person</span>
+<span class="font-medium">Profile</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 bg-surface-container-highest text-primary rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined text-xl" style="font-variation-settings: 'FILL' 1;">package_2</span>
+<span class="font-semibold">Orders</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-all group" href="#">
+<span class="material-symbols-outlined text-xl group-hover:text-primary">security</span>
+<span class="font-medium">Security</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-low rounded-lg transition-all group mt-4" href="#">
+<span class="material-symbols-outlined text-xl group-hover:text-error">logout</span>
+<span class="font-medium">Sign Out</span>
+</a>
+</nav>
+</div>
+<!-- Featured Promotion Card -->
+<div class="bg-primary p-6 rounded-xl relative overflow-hidden group">
+<div class="relative z-10">
+<p class="text-on-primary-container text-xs font-bold uppercase tracking-widest mb-2">Exclusive Offer</p>
+<h3 class="text-on-primary text-xl font-bold mb-4 leading-tight">Upgrade to Premium Support</h3>
+<button class="bg-surface-container-lowest text-primary px-4 py-2 rounded-lg text-sm font-bold hover:scale-105 transition-transform">Learn More</button>
+</div>
+<div class="absolute -right-4 -bottom-4 opacity-20 transform group-hover:scale-110 transition-transform duration-500">
+<span class="material-symbols-outlined text-8xl text-white">verified</span>
+</div>
+</div>
+</div>
+</aside>
+<!-- Order List Section -->
+<section class="lg:col-span-9 space-y-8">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div>
+<p class="text-primary font-bold tracking-widest text-xs uppercase mb-2">Purchase History</p>
+<h1 class="text-4xl font-extrabold text-on-surface tracking-tight">Orders</h1>
+</div>
+<div class="flex gap-3">
+<button class="bg-surface-container-low text-on-surface-variant px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2 border border-outline-variant/15">
+<span class="material-symbols-outlined text-sm">filter_list</span>
+                        All Statuses
+                    </button>
+<button class="bg-surface-container-low text-on-surface-variant px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2 border border-outline-variant/15">
+<span class="material-symbols-outlined text-sm">calendar_today</span>
+                        Past 3 Months
+                    </button>
+</div>
+</div>
+<!-- Bento Grid - Order List -->
+<div class="space-y-4">
+<!-- Order Card 1: Delivered -->
+<div class="bg-surface-container-lowest p-6 rounded-xl flex flex-col md:flex-row items-center gap-6 transition-all hover:shadow-[0_24px_40px_rgba(11,28,48,0.04)] group">
+<div class="w-full md:w-24 h-24 rounded-lg bg-surface-container-low flex-shrink-0 overflow-hidden relative">
+<img alt="High-end wireless headphones" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" data-alt="close-up of premium metallic wireless headphones with leather ear cups on a minimalist white background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCCkR8ABunSsDg9reay_2dlvL4bG0YPuOoy6hbe7531ll1bvquCvrO7FjcVhU-FHZwvuoiqGVd1rkWBITGiYbFkAWMvyYJgmK6PEUMT1ja_K1CLxCWTVX-bZ3k_VC_73_pMAsV84cw4k0BVeZtG0vqmkJ4MZ2EYOotgKMa3kkBxxHOhaOAJAYmGt13wcMJ2eSmj0Ss2GvUQU9oqvuLFc_rnBj-66cUgGAxTvMbuKiw6A2wJuTZluvApaU7aufuIXK42dDmD24VmOh8"/>
+</div>
+<div class="flex-grow grid grid-cols-2 md:grid-cols-4 gap-4 w-full">
+<div>
+<p class="text-[10px] uppercase tracking-widest text-on-surface-variant font-bold mb-1">Order ID</p>
+<p class="font-bold text-on-surface">#PE-92841</p>
+</div>
+<div>
+<p class="text-[10px] uppercase tracking-widest text-on-surface-variant font-bold mb-1">Date</p>
+<p class="font-medium text-on-surface">Oct 24, 2024</p>
+</div>
+<div>
+<p class="text-[10px] uppercase tracking-widest text-on-surface-variant font-bold mb-1">Total</p>
+<p class="font-bold text-primary">$349.00</p>
+</div>
+<div>
+<p class="text-[10px] uppercase tracking-widest text-on-surface-variant font-bold mb-1">Status</p>
+<span class="inline-flex items-center gap-1 text-tertiary font-bold text-xs bg-tertiary-fixed-dim/20 px-2 py-1 rounded-full">
+<span class="material-symbols-outlined text-xs" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                                Delivered
+                            </span>
+</div>
+</div>
+<div class="w-full md:w-auto">
+<button class="w-full md:w-auto bg-primary text-on-primary px-6 py-2.5 rounded-lg text-sm font-bold hover:opacity-90 transition-opacity active:scale-95 duration-200">View Details</button>
+</div>
+</div>
+<!-- Order Card 2: Shipped -->
+<div class="bg-surface-container-lowest p-6 rounded-xl flex flex-col md:flex-row items-center gap-6 transition-all hover:shadow-[0_24px_40px_rgba(11,28,48,0.04)] group">
+<div class="w-full md:w-24 h-24 rounded-lg bg-surface-container-low flex-shrink-0 overflow-hidden relative">
+<img alt="Professional SLR Camera" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" data-alt="vintage professional digital camera with a large lens on a clean studio table with soft dramatic lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDTOvCfX_owh77xsU4SaF98OQ305jF8RfoIW4KNaBQuQj8D5uEly7nNpeN75ehbva1ECTcK7C-kTVgUCsExU1-NROHoVa0Q_TaalERfVFdQtnLmfV430WE3qYnlQtS87I8YTLPnW38jlNm-8DXcby4o-K0leOTkeRP0EJPxbr0zW7AMy2aug1Aqtr95ZBfTbjA_imgM4h3TsD0EDDIDKxMFLu0mJ3YJeXdABgckvux3207JfbTyeJ5iOC_PfezJHTZ-4WZRCj4GH20"/>
+</div>
+<div class="flex-grow grid grid-cols-2 md:grid-cols-4 gap-4 w-full">
+<div>
+<p class="text-[10px] uppercase tracking-widest text-on-surface-variant font-bold mb-1">Order ID</p>
+<p class="font-bold text-on-surface">#PE-81722</p>
+</div>
+<div>
+<p class="text-[10px] uppercase tracking-widest text-on-surface-variant font-bold mb-1">Date</p>
+<p class="font-medium text-on-surface">Nov 02, 2024</p>
+</div>
+<div>
+<p class="text-[10px] uppercase tracking-widest text-on-surface-variant font-bold mb-1">Total</p>
+<p class="font-bold text-primary">$1,299.50</p>
+</div>
+<div>
+<p class="text-[10px] uppercase tracking-widest text-on-surface-variant font-bold mb-1">Status</p>
+<span class="inline-flex items-center gap-1 text-primary font-bold text-xs bg-secondary-container px-2 py-1 rounded-full">
+<span class="material-symbols-outlined text-xs" style="font-variation-settings: 'FILL' 1;">local_shipping</span>
+                                Shipped
+                            </span>
+</div>
+</div>
+<div class="w-full md:w-auto">
+<button class="w-full md:w-auto bg-primary text-on-primary px-6 py-2.5 rounded-lg text-sm font-bold hover:opacity-90 transition-opacity active:scale-95 duration-200">View Details</button>
+</div>
+</div>
+<!-- Order Card 3: Processing -->
+<div class="bg-surface-container-lowest p-6 rounded-xl flex flex-col md:flex-row items-center gap-6 transition-all hover:shadow-[0_24px_40px_rgba(11,28,48,0.04)] group">
+<div class="w-full md:w-24 h-24 rounded-lg bg-surface-container-low flex-shrink-0 overflow-hidden relative">
+<img alt="Silver Tablet" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" data-alt="sleek modern silver tablet lying on a wooden desk next to a cup of espresso in a bright workspace" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAbumsHCRPRvtk4b-fMli8cKk35aMYkgm2Z5SgL70B9aZXMy3_nqr7auOH6Xu-jZ-HUerIyM9i-9zNvTj1sYwBX6zdprXQTxHJpoeJ1DN6EdkS18Nr6pcx2pV7EA2QtQkUt8mxLD_WFW-0YLvlcIYyus5ZshjM77-VghDlc3q7IIFWeNy82pUNXzt0Ie5TwaVKEjykW3yFetlS7ICD3BWTW8Vci78dtwaRHhr55Esbn0Sk3m7wlgMKs6iZCtu6eqS7QnZybIocVy6E"/>
+</div>
+<div class="flex-grow grid grid-cols-2 md:grid-cols-4 gap-4 w-full">
+<div>
+<p class="text-[10px] uppercase tracking-widest text-on-surface-variant font-bold mb-1">Order ID</p>
+<p class="font-bold text-on-surface">#PE-77210</p>
+</div>
+<div>
+<p class="text-[10px] uppercase tracking-widest text-on-surface-variant font-bold mb-1">Date</p>
+<p class="font-medium text-on-surface">Nov 08, 2024</p>
+</div>
+<div>
+<p class="text-[10px] uppercase tracking-widest text-on-surface-variant font-bold mb-1">Total</p>
+<p class="font-bold text-primary">$899.00</p>
+</div>
+<div>
+<p class="text-[10px] uppercase tracking-widest text-on-surface-variant font-bold mb-1">Status</p>
+<span class="inline-flex items-center gap-1 text-on-secondary-container font-bold text-xs bg-surface-variant px-2 py-1 rounded-full">
+<span class="material-symbols-outlined text-xs" style="font-variation-settings: 'FILL' 1;">sync</span>
+                                Processing
+                            </span>
+</div>
+</div>
+<div class="w-full md:w-auto">
+<button class="w-full md:w-auto bg-primary text-on-primary px-6 py-2.5 rounded-lg text-sm font-bold hover:opacity-90 transition-opacity active:scale-95 duration-200">View Details</button>
+</div>
+</div>
+</div>
+<!-- Empty State Illustration / Support Section -->
+<div class="mt-16 bg-surface-container-low p-12 rounded-2xl text-center">
+<div class="max-w-md mx-auto">
+<div class="w-20 h-20 bg-surface-container-lowest rounded-full flex items-center justify-center mx-auto mb-6 text-primary shadow-sm">
+<span class="material-symbols-outlined text-4xl">contact_support</span>
+</div>
+<h3 class="text-2xl font-bold mb-3 tracking-tight">Need assistance?</h3>
+<p class="text-on-surface-variant mb-8 text-sm leading-relaxed">Our curation experts are available 24/7 to help with tracking, returns, or technical specifications of your past purchases.</p>
+<div class="flex flex-col sm:flex-row gap-4 justify-center">
+<button class="bg-primary text-on-primary px-8 py-3 rounded-lg font-bold text-sm">Chat with Support</button>
+<button class="bg-surface-container-lowest text-on-surface px-8 py-3 rounded-lg font-bold text-sm border border-outline-variant/15">View Help Center</button>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full mt-auto bg-[#eff4ff] dark:bg-[#0b1c30]">
+<div class="flex flex-col md:flex-row justify-between items-center px-12 py-16 gap-8 w-full max-w-7xl mx-auto">
+<div class="space-y-4 text-center md:text-left">
+<span class="brand-font font-bold text-xl text-[#0b1c30] dark:text-white">The Precision Editorial</span>
+<p class="text-[#434655] dark:text-[#c3c6d7] text-xs uppercase tracking-widest max-w-xs">© 2024 Precision Editorial Electronics. All rights reserved.</p>
+</div>
+<div class="flex flex-wrap justify-center gap-8">
+<a class="font-['Inter'] text-sm uppercase tracking-widest text-[#434655] dark:text-[#c3c6d7] hover:text-[#004ac6] transition-colors" href="#">Privacy Policy</a>
+<a class="font-['Inter'] text-sm uppercase tracking-widest text-[#434655] dark:text-[#c3c6d7] hover:text-[#004ac6] transition-colors" href="#">Terms of Service</a>
+<a class="font-['Inter'] text-sm uppercase tracking-widest text-[#434655] dark:text-[#c3c6d7] hover:text-[#004ac6] transition-colors" href="#">Support</a>
+<a class="font-['Inter'] text-sm uppercase tracking-widest text-[#434655] dark:text-[#c3c6d7] hover:text-[#004ac6] transition-colors" href="#">Shipping</a>
+</div>
+</div>
+</footer>
+<!-- Mobile Navigation (Visible only on mobile) -->
+<div class="md:hidden fixed bottom-0 left-0 right-0 bg-[#f8f9ff]/90 backdrop-blur-lg z-50 flex justify-around items-center py-4 px-6 border-t border-outline-variant/10">
+<button class="flex flex-col items-center gap-1 text-[#434655]">
+<span class="material-symbols-outlined">home</span>
+<span class="text-[10px] font-bold uppercase tracking-tighter">Shop</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-[#004ac6]">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">package_2</span>
+<span class="text-[10px] font-bold uppercase tracking-tighter">Orders</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-[#434655]">
+<span class="material-symbols-outlined">person</span>
+<span class="text-[10px] font-bold uppercase tracking-tighter">Account</span>
+</button>
+</div>
+</body></html>

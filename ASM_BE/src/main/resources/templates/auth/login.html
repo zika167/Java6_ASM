@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+      layout:decorate="~{layout/layout}">
+<head>
+    <title>Login | Precision Digital</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-md w-full space-y-8">
+            <div>
+                <h2 class="mt-6 text-center text-3xl font-extrabold text-on-surface">
+                    Sign in to your account
+                </h2>
+                <p class="mt-2 text-center text-sm text-on-surface-variant">
+                    Or
+                    <a th:href="@{/register}" class="font-medium text-primary hover:text-primary-container">
+                        create a new account
+                    </a>
+                </p>
+            </div>
+            
+            <div class="bg-surface-container-lowest rounded-xl shadow-lg p-8" id="loginForm">
+                <div v-if="errorMessage" class="mb-4 p-4 bg-error-container text-on-error-container rounded-lg">
+                    {{ errorMessage }}
+                </div>
+                
+                <form class="space-y-6" @submit.prevent="login">
+                    <div>
+                        <label for="username" class="block text-sm font-medium text-on-surface">
+                            Username
+                        </label>
+                        <input id="username" 
+                               name="username" 
+                               type="text" 
+                               required 
+                               v-model="loginData.username"
+                               class="mt-1 block w-full px-3 py-2 border border-outline-variant rounded-lg shadow-sm placeholder-on-surface-variant focus:outline-none focus:ring-primary focus:border-primary">
+                    </div>
+                    
+                    <div>
+                        <label for="password" class="block text-sm font-medium text-on-surface">
+                            Password
+                        </label>
+                        <input id="password" 
+                               name="password" 
+                               type="password" 
+                               required 
+                               v-model="loginData.password"
+                               class="mt-1 block w-full px-3 py-2 border border-outline-variant rounded-lg shadow-sm placeholder-on-surface-variant focus:outline-none focus:ring-primary focus:border-primary">
+                    </div>
+                    
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center">
+                            <input id="remember-me" 
+                                   name="remember-me" 
+                                   type="checkbox" 
+                                   class="h-4 w-4 text-primary focus:ring-primary border-outline-variant rounded">
+                            <label for="remember-me" class="ml-2 block text-sm text-on-surface">
+                                Remember me
+                            </label>
+                        </div>
+                        
+                        <div class="text-sm">
+                            <a href="#" class="font-medium text-primary hover:text-primary-container">
+                                Forgot your password?
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <button type="submit" 
+                                :disabled="loading"
+                                class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-lg text-white bg-primary hover:bg-primary-container focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary disabled:opacity-50">
+                            <span v-if="!loading">Sign in</span>
+                            <span v-else>Signing in...</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const { createApp } = Vue;
+        
+        createApp({
+            data() {
+                return {
+                    loginData: {
+                        username: '',
+                        password: ''
+                    },
+                    loading: false,
+                    errorMessage: ''
+                }
+            },
+            methods: {
+                async login() {
+                    this.loading = true;
+                    this.errorMessage = '';
+                    
+                    try {
+                        const response = await axios.post('/api/v1/auth/login', this.loginData, {
+                            withCredentials: true
+                        });
+                        
+                        if (response.data.status === 200) {
+                            // Redirect based on user role
+                            const redirectUrl = response.data.data.redirectUrl || '/';
+                            window.location.href = redirectUrl;
+                        }
+                    } catch (error) {
+                        if (error.response?.data?.message) {
+                            this.errorMessage = error.response.data.message;
+                        } else {
+                            this.errorMessage = 'Login failed. Please try again.';
+                        }
+                    } finally {
+                        this.loading = false;
+                    }
+                }
+            }
+        }).mount('#loginForm');
+    </script>
+</div>
+</body>
+</html>

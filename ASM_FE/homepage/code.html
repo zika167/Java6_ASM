@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Manrope:wght@500;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "secondary-fixed-dim": "#b7c8e1",
+              "tertiary-fixed-dim": "#4ae176",
+              "surface-variant": "#d3e4fe",
+              "on-error-container": "#93000a",
+              "surface": "#f8f9ff",
+              "secondary": "#505f76",
+              "on-surface": "#0b1c30",
+              "tertiary-fixed": "#6bff8f",
+              "surface-bright": "#f8f9ff",
+              "on-tertiary-fixed-variant": "#005321",
+              "tertiary": "#006229",
+              "surface-container-lowest": "#ffffff",
+              "on-secondary-fixed": "#0b1c30",
+              "on-background": "#0b1c30",
+              "tertiary-container": "#007e37",
+              "error": "#ba1a1a",
+              "on-primary-container": "#eeefff",
+              "error-container": "#ffdad6",
+              "primary-fixed-dim": "#b4c5ff",
+              "primary": "#004ac6",
+              "on-tertiary-container": "#c1ffc5",
+              "inverse-surface": "#213145",
+              "background": "#f8f9ff",
+              "secondary-container": "#d0e1fb",
+              "on-tertiary-fixed": "#002109",
+              "on-tertiary": "#ffffff",
+              "surface-container-highest": "#d3e4fe",
+              "surface-container-high": "#dce9ff",
+              "outline-variant": "#c3c6d7",
+              "primary-fixed": "#dbe1ff",
+              "inverse-on-surface": "#eaf1ff",
+              "inverse-primary": "#b4c5ff",
+              "on-secondary-container": "#54647a",
+              "on-secondary": "#ffffff",
+              "surface-container-low": "#eff4ff",
+              "primary-container": "#2563eb",
+              "secondary-fixed": "#d3e4fe",
+              "outline": "#737686",
+              "on-error": "#ffffff",
+              "on-surface-variant": "#434655",
+              "surface-dim": "#cbdbf5",
+              "surface-tint": "#0053db",
+              "on-primary-fixed": "#00174b",
+              "on-primary": "#ffffff",
+              "surface-container": "#e5eeff",
+              "on-primary-fixed-variant": "#003ea8",
+              "on-secondary-fixed-variant": "#38485d"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        .editorial-gradient {
+            background: linear-gradient(135deg, #004ac6 0%, #2563eb 100%);
+        }
+        .glass-nav {
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface selection:bg-primary-container selection:text-white">
+<!-- Top Navigation Bar -->
+<nav class="fixed top-0 w-full z-50 glass-nav bg-surface/70 shadow-sm">
+<div class="flex justify-between items-center px-8 py-4 max-w-full mx-auto">
+<div class="flex items-center gap-12">
+<span class="text-xl font-bold tracking-tighter text-slate-900 font-headline">Precision Digital</span>
+<div class="hidden md:flex gap-8 items-center">
+<a class="font-manrope tracking-tight font-medium text-slate-600 hover:text-slate-900 transition-colors" href="#">Audio</a>
+<a class="font-manrope tracking-tight font-medium text-slate-600 hover:text-slate-900 transition-colors" href="#">Computing</a>
+<a class="font-manrope tracking-tight font-medium text-blue-700 font-bold border-b-2 border-blue-600" href="#">Mobile</a>
+<a class="font-manrope tracking-tight font-medium text-slate-600 hover:text-slate-900 transition-colors" href="#">Visual</a>
+<a class="font-manrope tracking-tight font-medium text-slate-600 hover:text-slate-900 transition-colors" href="#">Accessories</a>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<button class="text-slate-600 hover:bg-blue-50/50 p-2 rounded-full transition-all">
+<span class="material-symbols-outlined">search</span>
+</button>
+<button class="text-slate-600 hover:bg-blue-50/50 p-2 rounded-full transition-all">
+<span class="material-symbols-outlined">shopping_cart</span>
+</button>
+<button class="text-slate-600 hover:bg-blue-50/50 p-2 rounded-full transition-all">
+<span class="material-symbols-outlined">account_circle</span>
+</button>
+</div>
+</div>
+</nav>
+<main class="pt-20">
+<!-- Hero Section -->
+<section class="relative h-[870px] flex items-center overflow-hidden bg-surface-container-low">
+<div class="container mx-auto px-8 grid grid-cols-1 md:grid-cols-2 gap-12 items-center z-10">
+<div class="space-y-8">
+<div class="inline-block px-4 py-1.5 bg-primary-container/10 text-primary font-semibold text-sm tracking-wide rounded-full">
+                        NEW ARRIVAL
+                    </div>
+<h1 class="text-6xl md:text-8xl font-extrabold font-headline leading-[1.1] text-on-surface tracking-tighter">
+                        Smartphone <br/><span class="text-primary">X Elite</span>
+</h1>
+<p class="text-lg text-on-surface-variant max-w-md font-medium leading-relaxed">
+                        Redefining precision engineering. Experience the pinnacle of mobile performance and cinematic visual depth.
+                    </p>
+<div class="flex gap-4 pt-4">
+<button class="editorial-gradient text-on-primary px-8 py-4 rounded-lg font-semibold shadow-lg hover:shadow-primary/20 transition-all scale-100 active:scale-95">
+                            Shop Now
+                        </button>
+<button class="bg-surface-container-highest text-primary px-8 py-4 rounded-lg font-semibold hover:bg-surface-container-high transition-all">
+                            Learn More
+                        </button>
+</div>
+</div>
+<div class="relative flex justify-center">
+<img class="w-full max-w-lg object-contain drop-shadow-2xl" data-alt="Modern smartphone with titanium finish and large lens camera floating against a minimalist soft blue background with sharp studio lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-6zkx4EQwpkzZ9ZL2XEJ4HFqo4mAFMTBmH-NBUNE5GchHuVbt_KLYPcdMbAoUmJhurJS5GuwjKyKHgpIpVIcbse264OdSvoif116maRJt672hYQrSFzv6RlBIEybb_exwU7MYyNasQihnnCmkQ6Mvnl-OCVdzxoYKSco9EOuAbErho-mJ5U2Mt_sluro_TmfRWgTpAVePX4nRGf4tp7Uw5pm_gbTxCm4mUcEZWrHCZoydU3hsr3jNjj0QlTyPSy_lBNdxMiXZ6rM"/>
+</div>
+</div>
+<!-- Decorative Element -->
+<div class="absolute -right-20 top-20 w-96 h-96 bg-primary/5 rounded-full blur-[100px]"></div>
+</section>
+<!-- Featured Categories: Bento Grid Style -->
+<section class="py-32 container mx-auto px-8">
+<div class="mb-16">
+<h2 class="text-4xl font-extrabold font-headline tracking-tighter mb-4">Explore Collections</h2>
+<p class="text-on-surface-variant max-w-xl">Curated technology designed to integrate seamlessly into your professional ecosystem.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-4 md:grid-rows-2 gap-6 h-auto md:h-[600px]">
+<div class="md:col-span-2 md:row-span-2 bg-surface-container-lowest p-10 rounded-xl relative group overflow-hidden flex flex-col justify-end">
+<img class="absolute inset-0 w-full h-full object-cover opacity-10 group-hover:scale-105 transition-transform duration-700" data-alt="Over-ear professional studio headphones on a designer wooden desk with warm side lighting and shadow play" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB6bYn5g2aZoXNb7szm2wm5HZ7kwcocfgQfQBR9UtkZ08bTVpB41oDD-5Iq1iCt7JfKs6PbpBauSrt8swV4wetUyOs4vgpyJECYel2HraKLoue85t919spgYb5RyyjJLF2oU_C-D2EauukrDUFZ5HoglkWMo5R-L6ef_og6bi8lu13-LizGQG4XDgaxskLCkwc2LeoWzWwk8i5ftO2m3ZfKVcdw4-JyPzREakx98jVb2qVLrhwToO1MaIFc_ySgaxfNztgj7tWJE70"/>
+<div class="z-10 relative">
+<span class="material-symbols-outlined text-primary text-4xl mb-6">headphones</span>
+<h3 class="text-3xl font-bold font-headline mb-2">Audio</h3>
+<p class="text-on-surface-variant mb-6">Lossless clarity for every note.</p>
+<button class="text-primary font-bold inline-flex items-center gap-2 group">
+                            Explore <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</button>
+</div>
+</div>
+<div class="md:col-span-2 bg-surface-container-lowest p-10 rounded-xl relative group overflow-hidden flex items-center">
+<img class="absolute inset-0 w-full h-full object-cover opacity-10 group-hover:scale-105 transition-transform duration-700" data-alt="High-end metallic laptop open on a white marble surface with morning sunlight casting soft geometric shadows" src="https://lh3.googleusercontent.com/aida-public/AB6AXuATZggAojL1F1V9CARuzPeY8NWXkvRk-uRJgL2mKIVPnwqn605KFh_KOiSuFxGOriaKmd4KOfS58co41fqqh-viO-PDxJx2iAljYry7ReEF74Sj8GA0-LGjRWHUn5ebYTlt-ySC1A04G1qitcrA8f2Y4-IuhqU-1r_ux51yGT8kHPfwJ21166q_v9SbIC5NGhZXYGiNGTvySYOd_2aUrPRtSngVUxExq7H43pWtzgeco157rFNob806mglO4BFd3bt949GsGPXYcPI"/>
+<div class="z-10 relative w-full">
+<span class="material-symbols-outlined text-primary text-4xl mb-4">laptop_mac</span>
+<h3 class="text-2xl font-bold font-headline mb-2">Computing</h3>
+<button class="text-primary font-bold inline-flex items-center gap-2">View Series <span class="material-symbols-outlined">chevron_right</span></button>
+</div>
+</div>
+<div class="bg-surface-container-low p-8 rounded-xl group hover:bg-primary-container/5 transition-colors">
+<span class="material-symbols-outlined text-primary text-3xl mb-4">smartphone</span>
+<h3 class="text-xl font-bold font-headline mb-2">Mobile</h3>
+<p class="text-sm text-on-surface-variant">The future of portability.</p>
+</div>
+<div class="bg-surface-container-low p-8 rounded-xl group hover:bg-primary-container/5 transition-colors">
+<span class="material-symbols-outlined text-primary text-3xl mb-4">tv</span>
+<h3 class="text-xl font-bold font-headline mb-2">Visual</h3>
+<p class="text-sm text-on-surface-variant">4K immersion redefine.</p>
+</div>
+</div>
+</section>
+<!-- Editor's Choice -->
+<section class="py-32 bg-surface-container-low">
+<div class="container mx-auto px-8">
+<div class="flex justify-between items-end mb-16">
+<div>
+<h2 class="text-4xl font-extrabold font-headline tracking-tighter mb-4">Editor's Choice</h2>
+<p class="text-on-surface-variant">Rigorous testing. Unmatched quality. Our top picks for this month.</p>
+</div>
+<button class="text-primary font-bold border-b-2 border-primary/20 hover:border-primary transition-all pb-1">View Full Selection</button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+<!-- Product 1 -->
+<div class="group">
+<div class="bg-surface-container-lowest p-8 rounded-xl mb-6 relative overflow-hidden">
+<img class="w-full aspect-square object-contain group-hover:scale-105 transition-transform duration-500" data-alt="Professional wireless headphones in matte black finish on a clean studio background with soft top lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDD4ZrBTnMqYlhWB8EmghA_MNIU0L9hNNyP31zHFlgJBlKXdeWkxE7WkTlaAlUyK1LNmmcam4nzYP7H03KuW9AxA0AjMk89_pTK954r9wPhhFReSN2RX2d8IkARjGLODBuLCxl-3FdQ179UmNQ4xMgKjkJfZyeG2SfLowHRLMpGZ5NCtkklukCTpSPVN6878VqQmO3lJSHQfecaiIJn6a-NiI5uNK9xdDRtzMyg9L2UW--Nrm2wxeBRt5eZi-Kv6-9LUdf0j6TgB5w"/>
+<button class="absolute bottom-4 left-4 right-4 bg-on-surface text-surface py-3 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 font-semibold text-sm">
+                                Quick View
+                            </button>
+</div>
+<div class="flex justify-between items-start">
+<div>
+<h4 class="font-headline font-bold text-lg">Acoustic Pro 900</h4>
+<p class="text-on-surface-variant text-sm">Active Noise Cancelling</p>
+</div>
+<span class="font-bold text-primary">$449.00</span>
+</div>
+</div>
+<!-- Product 2 -->
+<div class="group">
+<div class="bg-surface-container-lowest p-8 rounded-xl mb-6 relative overflow-hidden">
+<img class="w-full aspect-square object-contain group-hover:scale-105 transition-transform duration-500" data-alt="Sleek aluminum laptop with bright high-resolution screen showing creative software on a minimalist white table" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAj0X7MdfoyOMLT5teY4yFaXE0Riu-XvKbJFgG1PXuFcLlmGwIvzhgznyLLkmahZ0BoxSGezIJrRubyIrGWwVnkYE0ROJi8YNchxWHIgr92kE8byHcVPVna2Gni8W-lZQy4zpKzByKOsJ4S_ns3AdZ5ph5EnXxeEtnrqODY85e4OMDNiwMYlf5hHn58CmnOC7BOYcpstpfDKoZxohbs2It1e9BdFrcA1kjUC1rzbTxdTNvdq5T2Ulvgt2ErBilvmBFf7a5J8lBDnus"/>
+<button class="absolute bottom-4 left-4 right-4 bg-on-surface text-surface py-3 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 font-semibold text-sm">
+                                Quick View
+                            </button>
+</div>
+<div class="flex justify-between items-start">
+<div>
+<h4 class="font-headline font-bold text-lg">Precision Book Air</h4>
+<p class="text-on-surface-variant text-sm">M2 Ultra Chip, 32GB RAM</p>
+</div>
+<span class="font-bold text-primary">$2,199.00</span>
+</div>
+</div>
+<!-- Product 3 -->
+<div class="group">
+<div class="bg-surface-container-lowest p-8 rounded-xl mb-6 relative overflow-hidden">
+<img class="w-full aspect-square object-contain group-hover:scale-105 transition-transform duration-500" data-alt="Luxury smartwatch with metallic band and vibrant digital interface on a textured dark background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAYBDKsp5F1YY3Z9LleDqBfnGyvwfDheuAFGgLcJA07QI_QODtX3AQqFx0yYCVWkHAnH2d9zP26skzCwJnZeFk2OH8-om1r9y9Oe46IlvWy6cjFN3_ommbQ2eZv5jxJXuQV2QiZjvCHdzvMJ7FcEe7_1_4iwJctEBBlsEF59C3mNmlMzgs-So1w9Bw0Jzdc7GR5j8E9Ok2txsrE8uIRgqICiqEbZ8qzSvjcTmjGEz7ekje13tFYfsCoM6cGsakwEzIeEK3cnkYzw10"/>
+<button class="absolute bottom-4 left-4 right-4 bg-on-surface text-surface py-3 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 font-semibold text-sm">
+                                Quick View
+                            </button>
+</div>
+<div class="flex justify-between items-start">
+<div>
+<h4 class="font-headline font-bold text-lg">Chronos X Series</h4>
+<p class="text-on-surface-variant text-sm">Sapphire Glass Display</p>
+</div>
+<span class="font-bold text-primary">$699.00</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Brand Promise -->
+<section class="py-24 container mx-auto px-8">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-16">
+<div class="flex flex-col items-center text-center space-y-4">
+<div class="w-16 h-16 rounded-full bg-primary/5 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-3xl">local_shipping</span>
+</div>
+<h3 class="text-xl font-bold font-headline">Free Shipping</h3>
+<p class="text-on-surface-variant text-sm leading-relaxed max-w-xs">Complimentary express shipping on all orders over $500, handled with utmost care.</p>
+</div>
+<div class="flex flex-col items-center text-center space-y-4">
+<div class="w-16 h-16 rounded-full bg-primary/5 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-3xl">verified</span>
+</div>
+<h3 class="text-xl font-bold font-headline">2-Year Warranty</h3>
+<p class="text-on-surface-variant text-sm leading-relaxed max-w-xs">Our precision hardware is built to last. We stand by it with a comprehensive guarantee.</p>
+</div>
+<div class="flex flex-col items-center text-center space-y-4">
+<div class="w-16 h-16 rounded-full bg-primary/5 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-3xl">support_agent</span>
+</div>
+<h3 class="text-xl font-bold font-headline">Expert Support</h3>
+<p class="text-on-surface-variant text-sm leading-relaxed max-w-xs">Direct access to technical specialists who understand your workflow.</p>
+</div>
+</div>
+</section>
+<!-- Newsletter Section -->
+<section class="py-32 px-8">
+<div class="max-w-5xl mx-auto editorial-gradient rounded-3xl p-16 relative overflow-hidden text-center text-on-primary">
+<div class="relative z-10 max-w-2xl mx-auto">
+<h2 class="text-4xl font-extrabold font-headline mb-6 tracking-tighter">Stay Ahead of the Curve</h2>
+<p class="text-primary-container font-medium mb-10 opacity-90">Join our newsletter for exclusive early access to product launches and editorial insights into the future of digital tech.</p>
+<form class="flex flex-col md:flex-row gap-4">
+<input class="flex-1 px-6 py-4 rounded-xl bg-white/10 border-white/20 text-white placeholder:text-white/60 focus:ring-2 focus:ring-white/40 focus:border-transparent outline-none transition-all font-body" placeholder="Enter your professional email" type="email"/>
+<button class="bg-white text-primary px-10 py-4 rounded-xl font-bold hover:bg-opacity-90 transition-all shadow-xl">Subscribe</button>
+</form>
+</div>
+<!-- Abstract Accents -->
+<div class="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -mr-20 -mt-20 blur-3xl"></div>
+<div class="absolute bottom-0 left-0 w-64 h-64 bg-black/5 rounded-full -ml-20 -mb-20 blur-3xl"></div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-slate-100 mt-auto border-t border-slate-200/10">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-12 px-12 py-16 w-full max-w-full">
+<div class="space-y-6">
+<span class="text-lg font-black text-slate-900 font-headline">Precision Digital</span>
+<p class="text-slate-500 font-inter text-sm antialiased leading-relaxed">Defining the nexus of high-end engineering and digital lifestyle since 2012.</p>
+<div class="flex gap-4">
+<span class="material-symbols-outlined text-slate-400 hover:text-blue-600 cursor-pointer transition-colors">brand_awareness</span>
+<span class="material-symbols-outlined text-slate-400 hover:text-blue-600 cursor-pointer transition-colors">share</span>
+<span class="material-symbols-outlined text-slate-400 hover:text-blue-600 cursor-pointer transition-colors">public</span>
+</div>
+</div>
+<div>
+<h4 class="font-bold font-headline mb-6 text-slate-900">Products</h4>
+<ul class="space-y-4">
+<li><a class="text-slate-500 font-inter text-sm antialiased hover:translate-x-1 transition-transform duration-200 block hover:text-blue-500" href="#">Audio Experience</a></li>
+<li><a class="text-slate-500 font-inter text-sm antialiased hover:translate-x-1 transition-transform duration-200 block hover:text-blue-500" href="#">Computing Core</a></li>
+<li><a class="text-slate-500 font-inter text-sm antialiased hover:translate-x-1 transition-transform duration-200 block hover:text-blue-500" href="#">Mobile Ecosystem</a></li>
+<li><a class="text-slate-500 font-inter text-sm antialiased hover:translate-x-1 transition-transform duration-200 block hover:text-blue-500" href="#">Visual Mastery</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-bold font-headline mb-6 text-slate-900">Support</h4>
+<ul class="space-y-4">
+<li><a class="text-slate-500 font-inter text-sm antialiased hover:translate-x-1 transition-transform duration-200 block hover:text-blue-500" href="#">Help Center</a></li>
+<li><a class="text-slate-500 font-inter text-sm antialiased hover:translate-x-1 transition-transform duration-200 block hover:text-blue-500" href="#">Warranty Policy</a></li>
+<li><a class="text-slate-500 font-inter text-sm antialiased hover:translate-x-1 transition-transform duration-200 block hover:text-blue-500" href="#">Shipping Details</a></li>
+<li><a class="text-slate-500 font-inter text-sm antialiased hover:translate-x-1 transition-transform duration-200 block hover:text-blue-500" href="#">Track Order</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-bold font-headline mb-6 text-slate-900">Corporate</h4>
+<ul class="space-y-4">
+<li><a class="text-slate-500 font-inter text-sm antialiased hover:translate-x-1 transition-transform duration-200 block hover:text-blue-500" href="#">Sustainability</a></li>
+<li><a class="text-slate-500 font-inter text-sm antialiased hover:translate-x-1 transition-transform duration-200 block hover:text-blue-500" href="#">Privacy Policy</a></li>
+<li><a class="text-slate-500 font-inter text-sm antialiased hover:translate-x-1 transition-transform duration-200 block hover:text-blue-500" href="#">Terms of Service</a></li>
+</ul>
+</div>
+</div>
+<div class="px-12 py-8 border-t border-slate-200 flex flex-col md:flex-row justify-between items-center gap-4">
+<p class="text-slate-500 font-inter text-sm antialiased">© 2024 Precision Editorial. All rights reserved.</p>
+<div class="flex gap-6">
+<span class="text-xs text-slate-400 font-inter antialiased uppercase tracking-widest">Designed for Excellence</span>
+</div>
+</div>
+</footer>
+</body></html>

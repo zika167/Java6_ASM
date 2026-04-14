@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Precision Editorial | Smartphone X Detail</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary-fixed-dim": "#b4c5ff",
+                        "on-secondary": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "primary": "#004ac6",
+                        "inverse-surface": "#213145",
+                        "surface-container": "#e5eeff",
+                        "on-tertiary-fixed-variant": "#005321",
+                        "secondary-fixed": "#d3e4fe",
+                        "surface-dim": "#cbdbf5",
+                        "primary-container": "#2563eb",
+                        "surface-tint": "#0053db",
+                        "on-secondary-fixed-variant": "#38485d",
+                        "on-secondary-container": "#54647a",
+                        "primary-fixed": "#dbe1ff",
+                        "on-tertiary-fixed": "#002109",
+                        "tertiary-fixed-dim": "#4ae176",
+                        "secondary-container": "#d0e1fb",
+                        "error": "#ba1a1a",
+                        "surface-container-low": "#eff4ff",
+                        "surface-container-highest": "#d3e4fe",
+                        "on-primary-fixed-variant": "#003ea8",
+                        "outline": "#737686",
+                        "tertiary-container": "#007e37",
+                        "background": "#f8f9ff",
+                        "on-surface": "#0b1c30",
+                        "on-error": "#ffffff",
+                        "tertiary-fixed": "#6bff8f",
+                        "surface-bright": "#f8f9ff",
+                        "surface-container-high": "#dce9ff",
+                        "surface": "#f8f9ff",
+                        "error-container": "#ffdad6",
+                        "on-background": "#0b1c30",
+                        "surface-variant": "#d3e4fe",
+                        "on-primary": "#ffffff",
+                        "tertiary": "#006229",
+                        "secondary": "#505f76",
+                        "on-tertiary": "#ffffff",
+                        "on-primary-fixed": "#00174b",
+                        "secondary-fixed-dim": "#b7c8e1",
+                        "on-surface-variant": "#434655",
+                        "outline-variant": "#c3c6d7",
+                        "inverse-primary": "#b4c5ff",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary-container": "#c1ffc5",
+                        "on-primary-container": "#eeefff",
+                        "on-secondary-fixed": "#0b1c30",
+                        "inverse-on-surface": "#eaf1ff"
+                    },
+                    fontFamily: {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-nav {
+            background: rgba(248, 249, 255, 0.7);
+            backdrop-filter: blur(12px);
+        }
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3, .font-headline { font-family: 'Manrope', sans-serif; }
+    </style>
+</head>
+<body class="bg-background text-on-surface">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 flex justify-between items-center px-6 py-3 max-w-full glass-nav no-border">
+<div class="flex items-center gap-8">
+<span class="text-xl font-bold tracking-tighter text-on-surface">Precision Editorial</span>
+<div class="hidden md:flex gap-6 font-manrope text-sm font-semibold tracking-tight">
+<a class="text-primary border-b-2 border-primary pb-1" href="#">Shop</a>
+<a class="text-on-surface-variant hover:text-on-surface transition-all" href="#">Collections</a>
+<a class="text-on-surface-variant hover:text-on-surface transition-all" href="#">Editorial</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative hidden sm:block">
+<input class="bg-surface-container-highest border-none rounded-lg px-4 py-1.5 text-sm focus:ring-2 focus:ring-primary/40 w-64 transition-all" placeholder="Search curated tech..." type="text"/>
+<span class="material-symbols-outlined absolute right-3 top-1.5 text-on-surface-variant text-lg">search</span>
+</div>
+<button class="p-2 transition-transform active:scale-90 text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="shopping_cart">shopping_cart</span>
+</button>
+<button class="p-2 transition-transform active:scale-90 text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+</button>
+</div>
+</nav>
+<main class="pt-24 pb-16 px-6 max-w-7xl mx-auto">
+<!-- Breadcrumbs -->
+<nav class="flex items-center gap-2 text-xs font-medium text-on-surface-variant mb-8 uppercase tracking-widest"><a class="hover:text-primary" href="#">Home</a><span class="material-symbols-outlined text-xs">chevron_right</span><a class="hover:text-primary" href="#">Shop</a><span class="material-symbols-outlined text-xs">chevron_right</span><a class="hover:text-primary" href="#">Computing</a><span class="material-symbols-outlined text-xs">chevron_right</span><span class="text-on-surface">Precision Book Pro</span></nav>
+<!-- Product Hero Section -->
+<section class="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-24">
+<!-- Left: Product Image & Gallery -->
+<div class="lg:col-span-7 flex flex-col md:flex-row-reverse gap-4">
+<div class="flex-1 aspect-[4/5] bg-surface-container-lowest rounded-xl overflow-hidden relative">
+<img alt="Smartphone X" class="w-full h-full object-cover" data-alt="Sleek profile of a premium silver workstation laptop with a high-resolution display and backlit keyboard" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDY42B9SjLsyVJ6NmLwnOdnTLkE82ZPv06zibCI9nR492_m5PahBIVoS1sLnnkO1L-Qse-0OZC_OMMSZDnDGo30b-nAJ9jyglSLV4hhuakLWa7nnBJawNetGM4jx3nb5-It65O0G11M7nC9G1nIBdj_enfG3uQNRZU4Wa3TAOlE3eSu77xWLWz8uFuC7U85JUiQAGu01ik_9U10_IcgjG6bmu360ELKjlfmdHe_EHoOrXSfolS3A3KoIFY923FigprpxynF8bD2YOE"/>
+</div>
+<div class="flex md:flex-col gap-4 overflow-x-auto md:overflow-visible pb-2 md:pb-0">
+<button class="w-20 h-20 rounded-lg bg-surface-container-lowest border-2 border-primary overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="Close-up of smartphone lens detail" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDqWvRxp2ZHOs3O471Mgii8aFjlTSWZt-OcxBpgsXWyW7fnbu4JaBhxHM1keGb6SG_-nk-b7N2RGwqHnO4W6lIpc0OLJoaCJ6si4pikKfujxjWN2gvdDjMxx5n5mmwptuP7lQPMmcMyi6rc_ZUyBnvHyag98_BE9O7w7LbFvFg_PtMU9Swk9Yu4SimKn3wKlOpxGtoA_tzqCSEt3NpMw3OBVjLSwNWsYOpzb2e6CXzTWnLQPB0laDtl4lkBCnetlTc9qm5TRbnRvcg"/>
+</button>
+<button class="w-20 h-20 rounded-lg bg-surface-container-lowest hover:bg-surface-container-high transition-colors overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="Side profile view of smartphone thin bezel" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAoAO6t5GMH7l5HSQkvcPY1l2vLIo59xkEe2YvaIRVevr57Rh0jRx4FFL0TPe0weaOqWM2quyeFHJ3XpoRe0pISCF9WHGmgn-M1TCkeReyk6c0vWq1i1YEphXb9o9wiUtXngChNA6XLEobsnkHScaliRMf22QUWVQyYe7W1emPTYtdGN476CIKU4c9W_zO7Nu66rDvpLzeZOpl_yiSIabPtI5cJZ1kPw_i-ApUgEwZUHv8NFd9POPdmU1NCTzTvH5yjGN5UzL8W8ZI"/>
+</button>
+<button class="w-20 h-20 rounded-lg bg-surface-container-lowest hover:bg-surface-container-high transition-colors overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="Smartphone screen showing vibrant colors" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCSRaIol6ETr_d_24Y7WUKFM9tLrTowAsrvc1e0DZW1wQuugw0ZQZoUsRG-PlbN-giDmhU-JE_gq0MKaxm29BRMsK55bdCap2gZKyqMAiQnj9mj-f0wF-cq0XAyUCrY4LigZB3wkV8KtdxKeFzbqx6OtasQ51qgeBX1mp43QuBx_6jDY1niZW0KW-Q7mYF2mRLuSZ5oAR08yDkG13GHAjIa8PmoaKw1qGndZy8n0TUCLRdY28mdNhKvxPqjMs2o245NfzlBgQKLTss"/>
+</button>
+<button class="w-20 h-20 rounded-lg bg-surface-container-lowest hover:bg-surface-container-high transition-colors overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="Lifestyle shot of smartphone on an office desk" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDZbyyO1yzKdg6hRst8JQcotaL3Y3isyRpWKptUrblol0o4VtNN5wKjKVtqu56hszH9CClkRFn_BuPz_jlbsHF_wZxXnElW71zhgnlWlcCI45li1qpqF5aNqutdOhyiJCBtbegZnASEbJxXCScb34LZ7dQfRAThdT978qRsHrV6zp8znp6a0phS0dnArHUgOkKTNU1lxsZwAx6WwAXrxLWGqmoul04KVotScMhHpLe1PJZ92Amhizx3UI40RBUFYAIWOS2PZuwnf-Q"/>
+</button>
+</div>
+</div>
+<!-- Right: Product Details -->
+<div class="lg:col-span-5 flex flex-col justify-center">
+<span class="text-primary font-bold text-sm tracking-widest uppercase mb-2">Editor's Choice</span>
+<h1 class="text-4xl lg:text-5xl font-extrabold text-on-surface mb-4 leading-tight">Precision Book Pro Ultra</h1>
+<div class="flex items-center gap-4 mb-6">
+<div class="flex text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0.5;">star_half</span>
+</div>
+<span class="text-sm font-medium text-on-surface-variant">(1,284 Verified Reviews)</span>
+</div>
+<div class="text-3xl font-bold text-on-surface mb-6">
+                    $1,299.00
+                </div>
+<p class="text-on-surface-variant leading-relaxed mb-8 border-l-2 border-surface-container-highest pl-6 italic">The ultimate workstation for creative professionals. Engineered with an aerospace-grade aluminum chassis, featuring the revolutionary 3nm M-Series Ultra chip and the world's most advanced liquid-cooled architecture.</p>
+<div class="space-y-6">
+<div class="flex items-center gap-4">
+<label class="font-bold text-sm uppercase tracking-wider text-on-surface-variant">Quantity</label>
+<div class="flex items-center bg-surface-container-low rounded-lg p-1">
+<button class="p-2 hover:bg-surface-container-high rounded transition-colors"><span class="material-symbols-outlined text-sm">remove</span></button>
+<span class="px-6 font-bold">1</span>
+<button class="p-2 hover:bg-surface-container-high rounded transition-colors"><span class="material-symbols-outlined text-sm">add</span></button>
+</div>
+</div>
+<div class="flex flex-col sm:flex-row gap-4">
+<button class="flex-1 bg-gradient-to-br from-primary to-primary-container text-on-primary font-bold py-4 rounded-lg shadow-xl shadow-primary/20 hover:scale-[1.02] active:scale-95 transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined">shopping_bag</span>
+                            Add to Cart
+                        </button>
+<button class="flex-1 bg-surface-container-highest text-primary font-bold py-4 rounded-lg hover:bg-surface-container-high hover:scale-[1.02] active:scale-95 transition-all">
+                            Buy Now
+                        </button>
+</div>
+</div>
+<div class="mt-10 grid grid-cols-2 gap-4">
+<div class="flex items-center gap-3 p-3 bg-surface-container-low rounded-lg">
+<span class="material-symbols-outlined text-primary">local_shipping</span>
+<span class="text-xs font-semibold">Free Express Shipping</span>
+</div>
+<div class="flex items-center gap-3 p-3 bg-surface-container-low rounded-lg">
+<span class="material-symbols-outlined text-primary">verified_user</span>
+<span class="text-xs font-semibold">3-Year Pro Care Warranty</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Tabbed Information Section -->
+<section class="mb-24">
+<div class="flex border-b border-surface-container-high gap-8 mb-8">
+<button class="pb-4 border-b-2 border-primary text-on-surface font-bold text-sm uppercase tracking-widest">Product Specifications</button>
+<button class="pb-4 text-on-surface-variant font-bold text-sm uppercase tracking-widest hover:text-primary transition-colors">Reviews</button>
+<button class="pb-4 text-on-surface-variant font-bold text-sm uppercase tracking-widest hover:text-primary transition-colors">Shipping Information</button>
+</div>
+<div class="bg-surface-container-low rounded-2xl p-8 lg:p-12">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-6">
+<div class="flex justify-between border-b border-outline-variant/20 pb-4">
+<span class="text-on-surface-variant font-medium">Processor</span>
+<span class="text-on-surface font-bold">A18 Pro Bionic (2nm)</span>
+</div>
+<div class="flex justify-between border-b border-outline-variant/20 pb-4">
+<span class="text-on-surface-variant font-medium">Display</span>
+<span class="text-on-surface font-bold">6.9" ProMotion OLED 144Hz</span>
+</div>
+<div class="flex justify-between border-b border-outline-variant/20 pb-4">
+<span class="text-on-surface-variant font-medium">Camera System</span>
+<span class="text-on-surface font-bold">Triple 50MP Photonic Engine</span>
+</div>
+<div class="flex justify-between border-b border-outline-variant/20 pb-4">
+<span class="text-on-surface-variant font-medium">Battery</span>
+<span class="text-on-surface font-bold">5500mAh with 80W Charging</span>
+</div>
+<div class="flex justify-between border-b border-outline-variant/20 pb-4">
+<span class="text-on-surface-variant font-medium">Material</span>
+<span class="text-on-surface font-bold">Grade 5 Aerospace Titanium</span>
+</div>
+<div class="flex justify-between border-b border-outline-variant/20 pb-4">
+<span class="text-on-surface-variant font-medium">Water Resistance</span>
+<span class="text-on-surface font-bold">IP68 (Up to 10m)</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Related Products Grid -->
+<section>
+<div class="flex justify-between items-end mb-10">
+<div>
+<span class="text-primary font-bold text-xs uppercase tracking-widest">Curated Selections</span>
+<h2 class="text-3xl font-extrabold text-on-surface mt-2">Complete the Ecosystem</h2>
+</div>
+<button class="text-primary font-bold text-sm flex items-center gap-1 hover:underline">
+                    View All <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+<!-- Card 1 -->
+<div class="group bg-surface-container-lowest p-4 rounded-xl transition-all hover:bg-white hover:shadow-2xl hover:shadow-primary/5">
+<div class="aspect-square bg-surface-container-low rounded-lg mb-4 overflow-hidden relative">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Minimalist design of tablet with stylus on white desk" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCKPzQHdS_3dER7qYaTMFqVwYYXvyDfZYvnc-lCVZ2imu5xJ5ORtumbVF0JCND4eNnrl6h0tPIh9DcQdeKbpEFEtyV_z3sETPx9EgwLqP1ab2C_aZOFhvoeMGMZC7rwh2MaP0LL5rIess8UDAqh16r4kt_kqtq1EGglc9fbsWtSCJWLOzVRMCzMoXEj4Ty64zZDy0yMtfPEsPRpZNzBN6gLSgdnMlzGnEAADTg3qW5WZr4v_qTMaSu8ZWQD1i8aJwkVs8qDAmj7E08"/>
+</div>
+<h3 class="font-bold text-on-surface mb-1">Precision Tab Ultra</h3>
+<p class="text-sm text-on-surface-variant mb-4">$899.00</p>
+<button class="w-full py-2 bg-surface-container-highest text-primary font-bold text-xs rounded-lg hover:bg-primary hover:text-white transition-colors uppercase tracking-widest">Quick View</button>
+</div>
+<!-- Card 2 -->
+<div class="group bg-surface-container-lowest p-4 rounded-xl transition-all hover:bg-white hover:shadow-2xl hover:shadow-primary/5">
+<div class="aspect-square bg-surface-container-low rounded-lg mb-4 overflow-hidden relative">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="High-end noise canceling headphones in professional studio lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDAprWG7Awpxm4E8phblhHTxjvWkfvq7bGYJTfhFYBahdiGA-XxQi5GXDYhbnetanj9QZal78hjHNVleYiKoeo_2dftHKqeV2L4GxVes9X2OVL_mtvNotY-qy-zayVU68vDTOuGXY3svEyp2WSdoDcuEeuHXbinmCu3-e40oX7xh4FHRg1SiD__M7IaVTGzjwanahomnxkJXlfRc2RXHfGo2Hwtq4zWz4i92QBz0lz64LmaKmR_rfvDfubN0Vgq2cGusSnR0RF0w7c"/>
+</div>
+<h3 class="font-bold text-on-surface mb-1">Sonic Echo Pro</h3>
+<p class="text-sm text-on-surface-variant mb-4">$349.00</p>
+<button class="w-full py-2 bg-surface-container-highest text-primary font-bold text-xs rounded-lg hover:bg-primary hover:text-white transition-colors uppercase tracking-widest">Quick View</button>
+</div>
+<!-- Card 3 -->
+<div class="group bg-surface-container-lowest p-4 rounded-xl transition-all hover:bg-white hover:shadow-2xl hover:shadow-primary/5">
+<div class="aspect-square bg-surface-container-low rounded-lg mb-4 overflow-hidden relative">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Luxury smart watch with metallic band on black velvet" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDm-rOBi3c1pTr8WroWcIuKVPc73C2-McXNUF0BjVN9d13uEdd0bQkB0rCqIWg2fCHjvwSE4KtwHghxYtXPUkTw3710DHoP2LAwfBytRGAYtiBKKQDNPW5C-7nwFaBUAWcJek5ytXt-Hk8AUqPLmAv6koat0_vrPhD7pZNnUo23XQgap7sSm8kOa4jBf6xI6kJlxvVDBPO5t4qs55TPAEurwUQ57LwYC21L8sTqDqri8uLs7XfH84NeQF4rNgQdhIK1i5PmyRaM3Gc"/>
+</div>
+<h3 class="font-bold text-on-surface mb-1">Chronos Smart G3</h3>
+<p class="text-sm text-on-surface-variant mb-4">$429.00</p>
+<button class="w-full py-2 bg-surface-container-highest text-primary font-bold text-xs rounded-lg hover:bg-primary hover:text-white transition-colors uppercase tracking-widest">Quick View</button>
+</div>
+<!-- Card 4 -->
+<div class="group bg-surface-container-lowest p-4 rounded-xl transition-all hover:bg-white hover:shadow-2xl hover:shadow-primary/5">
+<div class="aspect-square bg-surface-container-low rounded-lg mb-4 overflow-hidden relative">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="High-end minimalist laptop on a wooden surface with morning sun" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB6T66QOfENYC__x5seM1ge0HVRHNXxwKJ6fP_1YB3Y2fSN-8zLVDQYfloDWYx0ouOR4cyVUP32XM_Oy_oObSK-Hy-egLK_IbJan8lM49DXXshxX9eh6m7WMC2-5XKRREfPcGmlWFxZrE-oLZZvLLmZevMXiKLTHQ_jXAtK1Y1XwC28P2BZmmMunYsg8MvFDKCWRL3ecRZ08kQg5wEdsh8i-BGp1KY8JVFq4wvjfQz5OuUaNJzpjFAljcy3DFpXDiNubRYoiiueET4"/>
+</div>
+<h3 class="font-bold text-on-surface mb-1">Lumina Book Air</h3>
+<p class="text-sm text-on-surface-variant mb-4">$1,499.00</p>
+<button class="w-full py-2 bg-surface-container-highest text-primary font-bold text-xs rounded-lg hover:bg-primary hover:text-white transition-colors uppercase tracking-widest">Quick View</button>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-low grid grid-cols-1 md:grid-cols-3 gap-8 px-12 py-16 w-full mt-auto tonal-shift top-boundary">
+<div class="space-y-4">
+<span class="font-manrope font-bold text-on-surface text-xl">Precision Editorial</span>
+<p class="font-inter text-xs text-on-surface-variant leading-relaxed max-w-xs">
+                Redefining the digital shopping experience through curated excellence and editorial storytelling.
+            </p>
+</div>
+<div class="flex flex-col gap-2">
+<h4 class="font-bold text-sm mb-2 text-on-surface">Explore</h4>
+<a class="font-inter text-xs text-on-surface-variant hover:text-primary transition-opacity" href="#">About Us</a>
+<a class="font-inter text-xs text-on-surface-variant hover:text-primary transition-opacity" href="#">Contact</a>
+<a class="font-inter text-xs text-on-surface-variant hover:text-primary transition-opacity" href="#">Privacy Policy</a>
+<a class="font-inter text-xs text-on-surface-variant hover:text-primary transition-opacity" href="#">Terms of Service</a>
+</div>
+<div class="space-y-4">
+<h4 class="font-bold text-sm mb-2 text-on-surface">Stay Inspired</h4>
+<div class="flex gap-2">
+<input class="bg-surface-container-lowest border-none rounded-lg text-xs px-4 py-2 flex-1" placeholder="Email address" type="email"/>
+<button class="bg-primary text-on-primary px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-widest">Join</button>
+</div>
+<p class="font-inter text-xs text-on-surface-variant mt-8 opacity-60">
+                © 2024 Precision Editorial. All rights reserved.
+            </p>
+</div>
+</footer>
+</body></html>
