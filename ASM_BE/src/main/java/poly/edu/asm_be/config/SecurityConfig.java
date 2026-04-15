@@ -40,6 +40,7 @@ public class SecurityConfig {
                 .requestMatchers("/api/v1/products/**", "/api/v1/categories/**").permitAll()
                 .requestMatchers("/api/v1/auth/**", "/api/v1/config/**").permitAll()
                 .requestMatchers("/login", "/register", "/logout").permitAll()
+                .requestMatchers("/auth/**").permitAll()
                 
                 // Static resources - CSS, JS, Images
                 .requestMatchers("/css/**", "/js/**", "/images/**", "/static/**").permitAll()

@@ -31,18 +31,34 @@ public class CartController {
     
     @GetMapping("/details")
     public ResponseEntity<ApiResponse<CartDTO>> getCartDetails() {
-        Long userId = getCurrentUserId();
-        CartDTO cart = cartService.getCartByUserId(userId);
-        return ResponseEntity.ok(ApiResponse.success(cart));
+        try {
+            Long userId = getCurrentUserId();
+            System.out.println("=== Getting cart details for user: " + userId + " ===");
+            CartDTO cart = cartService.getCartByUserId(userId);
+            System.out.println("Cart items count: " + (cart.getCartItems() != null ? cart.getCartItems().size() : 0));
+            return ResponseEntity.ok(ApiResponse.success(cart));
+        } catch (Exception e) {
+            System.err.println("Error getting cart details: " + e.getMessage());
+            e.printStackTrace();
+            return ResponseEntity.status(500).body(ApiResponse.error(500, e.getMessage()));
+        }
     }
     
     @PostMapping("/add")
     public ResponseEntity<ApiResponse<CartDTO>> addToCart(
             @RequestParam Long productId,
             @RequestParam(defaultValue = "1") Integer quantity) {
-        Long userId = getCurrentUserId();
-        CartDTO cart = cartService.addToCart(userId, productId, quantity);
-        return ResponseEntity.ok(ApiResponse.success("Product added to cart successfully", cart));
+        try {
+            Long userId = getCurrentUserId();
+            System.out.println("=== Adding to cart: userId=" + userId + ", productId=" + productId + ", quantity=" + quantity + " ===");
+            CartDTO cart = cartService.addToCart(userId, productId, quantity);
+            System.out.println("Cart updated successfully. Total items: " + cart.getTotalItems());
+            return ResponseEntity.ok(ApiResponse.success("Product added to cart successfully", cart));
+        } catch (Exception e) {
+            System.err.println("Error adding to cart: " + e.getMessage());
+            e.printStackTrace();
+            return ResponseEntity.status(500).body(ApiResponse.error(500, e.getMessage()));
+        }
     }
     
     @PostMapping("/add-item")
@@ -84,20 +100,44 @@ public class CartController {
     
     @GetMapping("/count")
     public ResponseEntity<ApiResponse<Integer>> getCartItemCount() {
-        Long userId = getCurrentUserId();
-        Integer totalItems = cartService.getTotalItems(userId);
-        return ResponseEntity.ok(ApiResponse.success(totalItems));
+        try {
+            Long userId = getCurrentUserId();
+            System.out.println("=== Getting cart count for user: " + userId + " ===");
+            Integer totalItems = cartService.getTotalItems(userId);
+            System.out.println("Cart count: " + totalItems);
+            return ResponseEntity.ok(ApiResponse.success(totalItems));
+        } catch (Exception e) {
+            System.err.println("Error getting cart count: " + e.getMessage());
+            e.printStackTrace();
+            return ResponseEntity.ok(ApiResponse.success(0));
+        }
     }
     
     private Long getCurrentUserId() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication == null || !authentication.isAuthenticated()) {
+        try {
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            if (authentication == null || !authentication.isAuthenticated()) {
+                System.err.println("User not authenticated");
+                throw new RuntimeException("User not authenticated");
+            }
+            
+            Object principal = authentication.getPrincipal();
+            System.out.println("Principal type: " + principal.getClass().getName());
+            
+            if (principal instanceof CustomUserDetailsService.CustomUserPrincipal) {
+                CustomUserDetailsService.CustomUserPrincipal userPrincipal = 
+                    (CustomUserDetailsService.CustomUserPrincipal) principal;
+                Long userId = userPrincipal.getUser().getId();
+                System.out.println("Current user ID: " + userId);
+                return userId;
+            } else {
+                System.err.println("Principal is not CustomUserPrincipal: " + principal);
+                throw new RuntimeException("Invalid user principal");
+            }
+        } catch (Exception e) {
+            System.err.println("Error getting current user ID: " + e.getMessage());
+            e.printStackTrace();
             throw new RuntimeException("User not authenticated");
         }
-        
-        CustomUserDetailsService.CustomUserPrincipal principal = 
-            (CustomUserDetailsService.CustomUserPrincipal) authentication.getPrincipal();
-        
-        return principal.getUser().getId();
     }
 }

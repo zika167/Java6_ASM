@@ -1,207 +1,232 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" 
+<html lang="vi" xmlns:th="http://www.thymeleaf.org" 
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-    <meta charset="utf-8"/>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <title layout:title-pattern="$CONTENT_TITLE">Precision Digital</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title layout:title-pattern="$CONTENT_TITLE - ShopMart">ShopMart - Mua sắm trực tuyến</title>
     
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com" rel="preconnect"/>
-    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@500;700;800&display=swap" rel="stylesheet"/>
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Static CSS -->
-    <link th:href="@{/css/main.css}" rel="stylesheet"/>
+    <!-- FontAwesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    colors: {
-                        "secondary-fixed-dim": "#b7c8e1",
-                        "tertiary-fixed-dim": "#4ae176",
-                        "surface-variant": "#d3e4fe",
-                        "on-error-container": "#93000a",
-                        "surface": "#f8f9ff",
-                        "secondary": "#505f76",
-                        "on-surface": "#0b1c30",
-                        "tertiary-fixed": "#6bff8f",
-                        "surface-bright": "#f8f9ff",
-                        "on-tertiary-fixed-variant": "#005321",
-                        "tertiary": "#006229",
-                        "surface-container-lowest": "#ffffff",
-                        "on-secondary-fixed": "#0b1c30",
-                        "on-background": "#0b1c30",
-                        "tertiary-container": "#007e37",
-                        "error": "#ba1a1a",
-                        "on-primary-container": "#eeefff",
-                        "error-container": "#ffdad6",
-                        "primary-fixed-dim": "#b4c5ff",
-                        "primary": "#004ac6",
-                        "on-tertiary-container": "#c1ffc5",
-                        "inverse-surface": "#213145",
-                        "background": "#f8f9ff",
-                        "secondary-container": "#d0e1fb",
-                        "on-tertiary-fixed": "#002109",
-                        "on-tertiary": "#ffffff",
-                        "surface-container-highest": "#d3e4fe",
-                        "surface-container-high": "#dce9ff",
-                        "outline-variant": "#c3c6d7",
-                        "primary-fixed": "#dbe1ff",
-                        "inverse-on-surface": "#eaf1ff",
-                        "inverse-primary": "#b4c5ff",
-                        "on-secondary-container": "#54647a",
-                        "on-secondary": "#ffffff",
-                        "surface-container-low": "#eff4ff",
-                        "primary-container": "#2563eb",
-                        "secondary-fixed": "#d3e4fe",
-                        "outline": "#737686",
-                        "on-error": "#ffffff",
-                        "on-surface-variant": "#434655",
-                        "surface-dim": "#cbdbf5",
-                        "surface-tint": "#0053db",
-                        "on-primary-fixed": "#00174b",
-                        "on-primary": "#ffffff",
-                        "surface-container": "#e5eeff",
-                        "on-primary-fixed-variant": "#003ea8",
-                        "on-secondary-fixed-variant": "#38485d"
-                    },
-                    fontFamily: {
-                        "headline": ["Manrope"],
-                        "body": ["Inter"],
-                        "label": ["Inter"]
-                    },
-                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
-                },
-            },
-        }
-    </script>
+    <!-- Vue 3 CDN -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    
+    <!-- Axios CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     
     <style>
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-            display: inline-block;
-            vertical-align: middle;
-        }
-        .editorial-gradient {
-            background: linear-gradient(135deg, #004ac6 0%, #2563eb 100%);
-        }
-        .glass-nav {
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+        [v-cloak] { display: none; }
+        .hover-lift { transition: all 0.3s ease; }
+        .hover-lift:hover { transform: translateY(-4px); }
+        html, body {
+            height: auto;
+            min-height: 100vh;
+            overflow-x: hidden;
+            overflow-y: auto;
         }
     </style>
 </head>
-<body class="bg-surface font-body text-on-surface selection:bg-primary-container selection:text-white">
-
-<!-- Navigation -->
-<nav th:fragment="navigation" class="fixed top-0 w-full z-50 glass-nav bg-surface/70 shadow-sm">
-    <div class="flex justify-between items-center px-8 py-4 max-w-full mx-auto">
-        <div class="flex items-center gap-12">
-            <a th:href="@{/}" class="text-xl font-bold tracking-tighter text-slate-900 font-headline">Precision Digital</a>
-            <div class="hidden md:flex gap-8 items-center">
-                <a class="font-manrope tracking-tight font-medium text-slate-600 hover:text-slate-900 transition-colors" 
-                   th:href="@{/products/category/audio}">Audio</a>
-                <a class="font-manrope tracking-tight font-medium text-slate-600 hover:text-slate-900 transition-colors" 
-                   th:href="@{/products/category/computing}">Computing</a>
-                <a class="font-manrope tracking-tight font-medium text-slate-600 hover:text-slate-900 transition-colors" 
-                   th:href="@{/products/category/mobile}">Mobile</a>
-                <a class="font-manrope tracking-tight font-medium text-slate-600 hover:text-slate-900 transition-colors" 
-                   th:href="@{/products/category/visual}">Visual</a>
-                <a class="font-manrope tracking-tight font-medium text-slate-600 hover:text-slate-900 transition-colors" 
-                   th:href="@{/products}">All Products</a>
-            </div>
-        </div>
-        <div class="flex items-center gap-6">
-            <button class="text-slate-600 hover:bg-blue-50/50 p-2 rounded-full transition-all">
-                <span class="material-symbols-outlined">search</span>
-            </button>
-            <a th:href="@{/cart}" class="text-slate-600 hover:bg-blue-50/50 p-2 rounded-full transition-all relative">
-                <span class="material-symbols-outlined">shopping_cart</span>
-                <!-- Cart badge could be added here with Vue.js -->
-            </a>
-            <div sec:authorize="isAuthenticated()">
-                <a th:href="@{/account}" class="text-slate-600 hover:bg-blue-50/50 p-2 rounded-full transition-all">
-                    <span class="material-symbols-outlined">account_circle</span>
+<body class="bg-gray-50" style="padding-bottom: 0; margin: 0;">
+    
+    <!-- HEADER / NAVBAR -->
+    <header th:fragment="header" class="bg-white shadow-md sticky top-0 z-50">
+        <nav class="container mx-auto px-4 py-4">
+            <div class="flex items-center justify-between">
+                <!-- Logo -->
+                <a th:href="@{/}" class="flex items-center space-x-2 text-2xl font-bold text-blue-600 hover:text-blue-700 transition">
+                    <i class="fas fa-shopping-bag"></i>
+                    <span>ShopMart</span>
                 </a>
+                
+                <!-- Search Bar (Desktop) -->
+                <div class="hidden md:flex flex-1 max-w-2xl mx-8">
+                    <div class="relative w-full">
+                        <input 
+                            type="text" 
+                            placeholder="Tìm kiếm sản phẩm..." 
+                            class="w-full px-4 py-2 pr-12 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        >
+                        <button class="absolute right-0 top-0 h-full px-4 bg-blue-600 text-white rounded-r-lg hover:bg-blue-700 transition">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Right Menu -->
+                <div class="flex items-center space-x-6">
+                    <!-- Cart -->
+                    <a th:href="@{/cart}" class="relative text-gray-700 hover:text-blue-600 transition">
+                        <i class="fas fa-shopping-cart text-2xl"></i>
+                        <span class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold">
+                            0
+                        </span>
+                    </a>
+                    
+                    <!-- User Menu (Authenticated) -->
+                    <div sec:authorize="isAuthenticated()" class="relative group">
+                        <button class="flex items-center space-x-2 text-gray-700 hover:text-blue-600 transition">
+                            <i class="fas fa-user-circle text-2xl"></i>
+                            <span class="hidden lg:block" sec:authentication="name">User</span>
+                            <i class="fas fa-chevron-down text-xs"></i>
+                        </button>
+                        
+                        <!-- Dropdown Menu -->
+                        <div class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg opacity-0 invisible pointer-events-none group-hover:opacity-100 group-hover:visible group-hover:pointer-events-auto transition-all duration-200 z-50">
+                            <a th:href="@{/user/profile}" class="block px-4 py-2 text-gray-700 hover:bg-blue-50 rounded-t-lg">
+                                <i class="fas fa-user mr-2"></i>Tài khoản
+                            </a>
+                            <a th:href="@{/user/orders}" class="block px-4 py-2 text-gray-700 hover:bg-blue-50">
+                                <i class="fas fa-box mr-2"></i>Đơn hàng
+                            </a>
+                            <div sec:authorize="hasRole('ADMIN')">
+                                <a th:href="@{/admin}" class="block px-4 py-2 text-gray-700 hover:bg-blue-50">
+                                    <i class="fas fa-cog mr-2"></i>Quản trị
+                                </a>
+                            </div>
+                            <hr class="my-1">
+                            <a th:href="@{/logout}" class="block px-4 py-2 text-red-600 hover:bg-red-50 rounded-b-lg">
+                                <i class="fas fa-sign-out-alt mr-2"></i>Đăng xuất
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- Login/Register (Guest) -->
+                    <div sec:authorize="!isAuthenticated()" class="flex items-center space-x-3">
+                        <a th:href="@{/auth/login}" class="px-4 py-2 text-blue-600 hover:text-blue-700 font-medium transition">
+                            Đăng nhập
+                        </a>
+                        <a th:href="@{/auth/register}" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition font-medium">
+                            Đăng ký
+                        </a>
+                    </div>
+                    
+                    <!-- Mobile Menu Toggle -->
+                    <button class="md:hidden text-gray-700 text-2xl" onclick="toggleMobileMenu()">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
             </div>
-            <div sec:authorize="!isAuthenticated()">
-                <a th:href="@{/login}" class="text-slate-600 hover:bg-blue-50/50 p-2 rounded-full transition-all">
-                    <span class="material-symbols-outlined">account_circle</span>
-                </a>
+            
+            <!-- Mobile Search -->
+            <div class="md:hidden mt-4">
+                <div class="relative">
+                    <input 
+                        type="text" 
+                        placeholder="Tìm kiếm sản phẩm..." 
+                        class="w-full px-4 py-2 pr-12 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    >
+                    <button class="absolute right-0 top-0 h-full px-4 bg-blue-600 text-white rounded-r-lg">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+        </nav>
+        
+        <!-- Category Menu -->
+        <div class="bg-blue-600 text-white">
+            <div class="container mx-auto px-4">
+                <ul class="flex space-x-8 py-3 overflow-x-auto">
+                    <li><a th:href="@{/}" class="hover:text-blue-200 transition whitespace-nowrap">Trang chủ</a></li>
+                    <li><a th:href="@{/products}" class="hover:text-blue-200 transition whitespace-nowrap">Sản phẩm</a></li>
+                    <li><a th:href="@{/products?category=electronics}" class="hover:text-blue-200 transition whitespace-nowrap">Điện tử</a></li>
+                    <li><a th:href="@{/products?category=fashion}" class="hover:text-blue-200 transition whitespace-nowrap">Thời trang</a></li>
+                    <li><a th:href="@{/products?category=home}" class="hover:text-blue-200 transition whitespace-nowrap">Nhà cửa</a></li>
+                    <li><a th:href="@{/products?category=sports}" class="hover:text-blue-200 transition whitespace-nowrap">Thể thao</a></li>
+                </ul>
             </div>
         </div>
-    </div>
-</nav>
+    </header>
 
-<!-- Main Content -->
-<main class="pt-20">
-    <div layout:fragment="content">
-        <!-- Page content will be inserted here -->
-    </div>
-</main>
+    <!-- MAIN CONTENT -->
+    <main class="min-h-screen">
+        <div layout:fragment="content">
+            <!-- Content will be inserted here -->
+        </div>
+    </main>
 
-<!-- Footer -->
-<footer th:fragment="footer" class="bg-slate-100 mt-auto border-t border-slate-200/10">
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-12 px-12 py-16 w-full max-w-full">
-        <div class="space-y-6">
-            <span class="text-lg font-black text-slate-900 font-headline">Precision Digital</span>
-            <p class="text-slate-500 font-inter text-sm antialiased leading-relaxed">Defining the nexus of high-end engineering and digital lifestyle since 2012.</p>
-            <div class="flex gap-4">
-                <span class="material-symbols-outlined text-slate-400 hover:text-blue-600 cursor-pointer transition-colors">brand_awareness</span>
-                <span class="material-symbols-outlined text-slate-400 hover:text-blue-600 cursor-pointer transition-colors">share</span>
-                <span class="material-symbols-outlined text-slate-400 hover:text-blue-600 cursor-pointer transition-colors">public</span>
+    <!-- FOOTER -->
+    <footer th:fragment="footer" class="bg-gray-900 text-gray-300 mt-16">
+        <div class="container mx-auto px-4 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <!-- Company Info -->
+                <div>
+                    <h3 class="text-white text-xl font-bold mb-4 flex items-center">
+                        <i class="fas fa-shopping-bag mr-2 text-blue-500"></i>
+                        ShopMart
+                    </h3>
+                    <p class="text-sm mb-4">Nền tảng mua sắm trực tuyến hàng đầu Việt Nam. Mang đến trải nghiệm mua sắm tuyệt vời nhất.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-blue-500 transition">
+                            <i class="fab fa-facebook text-2xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-blue-500 transition">
+                            <i class="fab fa-instagram text-2xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-blue-500 transition">
+                            <i class="fab fa-youtube text-2xl"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Customer Service -->
+                <div>
+                    <h4 class="text-white font-semibold mb-4">Chăm sóc khách hàng</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="hover:text-blue-500 transition">Trung tâm trợ giúp</a></li>
+                        <li><a href="#" class="hover:text-blue-500 transition">Hướng dẫn mua hàng</a></li>
+                        <li><a href="#" class="hover:text-blue-500 transition">Chính sách đổi trả</a></li>
+                        <li><a href="#" class="hover:text-blue-500 transition">Chính sách bảo hành</a></li>
+                    </ul>
+                </div>
+                
+                <!-- About -->
+                <div>
+                    <h4 class="text-white font-semibold mb-4">Về ShopMart</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="hover:text-blue-500 transition">Giới thiệu</a></li>
+                        <li><a href="#" class="hover:text-blue-500 transition">Tuyển dụng</a></li>
+                        <li><a href="#" class="hover:text-blue-500 transition">Điều khoản</a></li>
+                        <li><a href="#" class="hover:text-blue-500 transition">Chính sách bảo mật</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Contact -->
+                <div>
+                    <h4 class="text-white font-semibold mb-4">Liên hệ</h4>
+                    <ul class="space-y-3 text-sm">
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt mt-1 mr-3 text-blue-500"></i>
+                            <span>123 Đường ABC, Quận 1, TP.HCM</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-phone mr-3 text-blue-500"></i>
+                            <span>1900 1234</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-envelope mr-3 text-blue-500"></i>
+                            <span>support@shopmart.vn</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <hr class="border-gray-700 my-8">
+            
+            <div class="text-center text-sm">
+                <p>&copy; 2024 ShopMart. All rights reserved.</p>
             </div>
         </div>
-        <div>
-            <h4 class="font-bold font-headline mb-6 text-slate-900">Products</h4>
-            <ul class="space-y-4">
-                <li><a class="text-slate-500 font-inter text-sm antialiased hover:translate-x-1 transition-transform duration-200 block hover:text-blue-500" 
-                       th:href="@{/products/category/audio}">Audio Experience</a></li>
-                <li><a class="text-slate-500 font-inter text-sm antialiased hover:translate-x-1 transition-transform duration-200 block hover:text-blue-500" 
-                       th:href="@{/products/category/computing}">Computing Core</a></li>
-                <li><a class="text-slate-500 font-inter text-sm antialiased hover:translate-x-1 transition-transform duration-200 block hover:text-blue-500" 
-                       th:href="@{/products/category/mobile}">Mobile Ecosystem</a></li>
-                <li><a class="text-slate-500 font-inter text-sm antialiased hover:translate-x-1 transition-transform duration-200 block hover:text-blue-500" 
-                       th:href="@{/products/category/visual}">Visual Mastery</a></li>
-            </ul>
-        </div>
-        <div>
-            <h4 class="font-bold font-headline mb-6 text-slate-900">Support</h4>
-            <ul class="space-y-4">
-                <li><a class="text-slate-500 font-inter text-sm antialiased hover:translate-x-1 transition-transform duration-200 block hover:text-blue-500" href="#">Help Center</a></li>
-                <li><a class="text-slate-500 font-inter text-sm antialiased hover:translate-x-1 transition-transform duration-200 block hover:text-blue-500" href="#">Warranty Policy</a></li>
-                <li><a class="text-slate-500 font-inter text-sm antialiased hover:translate-x-1 transition-transform duration-200 block hover:text-blue-500" href="#">Shipping Details</a></li>
-                <li><a class="text-slate-500 font-inter text-sm antialiased hover:translate-x-1 transition-transform duration-200 block hover:text-blue-500" href="#">Track Order</a></li>
-            </ul>
-        </div>
-        <div>
-            <h4 class="font-bold font-headline mb-6 text-slate-900">Corporate</h4>
-            <ul class="space-y-4">
-                <li><a class="text-slate-500 font-inter text-sm antialiased hover:translate-x-1 transition-transform duration-200 block hover:text-blue-500" href="#">Sustainability</a></li>
-                <li><a class="text-slate-500 font-inter text-sm antialiased hover:translate-x-1 transition-transform duration-200 block hover:text-blue-500" href="#">Privacy Policy</a></li>
-                <li><a class="text-slate-500 font-inter text-sm antialiased hover:translate-x-1 transition-transform duration-200 block hover:text-blue-500" href="#">Terms of Service</a></li>
-            </ul>
-        </div>
-    </div>
-    <div class="px-12 py-8 border-t border-slate-200 flex flex-col md:flex-row justify-between items-center gap-4">
-        <p class="text-slate-500 font-inter text-sm antialiased">© 2024 Precision Editorial. All rights reserved.</p>
-        <div class="flex gap-6">
-            <span class="text-xs text-slate-400 font-inter antialiased uppercase tracking-widest">Designed for Excellence</span>
-        </div>
-    </div>
-</footer>
-
-<!-- Vue.js for dynamic features -->
-<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-<script th:src="@{/js/main.js}"></script>
-
+    </footer>
+    
+    <script>
+        function toggleMobileMenu() {
+            alert('Mobile menu - Implement as needed');
+        }
+    </script>
 </body>
 </html>

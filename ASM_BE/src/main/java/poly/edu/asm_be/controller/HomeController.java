@@ -19,8 +19,8 @@ public class HomeController {
 
     @GetMapping("/")
     public String home(Model model) {
-        // Get featured products for homepage (limit to 3)
-        Pageable pageable = PageRequest.of(0, 3);
+        // Get featured products for homepage (limit to 10)
+        Pageable pageable = PageRequest.of(0, 10);
         List<ProductDTO> featuredProducts = productService.getAllActiveProducts(pageable).getContent();
         
         model.addAttribute("featuredProducts", featuredProducts);

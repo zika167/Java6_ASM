@@ -1,370 +1,325 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
-      layout:decorate="~{admin/layout}">
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Product Management</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý sản phẩm - Admin</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Vue 3 CDN -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    
+    <style>
+        [v-cloak] { display: none; }
+        .sidebar-link:hover { background-color: rgba(59, 130, 246, 0.1); }
+        .sidebar-link.active { background-color: rgba(59, 130, 246, 0.2); border-left: 4px solid #3B82F6; }
+        html, body {
+            height: auto;
+            min-height: 100vh;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+    </style>
 </head>
-<body>
-<div layout:fragment="content" id="productsApp">
-    <!-- Header -->
-    <div class="flex items-center justify-between mb-8">
-        <div>
-            <h1 class="text-3xl font-bold">Product Management</h1>
-            <p class="text-on-surface-variant">Manage your product catalog</p>
-        </div>
-        <button @click="showCreateModal = true" 
-                class="bg-primary text-on-primary px-6 py-3 rounded-lg font-semibold hover:opacity-90 transition-opacity flex items-center gap-2">
-            <span class="material-symbols-outlined">add</span>
-            Add Product
-        </button>
-    </div>
-
-    <!-- Filters -->
-    <div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm mb-8">
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-            <div>
-                <label class="block text-sm font-medium mb-2">Search</label>
-                <input v-model="filters.search" 
-                       @input="filterProducts"
-                       class="w-full px-4 py-2 border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary/40" 
-                       placeholder="Search products..."/>
-            </div>
-            <div>
-                <label class="block text-sm font-medium mb-2">Category</label>
-                <select v-model="filters.categoryId" 
-                        @change="filterProducts"
-                        class="w-full px-4 py-2 border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary/40">
-                    <option value="">All Categories</option>
-                    <option v-for="category in categories" :key="category.id" :value="category.id">
-                        {{ category.name }}
-                    </option>
-                </select>
-            </div>
-            <div>
-                <label class="block text-sm font-medium mb-2">Status</label>
-                <select v-model="filters.isActive" 
-                        @change="filterProducts"
-                        class="w-full px-4 py-2 border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary/40">
-                    <option value="">All Status</option>
-                    <option value="true">Active</option>
-                    <option value="false">Inactive</option>
-                </select>
-            </div>
-            <div class="flex items-end">
-                <button @click="resetFilters" 
-                        class="px-4 py-2 border border-outline-variant rounded-lg hover:bg-surface-container transition-colors">
-                    Reset Filters
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Products Table -->
-    <div class="bg-surface-container-lowest rounded-xl shadow-sm overflow-hidden">
-        <div v-if="loading" class="flex justify-center py-12">
-            <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
-        </div>
+<body class="bg-gray-100">
+    
+    <div class="flex min-h-screen">
         
-        <div v-else class="overflow-x-auto">
-            <table class="w-full">
-                <thead class="bg-surface-container">
-                    <tr>
-                        <th class="px-6 py-4 text-left text-sm font-semibold">Product</th>
-                        <th class="px-6 py-4 text-left text-sm font-semibold">Category</th>
-                        <th class="px-6 py-4 text-left text-sm font-semibold">Price</th>
-                        <th class="px-6 py-4 text-left text-sm font-semibold">Status</th>
-                        <th class="px-6 py-4 text-left text-sm font-semibold">Actions</th>
-                    </tr>
-                </thead>
-                <tbody class="divide-y divide-outline-variant/20">
-                    <tr v-for="product in filteredProducts" :key="product.id" class="hover:bg-surface-container/50">
-                        <td class="px-6 py-4">
-                            <div class="flex items-center gap-4">
-                                <div class="w-12 h-12 bg-surface-container rounded-lg overflow-hidden">
-                                    <img :src="product.image || '/images/placeholder.jpg'" 
-                                         :alt="product.name" 
-                                         class="w-full h-full object-cover"/>
-                                </div>
-                                <div>
-                                    <p class="font-semibold">{{ product.name }}</p>
-                                    <p class="text-sm text-on-surface-variant">ID: {{ product.id }}</p>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="px-6 py-4">
-                            <span class="px-3 py-1 bg-surface-container rounded-full text-sm">
-                                {{ product.categoryName }}
-                            </span>
-                        </td>
-                        <td class="px-6 py-4 font-semibold">${{ product.price.toFixed(2) }}</td>
-                        <td class="px-6 py-4">
-                            <span class="px-3 py-1 rounded-full text-sm"
-                                  :class="product.isActive ? 'bg-success/10 text-success' : 'bg-error/10 text-error'">
-                                {{ product.isActive ? 'Active' : 'Inactive' }}
-                            </span>
-                        </td>
-                        <td class="px-6 py-4">
-                            <div class="flex items-center gap-2">
-                                <button @click="editProduct(product)" 
-                                        class="p-2 hover:bg-surface-container rounded-lg transition-colors">
-                                    <span class="material-symbols-outlined text-primary">edit</span>
-                                </button>
-                                <button @click="deleteProduct(product.id)" 
-                                        class="p-2 hover:bg-surface-container rounded-lg transition-colors">
-                                    <span class="material-symbols-outlined text-error">delete</span>
-                                </button>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-
-    <!-- Create/Edit Modal -->
-    <div v-if="showCreateModal || showEditModal" 
-         class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-        <div class="bg-surface-container-lowest rounded-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-            <div class="p-6 border-b border-outline-variant/20">
-                <h3 class="text-xl font-bold">{{ showCreateModal ? 'Add New Product' : 'Edit Product' }}</h3>
+        <!-- Sidebar (Same as dashboard) -->
+        <aside class="w-64 bg-gray-900 text-white flex-shrink-0">
+            <div class="p-6">
+                <div class="flex items-center space-x-3 mb-8">
+                    <i class="fas fa-shopping-bag text-3xl text-blue-500"></i>
+                    <div>
+                        <h1 class="text-xl font-bold">ShopMart</h1>
+                        <p class="text-xs text-gray-400">Admin Panel</p>
+                    </div>
+                </div>
+                
+                <nav class="space-y-2">
+                    <a th:href="@{/admin}" class="sidebar-link flex items-center space-x-3 px-4 py-3 rounded-lg transition">
+                        <i class="fas fa-chart-line w-5"></i>
+                        <span>Dashboard</span>
+                    </a>
+                    <a th:href="@{/admin/products}" class="sidebar-link active flex items-center space-x-3 px-4 py-3 rounded-lg transition">
+                        <i class="fas fa-box w-5"></i>
+                        <span>Sản phẩm</span>
+                    </a>
+                    <a th:href="@{/admin/categories}" class="sidebar-link flex items-center space-x-3 px-4 py-3 rounded-lg transition">
+                        <i class="fas fa-tags w-5"></i>
+                        <span>Danh mục</span>
+                    </a>
+                    <a th:href="@{/admin/orders}" class="sidebar-link flex items-center space-x-3 px-4 py-3 rounded-lg transition">
+                        <i class="fas fa-shopping-cart w-5"></i>
+                        <span>Đơn hàng</span>
+                    </a>
+                    <a th:href="@{/admin/users}" class="sidebar-link flex items-center space-x-3 px-4 py-3 rounded-lg transition">
+                        <i class="fas fa-users w-5"></i>
+                        <span>Người dùng</span>
+                    </a>
+                </nav>
             </div>
             
-            <form @submit.prevent="saveProduct" class="p-6 space-y-6">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div>
-                        <label class="block text-sm font-medium mb-2">Product Name *</label>
-                        <input v-model="productForm.name" 
-                               class="w-full px-4 py-2 border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary/40" 
-                               required/>
+            <div class="absolute bottom-0 w-64 p-6 border-t border-gray-800">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center font-bold">A</div>
+                    <div class="flex-1">
+                        <div class="font-semibold" sec:authentication="name">Admin</div>
+                        <div class="text-xs text-gray-400">Administrator</div>
                     </div>
+                    <a th:href="@{/logout}" class="text-gray-400 hover:text-white">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </a>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <div class="flex-1 flex flex-col overflow-hidden">
+            
+            <!-- Top Bar -->
+            <header class="bg-white shadow-sm z-10">
+                <div class="flex items-center justify-between px-8 py-4">
                     <div>
-                        <label class="block text-sm font-medium mb-2">Category *</label>
-                        <select v-model="productForm.categoryId" 
-                                class="w-full px-4 py-2 border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary/40" 
-                                required>
-                            <option value="">Select Category</option>
-                            <option v-for="category in categories" :key="category.id" :value="category.id">
-                                {{ category.name }}
-                            </option>
+                        <h2 class="text-2xl font-bold text-gray-800">Quản lý sản phẩm</h2>
+                        <p class="text-sm text-gray-600">Danh sách tất cả sản phẩm</p>
+                    </div>
+                    <button @click="showAddModal = true" class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition font-semibold">
+                        <i class="fas fa-plus mr-2"></i>
+                        Thêm sản phẩm
+                    </button>
+                </div>
+            </header>
+
+            <!-- Products Content -->
+            <main class="flex-1 overflow-y-auto p-8" id="productsApp" v-cloak>
+                
+                <!-- Filters & Search -->
+                <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                        <div class="md:col-span-2">
+                            <div class="relative">
+                                <input 
+                                    v-model="searchQuery"
+                                    type="text" 
+                                    placeholder="Tìm kiếm sản phẩm..." 
+                                    class="w-full px-4 py-3 pl-12 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                >
+                                <i class="fas fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                            </div>
+                        </div>
+                        <select v-model="filterCategory" class="px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <option value="">Tất cả danh mục</option>
+                            <option value="electronics">Điện tử</option>
+                            <option value="fashion">Thời trang</option>
+                            <option value="home">Nhà cửa</option>
+                        </select>
+                        <select v-model="filterStatus" class="px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <option value="">Tất cả trạng thái</option>
+                            <option value="active">Đang bán</option>
+                            <option value="inactive">Ngừng bán</option>
                         </select>
                     </div>
-                    <div>
-                        <label class="block text-sm font-medium mb-2">Price *</label>
-                        <input v-model="productForm.price" 
-                               type="number" 
-                               step="0.01" 
-                               min="0"
-                               class="w-full px-4 py-2 border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary/40" 
-                               required/>
+                </div>
+
+                <!-- Products Table -->
+                <div class="bg-white rounded-lg shadow-sm overflow-hidden">
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead class="bg-gray-50 border-b">
+                                <tr>
+                                    <th class="px-6 py-4 text-left">
+                                        <input type="checkbox" class="w-4 h-4 text-blue-600 rounded">
+                                    </th>
+                                    <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Sản phẩm</th>
+                                    <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Danh mục</th>
+                                    <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Giá</th>
+                                    <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Tồn kho</th>
+                                    <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Trạng thái</th>
+                                    <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-200">
+                                <tr v-for="product in filteredProducts" :key="product.id" class="hover:bg-gray-50 transition">
+                                    <td class="px-6 py-4">
+                                        <input type="checkbox" class="w-4 h-4 text-blue-600 rounded">
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <div class="flex items-center space-x-4">
+                                            <img :src="product.image" class="w-16 h-16 rounded-lg object-cover">
+                                            <div>
+                                                <div class="font-semibold text-gray-900">{{ product.name }}</div>
+                                                <div class="text-sm text-gray-500">SKU: {{ product.sku }}</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <span class="px-3 py-1 text-xs font-semibold text-blue-800 bg-blue-100 rounded-full">
+                                            {{ product.category }}
+                                        </span>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <div class="font-semibold text-gray-900">{{ formatPrice(product.price) }}₫</div>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <div class="font-semibold" :class="product.stock > 10 ? 'text-green-600' : 'text-red-600'">
+                                            {{ product.stock }}
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <span v-if="product.active" class="px-3 py-1 text-xs font-semibold text-green-800 bg-green-100 rounded-full">
+                                            Đang bán
+                                        </span>
+                                        <span v-else class="px-3 py-1 text-xs font-semibold text-gray-800 bg-gray-100 rounded-full">
+                                            Ngừng bán
+                                        </span>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <div class="flex items-center space-x-2">
+                                            <button @click="editProduct(product)" class="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                            <button @click="deleteProduct(product.id)" class="p-2 text-red-600 hover:bg-red-50 rounded-lg transition">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
-                    <div>
-                        <label class="block text-sm font-medium mb-2">Image URL</label>
-                        <input v-model="productForm.image" 
-                               class="w-full px-4 py-2 border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary/40"/>
+
+                    <!-- Pagination -->
+                    <div class="px-6 py-4 border-t flex items-center justify-between">
+                        <div class="text-sm text-gray-600">
+                            Hiển thị <strong>1-10</strong> trong <strong>{{ products.length }}</strong> sản phẩm
+                        </div>
+                        <div class="flex space-x-2">
+                            <button class="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition">
+                                <i class="fas fa-chevron-left"></i>
+                            </button>
+                            <button class="px-4 py-2 bg-blue-600 text-white rounded-lg">1</button>
+                            <button class="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition">2</button>
+                            <button class="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition">3</button>
+                            <button class="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition">
+                                <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </div>
                     </div>
                 </div>
-                
-                <div>
-                    <label class="block text-sm font-medium mb-2">Description</label>
-                    <textarea v-model="productForm.description" 
-                              rows="4"
-                              class="w-full px-4 py-2 border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary/40"></textarea>
+
+                <!-- Add/Edit Modal -->
+                <div v-if="showAddModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+                    <div class="bg-white rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+                        <div class="p-6 border-b flex items-center justify-between">
+                            <h3 class="text-xl font-bold text-gray-900">Thêm sản phẩm mới</h3>
+                            <button @click="showAddModal = false" class="text-gray-400 hover:text-gray-600">
+                                <i class="fas fa-times text-xl"></i>
+                            </button>
+                        </div>
+                        <div class="p-6 space-y-4">
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">Tên sản phẩm</label>
+                                <input type="text" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            </div>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm font-semibold text-gray-700 mb-2">Danh mục</label>
+                                    <select class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                        <option>Điện tử</option>
+                                        <option>Thời trang</option>
+                                        <option>Nhà cửa</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-semibold text-gray-700 mb-2">SKU</label>
+                                    <input type="text" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm font-semibold text-gray-700 mb-2">Giá (₫)</label>
+                                    <input type="number" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-semibold text-gray-700 mb-2">Tồn kho</label>
+                                    <input type="number" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">Mô tả</label>
+                                <textarea rows="4" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">Hình ảnh</label>
+                                <div class="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-blue-500 transition cursor-pointer">
+                                    <i class="fas fa-cloud-upload-alt text-4xl text-gray-400 mb-2"></i>
+                                    <p class="text-gray-600">Kéo thả hoặc click để tải ảnh lên</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-6 border-t flex justify-end space-x-4">
+                            <button @click="showAddModal = false" class="px-6 py-3 border border-gray-300 rounded-lg hover:bg-gray-50 transition font-semibold">
+                                Hủy
+                            </button>
+                            <button class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition font-semibold">
+                                Lưu sản phẩm
+                            </button>
+                        </div>
+                    </div>
                 </div>
-                
-                <div class="flex items-center gap-3">
-                    <input v-model="productForm.isActive" 
-                           type="checkbox" 
-                           class="rounded border-outline-variant text-primary focus:ring-primary/20"/>
-                    <label class="text-sm font-medium">Active</label>
-                </div>
-                
-                <div class="flex justify-end gap-4 pt-6 border-t border-outline-variant/20">
-                    <button type="button" 
-                            @click="closeModal" 
-                            class="px-6 py-2 border border-outline-variant rounded-lg hover:bg-surface-container transition-colors">
-                        Cancel
-                    </button>
-                    <button type="submit" 
-                            :disabled="saving"
-                            class="px-6 py-2 bg-primary text-on-primary rounded-lg hover:opacity-90 transition-opacity disabled:opacity-50">
-                        {{ saving ? 'Saving...' : (showCreateModal ? 'Create Product' : 'Update Product') }}
-                    </button>
-                </div>
-            </form>
+            </main>
         </div>
     </div>
 
-    <!-- Messages -->
-    <div v-if="message" 
-         class="fixed top-4 right-4 p-4 rounded-lg text-white z-50 transition-all duration-300"
-         :class="messageType === 'error' ? 'bg-error' : 'bg-success'">
-        {{ message }}
-    </div>
-</div>
+    <script>
+        const { createApp } = Vue;
 
-<script layout:fragment="scripts">
-    const { createApp } = Vue;
-    
-    createApp({
-        data() {
-            return {
-                loading: true,
-                saving: false,
-                products: [],
-                filteredProducts: [],
-                categories: [],
-                showCreateModal: false,
-                showEditModal: false,
-                productForm: {
-                    id: null,
-                    name: '',
-                    categoryId: '',
-                    price: '',
-                    description: '',
-                    image: '',
-                    isActive: true
-                },
-                filters: {
-                    search: '',
-                    categoryId: '',
-                    isActive: ''
-                },
-                message: '',
-                messageType: 'success'
-            }
-        },
-        async mounted() {
-            await this.loadData();
-        },
-        methods: {
-            async loadData() {
-                try {
-                    const [productsRes, categoriesRes] = await Promise.all([
-                        axios.get('/api/v1/admin/products', { withCredentials: true }),
-                        axios.get('/api/v1/admin/categories', { withCredentials: true })
-                    ]);
-                    
-                    if (productsRes.data.status === 200) {
-                        this.products = productsRes.data.data;
-                        this.filteredProducts = [...this.products];
-                    }
-                    
-                    if (categoriesRes.data.status === 200) {
-                        this.categories = categoriesRes.data.data;
-                    }
-                    
-                } catch (error) {
-                    this.showMessage('Failed to load data', 'error');
-                } finally {
-                    this.loading = false;
+        createApp({
+            data() {
+                return {
+                    searchQuery: '',
+                    filterCategory: '',
+                    filterStatus: '',
+                    showAddModal: false,
+                    products: [
+                        { id: 1, name: 'iPhone 15 Pro Max', sku: 'IP15PM-256', category: 'Điện tử', price: 29990000, stock: 45, active: true, image: 'https://via.placeholder.com/80x80/E5E7EB/6B7280?text=P1' },
+                        { id: 2, name: 'MacBook Air M3', sku: 'MBA-M3-13', category: 'Điện tử', price: 27990000, stock: 23, active: true, image: 'https://via.placeholder.com/80x80/E5E7EB/6B7280?text=P2' },
+                        { id: 3, name: 'Sony WH-1000XM5', sku: 'SONY-XM5', category: 'Điện tử', price: 7990000, stock: 67, active: true, image: 'https://via.placeholder.com/80x80/E5E7EB/6B7280?text=P3' },
+                        { id: 4, name: 'Áo sơ mi nam', sku: 'ASM-001', category: 'Thời trang', price: 599000, stock: 120, active: true, image: 'https://via.placeholder.com/80x80/E5E7EB/6B7280?text=P4' },
+                        { id: 5, name: 'Nồi cơm điện', sku: 'NCD-18L', category: 'Nhà cửa', price: 2299000, stock: 8, active: true, image: 'https://via.placeholder.com/80x80/E5E7EB/6B7280?text=P5' },
+                    ]
                 }
             },
-            
-            filterProducts() {
-                let filtered = [...this.products];
-                
-                if (this.filters.search) {
-                    filtered = filtered.filter(product => 
-                        product.name.toLowerCase().includes(this.filters.search.toLowerCase()) ||
-                        product.description?.toLowerCase().includes(this.filters.search.toLowerCase())
-                    );
-                }
-                
-                if (this.filters.categoryId) {
-                    filtered = filtered.filter(product => 
-                        product.categoryId == this.filters.categoryId
-                    );
-                }
-                
-                if (this.filters.isActive !== '') {
-                    filtered = filtered.filter(product => 
-                        product.isActive == (this.filters.isActive === 'true')
-                    );
-                }
-                
-                this.filteredProducts = filtered;
-            },
-            
-            resetFilters() {
-                this.filters = {
-                    search: '',
-                    categoryId: '',
-                    isActive: ''
-                };
-                this.filteredProducts = [...this.products];
-            },
-            
-            editProduct(product) {
-                this.productForm = { ...product };
-                this.showEditModal = true;
-            },
-            
-            async saveProduct() {
-                this.saving = true;
-                
-                try {
-                    const url = this.showCreateModal ? '/api/v1/admin/products' : `/api/v1/admin/products/${this.productForm.id}`;
-                    const method = this.showCreateModal ? 'post' : 'put';
-                    
-                    const response = await axios[method](url, this.productForm, {
-                        withCredentials: true
+            computed: {
+                filteredProducts() {
+                    return this.products.filter(p => {
+                        const matchSearch = p.name.toLowerCase().includes(this.searchQuery.toLowerCase());
+                        const matchCategory = !this.filterCategory || p.category === this.filterCategory;
+                        const matchStatus = !this.filterStatus || (this.filterStatus === 'active' ? p.active : !p.active);
+                        return matchSearch && matchCategory && matchStatus;
                     });
-                    
-                    if (response.data.status === 200) {
-                        this.showMessage(this.showCreateModal ? 'Product created successfully' : 'Product updated successfully');
-                        this.closeModal();
-                        await this.loadData();
-                    }
-                    
-                } catch (error) {
-                    this.showMessage(error.response?.data?.message || 'Failed to save product', 'error');
-                } finally {
-                    this.saving = false;
                 }
             },
-            
-            async deleteProduct(productId) {
-                if (!confirm('Are you sure you want to delete this product?')) return;
-                
-                try {
-                    const response = await axios.delete(`/api/v1/admin/products/${productId}`, {
-                        withCredentials: true
-                    });
-                    
-                    if (response.data.status === 200) {
-                        this.showMessage('Product deleted successfully');
-                        await this.loadData();
+            methods: {
+                formatPrice(price) {
+                    return new Intl.NumberFormat('vi-VN').format(price);
+                },
+                editProduct(product) {
+                    alert('Chỉnh sửa: ' + product.name);
+                },
+                deleteProduct(id) {
+                    if (confirm('Bạn có chắc muốn xóa sản phẩm này?')) {
+                        this.products = this.products.filter(p => p.id !== id);
                     }
-                    
-                } catch (error) {
-                    this.showMessage(error.response?.data?.message || 'Failed to delete product', 'error');
                 }
-            },
-            
-            closeModal() {
-                this.showCreateModal = false;
-                this.showEditModal = false;
-                this.productForm = {
-                    id: null,
-                    name: '',
-                    categoryId: '',
-                    price: '',
-                    description: '',
-                    image: '',
-                    isActive: true
-                };
-            },
-            
-            showMessage(text, type = 'success') {
-                this.message = text;
-                this.messageType = type;
-                
-                setTimeout(() => {
-                    this.message = '';
-                }, 3000);
             }
-        }
-    }).mount('#productsApp');
-</script>
+        }).mount('#productsApp');
+    </script>
 </body>
 </html>

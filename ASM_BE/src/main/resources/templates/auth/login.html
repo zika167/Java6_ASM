@@ -1,128 +1,201 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
-      layout:decorate="~{layout/layout}">
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Login | Precision Digital</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng nhập - ShopMart</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        html, body {
+            height: auto;
+            min-height: 100vh;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+    </style>
 </head>
-<body>
-<div layout:fragment="content">
-    <div class="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-        <div class="max-w-md w-full space-y-8">
-            <div>
-                <h2 class="mt-6 text-center text-3xl font-extrabold text-on-surface">
-                    Sign in to your account
-                </h2>
-                <p class="mt-2 text-center text-sm text-on-surface-variant">
-                    Or
-                    <a th:href="@{/register}" class="font-medium text-primary hover:text-primary-container">
-                        create a new account
-                    </a>
-                </p>
-            </div>
+<body class="bg-gray-50" style="padding-bottom: 0; margin: 0;">
+    
+    <!-- Simple Header -->
+    <header class="bg-white shadow-sm">
+        <div class="container mx-auto px-4 py-4">
+            <a th:href="@{/}" class="flex items-center space-x-2 text-2xl font-bold text-blue-600 hover:text-blue-700 transition">
+                <i class="fas fa-shopping-bag"></i>
+                <span>ShopMart</span>
+            </a>
+        </div>
+    </header>
+
+    <!-- Login Section - Centered -->
+    <div class="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-blue-50 to-purple-50">
+        <div class="max-w-md w-full">
             
-            <div class="bg-surface-container-lowest rounded-xl shadow-lg p-8" id="loginForm">
-                <div v-if="errorMessage" class="mb-4 p-4 bg-error-container text-on-error-container rounded-lg">
-                    {{ errorMessage }}
-                </div>
+            <!-- Login Card -->
+            <div class="bg-white rounded-2xl shadow-2xl overflow-hidden">
                 
-                <form class="space-y-6" @submit.prevent="login">
-                    <div>
-                        <label for="username" class="block text-sm font-medium text-on-surface">
-                            Username
-                        </label>
-                        <input id="username" 
-                               name="username" 
-                               type="text" 
-                               required 
-                               v-model="loginData.username"
-                               class="mt-1 block w-full px-3 py-2 border border-outline-variant rounded-lg shadow-sm placeholder-on-surface-variant focus:outline-none focus:ring-primary focus:border-primary">
-                    </div>
+                <!-- Header -->
+                <div class="gradient-bg px-8 py-8 text-white text-center">
+                    <i class="fas fa-user-circle text-6xl mb-4"></i>
+                    <h2 class="text-3xl font-bold">Đăng nhập</h2>
+                    <p class="text-blue-100 mt-2">Chào mừng bạn quay trở lại!</p>
+                </div>
+
+                <!-- Form -->
+                <div class="px-8 py-8">
                     
-                    <div>
-                        <label for="password" class="block text-sm font-medium text-on-surface">
-                            Password
-                        </label>
-                        <input id="password" 
-                               name="password" 
-                               type="password" 
-                               required 
-                               v-model="loginData.password"
-                               class="mt-1 block w-full px-3 py-2 border border-outline-variant rounded-lg shadow-sm placeholder-on-surface-variant focus:outline-none focus:ring-primary focus:border-primary">
-                    </div>
-                    
-                    <div class="flex items-center justify-between">
+                    <!-- Error Message -->
+                    <div th:if="${param.error}" class="mb-6 p-4 bg-red-50 border-l-4 border-red-500 rounded-r-lg">
                         <div class="flex items-center">
-                            <input id="remember-me" 
-                                   name="remember-me" 
-                                   type="checkbox" 
-                                   class="h-4 w-4 text-primary focus:ring-primary border-outline-variant rounded">
-                            <label for="remember-me" class="ml-2 block text-sm text-on-surface">
-                                Remember me
-                            </label>
+                            <i class="fas fa-exclamation-circle text-red-500 text-xl mr-3"></i>
+                            <span class="text-red-700 font-medium">Tên đăng nhập hoặc mật khẩu không đúng!</span>
                         </div>
+                    </div>
+
+                    <!-- Logout Success Message -->
+                    <div th:if="${param.logout}" class="mb-6 p-4 bg-green-50 border-l-4 border-green-500 rounded-r-lg">
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle text-green-500 text-xl mr-3"></i>
+                            <span class="text-green-700 font-medium">Đăng xuất thành công!</span>
+                        </div>
+                    </div>
+
+                    <form th:action="@{/perform-login}" method="post" class="space-y-6">
                         
-                        <div class="text-sm">
-                            <a href="#" class="font-medium text-primary hover:text-primary-container">
-                                Forgot your password?
+                        <!-- Username -->
+                        <div>
+                            <label for="username" class="block text-sm font-semibold text-gray-700 mb-2">
+                                <i class="fas fa-user mr-2 text-blue-600"></i>
+                                Tên đăng nhập
+                            </label>
+                            <input 
+                                type="text" 
+                                id="username" 
+                                name="username" 
+                                required
+                                autofocus
+                                class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+                                placeholder="Nhập tên đăng nhập"
+                            >
+                        </div>
+
+                        <!-- Password -->
+                        <div>
+                            <label for="password" class="block text-sm font-semibold text-gray-700 mb-2">
+                                <i class="fas fa-lock mr-2 text-blue-600"></i>
+                                Mật khẩu
+                            </label>
+                            <div class="relative">
+                                <input 
+                                    type="password" 
+                                    id="password" 
+                                    name="password" 
+                                    required
+                                    class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition pr-12"
+                                    placeholder="Nhập mật khẩu"
+                                >
+                                <button 
+                                    type="button" 
+                                    onclick="togglePassword()"
+                                    class="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                                >
+                                    <i class="fas fa-eye" id="toggleIcon"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Remember Me & Forgot Password -->
+                        <div class="flex items-center justify-between">
+                            <label class="flex items-center cursor-pointer">
+                                <input 
+                                    type="checkbox" 
+                                    name="remember-me"
+                                    class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                                >
+                                <span class="ml-2 text-sm text-gray-600">Ghi nhớ đăng nhập</span>
+                            </label>
+                            <a href="#" class="text-sm text-blue-600 hover:text-blue-700 font-semibold">
+                                Quên mật khẩu?
                             </a>
                         </div>
+
+                        <!-- Submit Button -->
+                        <button 
+                            type="submit"
+                            class="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-4 rounded-lg font-bold text-lg hover:from-blue-700 hover:to-purple-700 transition transform hover:scale-105 shadow-lg"
+                        >
+                            <i class="fas fa-sign-in-alt mr-2"></i>
+                            Đăng nhập
+                        </button>
+                    </form>
+
+                    <!-- Divider -->
+                    <div class="relative my-8">
+                        <div class="absolute inset-0 flex items-center">
+                            <div class="w-full border-t border-gray-300"></div>
+                        </div>
+                        <div class="relative flex justify-center text-sm">
+                            <span class="px-4 bg-white text-gray-500 font-medium">Hoặc đăng nhập với</span>
+                        </div>
                     </div>
-                    
-                    <div>
-                        <button type="submit" 
-                                :disabled="loading"
-                                class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-lg text-white bg-primary hover:bg-primary-container focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary disabled:opacity-50">
-                            <span v-if="!loading">Sign in</span>
-                            <span v-else>Signing in...</span>
+
+                    <!-- Social Login -->
+                    <div class="grid grid-cols-2 gap-4">
+                        <button class="flex items-center justify-center px-4 py-3 border-2 border-gray-300 rounded-lg hover:bg-gray-50 hover:border-gray-400 transition">
+                            <i class="fab fa-google text-red-500 text-xl mr-2"></i>
+                            <span class="font-semibold text-gray-700">Google</span>
+                        </button>
+                        <button class="flex items-center justify-center px-4 py-3 border-2 border-gray-300 rounded-lg hover:bg-gray-50 hover:border-gray-400 transition">
+                            <i class="fab fa-facebook text-blue-600 text-xl mr-2"></i>
+                            <span class="font-semibold text-gray-700">Facebook</span>
                         </button>
                     </div>
-                </form>
+
+                    <!-- Register Link -->
+                    <div class="mt-8 text-center">
+                        <p class="text-gray-600">
+                            Chưa có tài khoản? 
+                            <a th:href="@{/register}" class="text-blue-600 hover:text-blue-700 font-bold">
+                                Đăng ký ngay
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Back to Home -->
+            <div class="mt-8 text-center">
+                <a th:href="@{/}" class="text-gray-600 hover:text-gray-800 font-medium">
+                    <i class="fas fa-arrow-left mr-2"></i>
+                    Quay lại trang chủ
+                </a>
             </div>
         </div>
     </div>
 
     <script>
-        const { createApp } = Vue;
-        
-        createApp({
-            data() {
-                return {
-                    loginData: {
-                        username: '',
-                        password: ''
-                    },
-                    loading: false,
-                    errorMessage: ''
-                }
-            },
-            methods: {
-                async login() {
-                    this.loading = true;
-                    this.errorMessage = '';
-                    
-                    try {
-                        const response = await axios.post('/api/v1/auth/login', this.loginData, {
-                            withCredentials: true
-                        });
-                        
-                        if (response.data.status === 200) {
-                            // Redirect based on user role
-                            const redirectUrl = response.data.data.redirectUrl || '/';
-                            window.location.href = redirectUrl;
-                        }
-                    } catch (error) {
-                        if (error.response?.data?.message) {
-                            this.errorMessage = error.response.data.message;
-                        } else {
-                            this.errorMessage = 'Login failed. Please try again.';
-                        }
-                    } finally {
-                        this.loading = false;
-                    }
-                }
+        function togglePassword() {
+            const passwordInput = document.getElementById('password');
+            const toggleIcon = document.getElementById('toggleIcon');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                toggleIcon.classList.remove('fa-eye');
+                toggleIcon.classList.add('fa-eye-slash');
+            } else {
+                passwordInput.type = 'password';
+                toggleIcon.classList.remove('fa-eye-slash');
+                toggleIcon.classList.add('fa-eye');
             }
-        }).mount('#loginForm');
+        }
     </script>
-</div>
 </body>
 </html>

@@ -1,211 +1,367 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
-      layout:decorate="~{admin/layout}">
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Dashboard</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - ShopMart</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <style>
+        .sidebar-link:hover { background-color: rgba(59, 130, 246, 0.1); }
+        .sidebar-link.active { background-color: rgba(59, 130, 246, 0.2); border-left: 4px solid #3B82F6; }
+        html, body {
+            height: auto;
+            min-height: 100vh;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+    </style>
 </head>
-<body>
-<div layout:fragment="content" id="dashboardApp">
-    <!-- Stats Cards -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-        <div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm">
-            <div class="flex items-center justify-between">
-                <div>
-                    <p class="text-sm text-on-surface-variant">Total Products</p>
-                    <p class="text-2xl font-bold">{{ stats.totalProducts }}</p>
-                </div>
-                <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
-                    <span class="material-symbols-outlined text-primary">inventory_2</span>
-                </div>
-            </div>
-        </div>
+<body class="bg-gray-100">
+    
+    <div class="flex min-h-screen">
         
-        <div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm">
-            <div class="flex items-center justify-between">
-                <div>
-                    <p class="text-sm text-on-surface-variant">Total Orders</p>
-                    <p class="text-2xl font-bold">{{ stats.totalOrders }}</p>
-                </div>
-                <div class="w-12 h-12 bg-success/10 rounded-lg flex items-center justify-center">
-                    <span class="material-symbols-outlined text-success">shopping_cart</span>
-                </div>
-            </div>
-        </div>
-        
-        <div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm">
-            <div class="flex items-center justify-between">
-                <div>
-                    <p class="text-sm text-on-surface-variant">Total Users</p>
-                    <p class="text-2xl font-bold">{{ stats.totalUsers }}</p>
-                </div>
-                <div class="w-12 h-12 bg-primary-container/10 rounded-lg flex items-center justify-center">
-                    <span class="material-symbols-outlined text-primary-container">people</span>
-                </div>
-            </div>
-        </div>
-        
-        <div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm">
-            <div class="flex items-center justify-between">
-                <div>
-                    <p class="text-sm text-on-surface-variant">Revenue</p>
-                    <p class="text-2xl font-bold">${{ stats.totalRevenue.toFixed(2) }}</p>
-                </div>
-                <div class="w-12 h-12 bg-success/10 rounded-lg flex items-center justify-center">
-                    <span class="material-symbols-outlined text-success">trending_up</span>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Recent Orders -->
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        <div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm">
-            <div class="flex items-center justify-between mb-6">
-                <h3 class="text-lg font-bold">Recent Orders</h3>
-                <a th:href="@{/admin/orders}" class="text-primary hover:underline text-sm">View All</a>
-            </div>
-            
-            <div v-if="loading" class="flex justify-center py-8">
-                <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
-            </div>
-            
-            <div v-else class="space-y-4">
-                <div v-for="order in recentOrders" :key="order.id" 
-                     class="flex items-center justify-between p-4 bg-surface-container rounded-lg">
+        <!-- Sidebar -->
+        <aside class="w-64 bg-gray-900 text-white flex-shrink-0">
+            <div class="p-6">
+                <div class="flex items-center space-x-3 mb-8">
+                    <i class="fas fa-shopping-bag text-3xl text-blue-500"></i>
                     <div>
-                        <p class="font-semibold">#{{ order.id }}</p>
-                        <p class="text-sm text-on-surface-variant">{{ order.username }}</p>
-                    </div>
-                    <div class="text-right">
-                        <p class="font-semibold">${{ order.totalAmount.toFixed(2) }}</p>
-                        <span class="text-xs px-2 py-1 rounded-full"
-                              :class="getStatusClass(order.status)">
-                            {{ order.status }}
-                        </span>
+                        <h1 class="text-xl font-bold">ShopMart</h1>
+                        <p class="text-xs text-gray-400">Admin Panel</p>
                     </div>
                 </div>
-            </div>
-        </div>
-
-        <!-- Low Stock Products -->
-        <div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm">
-            <div class="flex items-center justify-between mb-6">
-                <h3 class="text-lg font-bold">Recent Products</h3>
-                <a th:href="@{/admin/products}" class="text-primary hover:underline text-sm">View All</a>
+                
+                <nav class="space-y-2">
+                    <a th:href="@{/admin}" class="sidebar-link active flex items-center space-x-3 px-4 py-3 rounded-lg transition">
+                        <i class="fas fa-chart-line w-5"></i>
+                        <span>Dashboard</span>
+                    </a>
+                    <a th:href="@{/admin/products}" class="sidebar-link flex items-center space-x-3 px-4 py-3 rounded-lg transition">
+                        <i class="fas fa-box w-5"></i>
+                        <span>Sản phẩm</span>
+                    </a>
+                    <a th:href="@{/admin/categories}" class="sidebar-link flex items-center space-x-3 px-4 py-3 rounded-lg transition">
+                        <i class="fas fa-tags w-5"></i>
+                        <span>Danh mục</span>
+                    </a>
+                    <a th:href="@{/admin/orders}" class="sidebar-link flex items-center space-x-3 px-4 py-3 rounded-lg transition">
+                        <i class="fas fa-shopping-cart w-5"></i>
+                        <span>Đơn hàng</span>
+                    </a>
+                    <a th:href="@{/admin/users}" class="sidebar-link flex items-center space-x-3 px-4 py-3 rounded-lg transition">
+                        <i class="fas fa-users w-5"></i>
+                        <span>Người dùng</span>
+                    </a>
+                    <a th:href="@{/admin/settings}" class="sidebar-link flex items-center space-x-3 px-4 py-3 rounded-lg transition">
+                        <i class="fas fa-cog w-5"></i>
+                        <span>Cài đặt</span>
+                    </a>
+                </nav>
             </div>
             
-            <div v-if="loading" class="flex justify-center py-8">
-                <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
-            </div>
-            
-            <div v-else class="space-y-4">
-                <div v-for="product in recentProducts" :key="product.id" 
-                     class="flex items-center gap-4 p-4 bg-surface-container rounded-lg">
-                    <div class="w-12 h-12 bg-surface-container-high rounded-lg overflow-hidden">
-                        <img :src="product.image || '/images/placeholder.jpg'" 
-                             :alt="product.name" 
-                             class="w-full h-full object-cover"/>
+            <div class="absolute bottom-0 w-64 p-6 border-t border-gray-800">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center font-bold">
+                        A
                     </div>
                     <div class="flex-1">
-                        <p class="font-semibold">{{ product.name }}</p>
-                        <p class="text-sm text-on-surface-variant">{{ product.categoryName }}</p>
+                        <div class="font-semibold" sec:authentication="name">Admin</div>
+                        <div class="text-xs text-gray-400">Administrator</div>
                     </div>
-                    <div class="text-right">
-                        <p class="font-semibold">${{ product.price.toFixed(2) }}</p>
-                        <span class="text-xs px-2 py-1 rounded-full"
-                              :class="product.isActive ? 'bg-success/10 text-success' : 'bg-error/10 text-error'">
-                            {{ product.isActive ? 'Active' : 'Inactive' }}
-                        </span>
-                    </div>
+                    <a th:href="@{/logout}" class="text-gray-400 hover:text-white">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </a>
                 </div>
             </div>
+        </aside>
+
+        <!-- Main Content -->
+        <div class="flex-1 flex flex-col overflow-hidden">
+            
+            <!-- Top Bar -->
+            <header class="bg-white shadow-sm z-10">
+                <div class="flex items-center justify-between px-8 py-4">
+                    <div>
+                        <h2 class="text-2xl font-bold text-gray-800">Dashboard</h2>
+                        <p class="text-sm text-gray-600">Tổng quan hệ thống</p>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <button class="relative text-gray-600 hover:text-gray-900">
+                            <i class="fas fa-bell text-xl"></i>
+                            <span class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">3</span>
+                        </button>
+                        <a th:href="@{/}" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
+                            <i class="fas fa-home mr-2"></i>
+                            Về trang chủ
+                        </a>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Dashboard Content -->
+            <main class="flex-1 overflow-y-auto p-8">
+                
+                <!-- Stats Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                    
+                    <!-- Total Revenue -->
+                    <div class="bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg shadow-lg p-6 text-white">
+                        <div class="flex items-center justify-between mb-4">
+                            <div>
+                                <p class="text-blue-100 text-sm">Doanh thu</p>
+                                <h3 class="text-3xl font-bold">156M</h3>
+                            </div>
+                            <div class="w-14 h-14 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
+                                <i class="fas fa-dollar-sign text-2xl"></i>
+                            </div>
+                        </div>
+                        <div class="flex items-center text-sm">
+                            <i class="fas fa-arrow-up mr-1"></i>
+                            <span>12.5% so với tháng trước</span>
+                        </div>
+                    </div>
+
+                    <!-- Total Orders -->
+                    <div class="bg-gradient-to-br from-green-500 to-green-600 rounded-lg shadow-lg p-6 text-white">
+                        <div class="flex items-center justify-between mb-4">
+                            <div>
+                                <p class="text-green-100 text-sm">Đơn hàng</p>
+                                <h3 class="text-3xl font-bold">1,234</h3>
+                            </div>
+                            <div class="w-14 h-14 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
+                                <i class="fas fa-shopping-cart text-2xl"></i>
+                            </div>
+                        </div>
+                        <div class="flex items-center text-sm">
+                            <i class="fas fa-arrow-up mr-1"></i>
+                            <span>8.2% so với tháng trước</span>
+                        </div>
+                    </div>
+
+                    <!-- Total Products -->
+                    <div class="bg-gradient-to-br from-purple-500 to-purple-600 rounded-lg shadow-lg p-6 text-white">
+                        <div class="flex items-center justify-between mb-4">
+                            <div>
+                                <p class="text-purple-100 text-sm">Sản phẩm</p>
+                                <h3 class="text-3xl font-bold">456</h3>
+                            </div>
+                            <div class="w-14 h-14 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
+                                <i class="fas fa-box text-2xl"></i>
+                            </div>
+                        </div>
+                        <div class="flex items-center text-sm">
+                            <i class="fas fa-arrow-up mr-1"></i>
+                            <span>24 sản phẩm mới</span>
+                        </div>
+                    </div>
+
+                    <!-- Total Users -->
+                    <div class="bg-gradient-to-br from-orange-500 to-orange-600 rounded-lg shadow-lg p-6 text-white">
+                        <div class="flex items-center justify-between mb-4">
+                            <div>
+                                <p class="text-orange-100 text-sm">Người dùng</p>
+                                <h3 class="text-3xl font-bold">8,945</h3>
+                            </div>
+                            <div class="w-14 h-14 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
+                                <i class="fas fa-users text-2xl"></i>
+                            </div>
+                        </div>
+                        <div class="flex items-center text-sm">
+                            <i class="fas fa-arrow-up mr-1"></i>
+                            <span>156 người dùng mới</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Charts Row -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+                    
+                    <!-- Revenue Chart -->
+                    <div class="bg-white rounded-lg shadow-sm p-6">
+                        <h3 class="text-lg font-bold text-gray-800 mb-4">Doanh thu 7 ngày qua</h3>
+                        <canvas id="revenueChart"></canvas>
+                    </div>
+
+                    <!-- Orders Chart -->
+                    <div class="bg-white rounded-lg shadow-sm p-6">
+                        <h3 class="text-lg font-bold text-gray-800 mb-4">Đơn hàng theo trạng thái</h3>
+                        <canvas id="ordersChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Recent Orders & Top Products -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    
+                    <!-- Recent Orders -->
+                    <div class="bg-white rounded-lg shadow-sm">
+                        <div class="p-6 border-b">
+                            <h3 class="text-lg font-bold text-gray-800">Đơn hàng mới nhất</h3>
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="w-full">
+                                <thead class="bg-gray-50">
+                                    <tr>
+                                        <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">Mã ĐH</th>
+                                        <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">Khách hàng</th>
+                                        <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">Tổng tiền</th>
+                                        <th class="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase">Trạng thái</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-gray-200">
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="px-6 py-4 text-sm font-medium text-gray-900">#ORD-001</td>
+                                        <td class="px-6 py-4 text-sm text-gray-600">Nguyễn Văn A</td>
+                                        <td class="px-6 py-4 text-sm text-gray-900 font-semibold">2.990.000₫</td>
+                                        <td class="px-6 py-4">
+                                            <span class="px-3 py-1 text-xs font-semibold text-green-800 bg-green-100 rounded-full">Đã giao</span>
+                                        </td>
+                                    </tr>
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="px-6 py-4 text-sm font-medium text-gray-900">#ORD-002</td>
+                                        <td class="px-6 py-4 text-sm text-gray-600">Trần Thị B</td>
+                                        <td class="px-6 py-4 text-sm text-gray-900 font-semibold">1.590.000₫</td>
+                                        <td class="px-6 py-4">
+                                            <span class="px-3 py-1 text-xs font-semibold text-blue-800 bg-blue-100 rounded-full">Đang giao</span>
+                                        </td>
+                                    </tr>
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="px-6 py-4 text-sm font-medium text-gray-900">#ORD-003</td>
+                                        <td class="px-6 py-4 text-sm text-gray-600">Lê Văn C</td>
+                                        <td class="px-6 py-4 text-sm text-gray-900 font-semibold">890.000₫</td>
+                                        <td class="px-6 py-4">
+                                            <span class="px-3 py-1 text-xs font-semibold text-yellow-800 bg-yellow-100 rounded-full">Chờ xử lý</span>
+                                        </td>
+                                    </tr>
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="px-6 py-4 text-sm font-medium text-gray-900">#ORD-004</td>
+                                        <td class="px-6 py-4 text-sm text-gray-600">Phạm Thị D</td>
+                                        <td class="px-6 py-4 text-sm text-gray-900 font-semibold">3.490.000₫</td>
+                                        <td class="px-6 py-4">
+                                            <span class="px-3 py-1 text-xs font-semibold text-green-800 bg-green-100 rounded-full">Đã giao</span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="p-4 border-t text-center">
+                            <a th:href="@{/admin/orders}" class="text-blue-600 hover:text-blue-700 font-semibold text-sm">
+                                Xem tất cả đơn hàng <i class="fas fa-arrow-right ml-1"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Top Products -->
+                    <div class="bg-white rounded-lg shadow-sm">
+                        <div class="p-6 border-b">
+                            <h3 class="text-lg font-bold text-gray-800">Sản phẩm bán chạy</h3>
+                        </div>
+                        <div class="p-6 space-y-4">
+                            <div class="flex items-center space-x-4 p-3 hover:bg-gray-50 rounded-lg transition">
+                                <img src="https://via.placeholder.com/60x60/E5E7EB/6B7280?text=P1" class="w-16 h-16 rounded-lg object-cover">
+                                <div class="flex-1">
+                                    <h4 class="font-semibold text-gray-900">iPhone 15 Pro Max</h4>
+                                    <p class="text-sm text-gray-600">Đã bán: 234 sản phẩm</p>
+                                </div>
+                                <div class="text-right">
+                                    <div class="font-bold text-gray-900">29.990.000₫</div>
+                                    <div class="text-sm text-green-600">+15%</div>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-4 p-3 hover:bg-gray-50 rounded-lg transition">
+                                <img src="https://via.placeholder.com/60x60/E5E7EB/6B7280?text=P2" class="w-16 h-16 rounded-lg object-cover">
+                                <div class="flex-1">
+                                    <h4 class="font-semibold text-gray-900">MacBook Air M3</h4>
+                                    <p class="text-sm text-gray-600">Đã bán: 156 sản phẩm</p>
+                                </div>
+                                <div class="text-right">
+                                    <div class="font-bold text-gray-900">27.990.000₫</div>
+                                    <div class="text-sm text-green-600">+12%</div>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-4 p-3 hover:bg-gray-50 rounded-lg transition">
+                                <img src="https://via.placeholder.com/60x60/E5E7EB/6B7280?text=P3" class="w-16 h-16 rounded-lg object-cover">
+                                <div class="flex-1">
+                                    <h4 class="font-semibold text-gray-900">Sony WH-1000XM5</h4>
+                                    <p class="text-sm text-gray-600">Đã bán: 89 sản phẩm</p>
+                                </div>
+                                <div class="text-right">
+                                    <div class="font-bold text-gray-900">7.990.000₫</div>
+                                    <div class="text-sm text-green-600">+8%</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-4 border-t text-center">
+                            <a th:href="@{/admin/products}" class="text-blue-600 hover:text-blue-700 font-semibold text-sm">
+                                Xem tất cả sản phẩm <i class="fas fa-arrow-right ml-1"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </main>
         </div>
     </div>
 
-    <!-- Error Messages -->
-    <div v-if="message" 
-         class="fixed top-4 right-4 p-4 rounded-lg text-white z-50 transition-all duration-300"
-         :class="messageType === 'error' ? 'bg-error' : 'bg-success'">
-        {{ message }}
-    </div>
-</div>
-
-<script layout:fragment="scripts">
-    const { createApp } = Vue;
-    
-    createApp({
-        data() {
-            return {
-                loading: true,
-                stats: {
-                    totalProducts: 0,
-                    totalOrders: 0,
-                    totalUsers: 0,
-                    totalRevenue: 0
+    <script>
+        // Revenue Chart
+        const revenueCtx = document.getElementById('revenueChart').getContext('2d');
+        new Chart(revenueCtx, {
+            type: 'line',
+            data: {
+                labels: ['T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'CN'],
+                datasets: [{
+                    label: 'Doanh thu (triệu đồng)',
+                    data: [12, 19, 15, 25, 22, 30, 28],
+                    borderColor: 'rgb(59, 130, 246)',
+                    backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                    tension: 0.4,
+                    fill: true
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                plugins: {
+                    legend: { display: false }
                 },
-                recentOrders: [],
-                recentProducts: [],
-                message: '',
-                messageType: 'success'
-            }
-        },
-        async mounted() {
-            await this.loadDashboardData();
-        },
-        methods: {
-            async loadDashboardData() {
-                try {
-                    // Load stats
-                    const [productsRes, ordersRes, usersRes] = await Promise.all([
-                        axios.get('/api/v1/admin/products', { withCredentials: true }),
-                        axios.get('/api/v1/admin/orders', { withCredentials: true }),
-                        axios.get('/api/v1/admin/users', { withCredentials: true })
-                    ]);
-                    
-                    if (productsRes.data.status === 200) {
-                        this.stats.totalProducts = productsRes.data.data.length;
-                        this.recentProducts = productsRes.data.data.slice(0, 5);
-                    }
-                    
-                    if (ordersRes.data.status === 200) {
-                        this.stats.totalOrders = ordersRes.data.data.length;
-                        this.recentOrders = ordersRes.data.data.slice(0, 5);
-                        this.stats.totalRevenue = ordersRes.data.data
-                            .reduce((sum, order) => sum + order.totalAmount, 0);
-                    }
-                    
-                    if (usersRes.data.status === 200) {
-                        this.stats.totalUsers = usersRes.data.data.length;
-                    }
-                    
-                } catch (error) {
-                    this.showMessage('Failed to load dashboard data', 'error');
-                } finally {
-                    this.loading = false;
+                scales: {
+                    y: { beginAtZero: true }
                 }
-            },
-            
-            getStatusClass(status) {
-                const classes = {
-                    'PENDING': 'bg-yellow-100 text-yellow-800',
-                    'CONFIRMED': 'bg-blue-100 text-blue-800',
-                    'SHIPPING': 'bg-purple-100 text-purple-800',
-                    'DELIVERED': 'bg-green-100 text-green-800',
-                    'CANCELLED': 'bg-red-100 text-red-800'
-                };
-                return classes[status] || 'bg-gray-100 text-gray-800';
-            },
-            
-            showMessage(text, type = 'success') {
-                this.message = text;
-                this.messageType = type;
-                
-                setTimeout(() => {
-                    this.message = '';
-                }, 3000);
             }
-        }
-    }).mount('#dashboardApp');
-</script>
+        });
+
+        // Orders Chart
+        const ordersCtx = document.getElementById('ordersChart').getContext('2d');
+        new Chart(ordersCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Đã giao', 'Đang giao', 'Chờ xử lý', 'Đã hủy'],
+                datasets: [{
+                    data: [450, 280, 120, 50],
+                    backgroundColor: [
+                        'rgb(34, 197, 94)',
+                        'rgb(59, 130, 246)',
+                        'rgb(251, 191, 36)',
+                        'rgb(239, 68, 68)'
+                    ]
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                plugins: {
+                    legend: { position: 'bottom' }
+                }
+            }
+        });
+    </script>
 </body>
 </html>

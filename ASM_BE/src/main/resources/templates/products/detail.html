@@ -1,280 +1,349 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
-      layout:decorate="~{layout/layout}">
+<html lang="vi" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-    <title th:text="${product.name} + ' | Precision Digital'">Product Detail | Precision Digital</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${product.name} + ' - ShopMart'">Chi tiết sản phẩm - ShopMart</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Axios CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    
+    <!-- Cart Count Script -->
+    <script th:src="@{/js/cart-count.js}"></script>
+    
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        main {
+            flex: 1;
+        }
+        /* Toast notification styles */
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 10000;
+            min-width: 300px;
+            animation: slideIn 0.3s ease-out;
+            pointer-events: auto;
+        }
+        @keyframes slideIn {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        .toast.success {
+            border-left: 4px solid #10b981;
+        }
+        .toast.error {
+            border-left: 4px solid #ef4444;
+        }
+    </style>
 </head>
-<body>
-<div layout:fragment="content">
-    <div class="pt-4 pb-16 px-6 max-w-7xl mx-auto">
-        <!-- Breadcrumbs -->
-        <nav class="flex items-center gap-2 text-xs font-medium text-on-surface-variant mb-8 uppercase tracking-widest">
-            <a class="hover:text-primary" th:href="@{/}">Home</a>
-            <span class="material-symbols-outlined text-xs">chevron_right</span>
-            <a class="hover:text-primary" th:href="@{/products}">Shop</a>
-            <span class="material-symbols-outlined text-xs">chevron_right</span>
-            <a class="hover:text-primary" th:href="@{/products/category/{categoryName}(categoryName=${product.categoryName})}" 
-               th:text="${product.categoryName}">Category</a>
-            <span class="material-symbols-outlined text-xs">chevron_right</span>
-            <span class="text-on-surface" th:text="${product.name}">Product Name</span>
-        </nav>
-        
-        <!-- Product Hero Section -->
-        <section class="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-24">
-            <!-- Left: Product Image & Gallery -->
-            <div class="lg:col-span-7 flex flex-col md:flex-row-reverse gap-4">
-                <div class="flex-1 aspect-[4/5] bg-surface-container-lowest rounded-xl overflow-hidden relative">
-                    <img th:alt="${product.name}" 
-                         class="w-full h-full object-cover" 
-                         th:src="${product.image}"
-                         id="mainImage"/>
-                </div>
-                <div class="flex md:flex-col gap-4 overflow-x-auto md:overflow-visible pb-2 md:pb-0">
-                    <button class="w-20 h-20 rounded-lg bg-surface-container-lowest border-2 border-primary overflow-hidden flex-shrink-0">
-                        <img class="w-full h-full object-cover" th:src="${product.image}" th:alt="${product.name}"/>
-                    </button>
-                    <!-- Additional product images would go here -->
-                </div>
-            </div>
-            
-            <!-- Right: Product Details -->
-            <div class="lg:col-span-5 flex flex-col justify-center" id="productDetail">
-                <span class="text-primary font-bold text-sm tracking-widest uppercase mb-2">Editor's Choice</span>
-                <h1 class="text-4xl lg:text-5xl font-extrabold text-on-surface mb-4 leading-tight" 
-                    th:text="${product.name}">Product Name</h1>
-                
-                <div class="flex items-center gap-4 mb-6">
-                    <div class="flex text-primary">
-                        <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
-                        <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
-                        <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
-                        <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
-                        <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0.5;">star_half</span>
-                    </div>
-                    <span class="text-sm font-medium text-on-surface-variant">(1,284 Verified Reviews)</span>
-                </div>
-                
-                <div class="text-3xl font-bold text-on-surface mb-6" th:text="'$' + ${product.price}">
-                    $0.00
-                </div>
-                
-                <p class="text-on-surface-variant leading-relaxed mb-8 border-l-2 border-surface-container-highest pl-6 italic" 
-                   th:text="${product.description}">
-                    Product description goes here.
-                </p>
-                
-                <div class="space-y-6">
-                    <div class="flex items-center gap-4">
-                        <label class="font-bold text-sm uppercase tracking-wider text-on-surface-variant">Quantity</label>
-                        <div class="flex items-center bg-surface-container-low rounded-lg p-1">
-                            <button class="p-2 hover:bg-surface-container-high rounded transition-colors" @click="decreaseQuantity">
-                                <span class="material-symbols-outlined text-sm">remove</span>
-                            </button>
-                            <span class="px-6 font-bold" v-text="quantity">1</span>
-                            <button class="p-2 hover:bg-surface-container-high rounded transition-colors" @click="increaseQuantity">
-                                <span class="material-symbols-outlined text-sm">add</span>
-                            </button>
-                        </div>
+<body class="bg-gray-50">
+    
+    <!-- HEADER -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <nav class="container mx-auto px-4 py-4">
+            <div class="flex items-center justify-between">
+                <a th:href="@{/}" class="flex items-center space-x-2 text-2xl font-bold text-blue-600">
+                    <i class="fas fa-shopping-bag"></i>
+                    <span>ShopMart</span>
+                </a>
+                <div class="flex items-center space-x-6">
+                    <a th:href="@{/cart}" class="relative text-gray-700 hover:text-blue-600 transition">
+                        <i class="fas fa-shopping-cart text-2xl"></i>
+                        <span class="cart-count absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold" style="display: none;">
+                            0
+                        </span>
+                    </a>
+                    
+                    <div sec:authorize="isAuthenticated()">
+                        <a th:href="@{/user/profile}" class="text-gray-700 hover:text-blue-600">
+                            <i class="fas fa-user-circle text-2xl"></i>
+                        </a>
                     </div>
                     
-                    <div class="flex flex-col sm:flex-row gap-4">
-                        <button class="flex-1 bg-gradient-to-br from-primary to-primary-container text-on-primary font-bold py-4 rounded-lg shadow-xl shadow-primary/20 hover:scale-[1.02] active:scale-95 transition-all flex items-center justify-center gap-2"
-                                @click="addToCart" :disabled="loading">
-                            <span class="material-symbols-outlined">shopping_bag</span>
-                            <span v-if="!loading">Add to Cart</span>
-                            <span v-else>Adding...</span>
-                        </button>
-                        <button class="flex-1 bg-surface-container-highest text-primary font-bold py-4 rounded-lg hover:bg-surface-container-high hover:scale-[1.02] active:scale-95 transition-all">
-                            Buy Now
-                        </button>
-                    </div>
-                </div>
-                
-                <div class="mt-10 grid grid-cols-2 gap-4">
-                    <div class="flex items-center gap-3 p-3 bg-surface-container-low rounded-lg">
-                        <span class="material-symbols-outlined text-primary">local_shipping</span>
-                        <span class="text-xs font-semibold">Free Express Shipping</span>
-                    </div>
-                    <div class="flex items-center gap-3 p-3 bg-surface-container-low rounded-lg">
-                        <span class="material-symbols-outlined text-primary">verified_user</span>
-                        <span class="text-xs font-semibold">3-Year Pro Care Warranty</span>
+                    <div sec:authorize="!isAuthenticated()">
+                        <a th:href="@{/login}" class="px-4 py-2 text-blue-600 hover:text-blue-700 font-medium">Đăng nhập</a>
                     </div>
                 </div>
             </div>
-        </section>
+        </nav>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="container mx-auto px-4 py-8">
         
-        <!-- Tabbed Information Section -->
-        <section class="mb-24">
-            <div class="flex border-b border-surface-container-high gap-8 mb-8">
-                <button class="pb-4 border-b-2 border-primary text-on-surface font-bold text-sm uppercase tracking-widest tab-btn active" 
-                        data-tab="specifications">Product Specifications</button>
-                <button class="pb-4 text-on-surface-variant font-bold text-sm uppercase tracking-widest hover:text-primary transition-colors tab-btn" 
-                        data-tab="reviews">Reviews</button>
-                <button class="pb-4 text-on-surface-variant font-bold text-sm uppercase tracking-widest hover:text-primary transition-colors tab-btn" 
-                        data-tab="shipping">Shipping Information</button>
-            </div>
-            
-            <div class="bg-surface-container-low rounded-2xl p-8 lg:p-12">
-                <div id="specifications" class="tab-content">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-6">
-                        <div class="flex justify-between border-b border-outline-variant/20 pb-4">
-                            <span class="text-on-surface-variant font-medium">Category</span>
-                            <span class="text-on-surface font-bold" th:text="${product.categoryName}">Category</span>
-                        </div>
-                        <div class="flex justify-between border-b border-outline-variant/20 pb-4">
-                            <span class="text-on-surface-variant font-medium">Price</span>
-                            <span class="text-on-surface font-bold" th:text="'$' + ${product.price}">$0.00</span>
-                        </div>
-                        <div class="flex justify-between border-b border-outline-variant/20 pb-4">
-                            <span class="text-on-surface-variant font-medium">Availability</span>
-                            <span class="text-on-surface font-bold" th:text="${product.isActive ? 'In Stock' : 'Out of Stock'}">In Stock</span>
-                        </div>
-                        <div class="flex justify-between border-b border-outline-variant/20 pb-4">
-                            <span class="text-on-surface-variant font-medium">SKU</span>
-                            <span class="text-on-surface font-bold" th:text="'PD-' + ${product.id}">SKU</span>
-                        </div>
-                    </div>
-                </div>
+        <!-- Breadcrumb -->
+        <div class="flex items-center space-x-2 text-sm text-gray-600 mb-6">
+            <a th:href="@{/}" class="hover:text-blue-600">Trang chủ</a>
+            <i class="fas fa-chevron-right text-xs"></i>
+            <a th:href="@{/products}" class="hover:text-blue-600">Sản phẩm</a>
+            <i class="fas fa-chevron-right text-xs"></i>
+            <span class="text-gray-900 font-medium" th:text="${product.name}">Product</span>
+        </div>
+
+        <!-- Product Detail -->
+        <div class="bg-white rounded-lg shadow-sm p-8 mb-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
                 
-                <div id="reviews" class="tab-content hidden">
-                    <div class="text-center py-8">
-                        <h3 class="text-xl font-bold mb-4">Customer Reviews</h3>
-                        <p class="text-on-surface-variant">Reviews feature coming soon...</p>
-                    </div>
-                </div>
-                
-                <div id="shipping" class="tab-content hidden">
-                    <div class="space-y-4">
-                        <h3 class="text-xl font-bold mb-4">Shipping Information</h3>
-                        <p class="text-on-surface-variant">Free shipping on orders over $500. Standard delivery takes 3-5 business days.</p>
-                        <p class="text-on-surface-variant">Express delivery available for $15 (1-2 business days).</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <!-- Related Products -->
-        <section th:if="${relatedProducts != null and !relatedProducts.empty}">
-            <div class="flex justify-between items-end mb-10">
+                <!-- Product Images -->
                 <div>
-                    <span class="text-primary font-bold text-xs uppercase tracking-widest">Curated Selections</span>
-                    <h2 class="text-3xl font-extrabold text-on-surface mt-2">Complete the Ecosystem</h2>
-                </div>
-                <a th:href="@{/products}" class="text-primary font-bold text-sm flex items-center gap-1 hover:underline">
-                    View All <span class="material-symbols-outlined text-sm">arrow_forward</span>
-                </a>
-            </div>
-            
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div th:each="relatedProduct : ${relatedProducts}" 
-                     class="group bg-surface-container-lowest p-4 rounded-xl transition-all hover:bg-white hover:shadow-2xl hover:shadow-primary/5">
-                    <div class="aspect-square bg-surface-container-low rounded-lg mb-4 overflow-hidden relative">
-                        <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" 
-                             th:src="${relatedProduct.image}" 
-                             th:alt="${relatedProduct.name}"/>
+                    <div class="mb-4">
+                        <img th:src="${product.image != null ? product.image : 'https://via.placeholder.com/600x600/E5E7EB/6B7280?text=Product'}" 
+                             th:alt="${product.name}"
+                             class="w-full rounded-lg shadow-md">
                     </div>
-                    <h3 class="font-bold text-on-surface mb-1" th:text="${relatedProduct.name}">Product Name</h3>
-                    <p class="text-sm text-on-surface-variant mb-4" th:text="'$' + ${relatedProduct.price}">$0.00</p>
-                    <a th:href="@{/products/{id}(id=${relatedProduct.id})}" 
-                       class="w-full py-2 bg-surface-container-highest text-primary font-bold text-xs rounded-lg hover:bg-primary hover:text-white transition-colors uppercase tracking-widest block text-center">
-                        Quick View
+                </div>
+
+                <!-- Product Info -->
+                <div>
+                    <h1 class="text-3xl font-bold text-gray-900 mb-4" th:text="${product.name}">
+                        Product Name
+                    </h1>
+                    
+                    <!-- Rating -->
+                    <div class="flex items-center space-x-4 mb-6">
+                        <div class="flex items-center">
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star text-yellow-400"></i>
+                            <i class="fas fa-star-half-alt text-yellow-400"></i>
+                            <span class="ml-2 text-gray-600">4.8</span>
+                        </div>
+                        <span class="text-gray-400">|</span>
+                        <span class="text-gray-600">Còn hàng</span>
+                    </div>
+
+                    <!-- Price -->
+                    <div class="bg-gray-50 p-6 rounded-lg mb-6">
+                        <div class="flex items-baseline space-x-4">
+                            <span class="text-4xl font-bold text-red-600">
+                                <span th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT')}">0</span>₫
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Quantity -->
+                    <div class="mb-6">
+                        <label class="block text-gray-700 font-semibold mb-3">Số lượng:</label>
+                        <div class="flex items-center space-x-4">
+                            <div class="flex items-center border-2 border-gray-300 rounded-lg">
+                                <button onclick="decreaseQty()" class="px-4 py-2 hover:bg-gray-100 transition">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                                <input id="quantity" type="number" min="1" value="1" max="999"
+                                       class="w-20 text-center border-x-2 border-gray-300 py-2 focus:outline-none">
+                                <button onclick="increaseQty()" class="px-4 py-2 hover:bg-gray-100 transition">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Actions -->
+                    <div class="flex space-x-4 mb-8">
+                        <button onclick="addToCart()" 
+                                class="flex-1 bg-blue-600 text-white py-4 rounded-lg font-bold text-lg hover:bg-blue-700 transition">
+                            <i class="fas fa-cart-plus mr-2"></i>
+                            Thêm vào giỏ
+                        </button>
+                    </div>
+
+                    <!-- Description -->
+                    <div class="border-t pt-6">
+                        <h3 class="font-semibold text-gray-900 mb-4">Mô tả sản phẩm:</h3>
+                        <p class="text-gray-700" th:text="${product.description}">Product description</p>
+                    </div>
+
+                    <!-- Shipping Info -->
+                    <div class="border-t mt-6 pt-6">
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="flex items-center">
+                                <i class="fas fa-truck text-blue-600 text-2xl mr-3"></i>
+                                <div>
+                                    <div class="font-semibold text-gray-900">Miễn phí vận chuyển</div>
+                                    <div class="text-sm text-gray-600">Giao hàng trong 2-3 ngày</div>
+                                </div>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-shield-alt text-green-600 text-2xl mr-3"></i>
+                                <div>
+                                    <div class="font-semibold text-gray-900">Bảo hành 12 tháng</div>
+                                    <div class="text-sm text-gray-600">Đổi trả trong 7 ngày</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Related Products -->
+        <div class="mb-8" th:if="${relatedProducts != null and !relatedProducts.empty}">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6">Sản phẩm tương tự</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
+                <div th:each="relProduct : ${relatedProducts}" class="bg-white rounded-lg shadow-sm hover:shadow-lg transition overflow-hidden">
+                    <a th:href="@{/products/{id}(id=${relProduct.id})}" class="block">
+                        <img th:src="${relProduct.image != null ? relProduct.image : 'https://via.placeholder.com/200x200/E5E7EB/6B7280?text=Product'}" 
+                             th:alt="${relProduct.name}"
+                             class="w-full h-40 object-cover">
+                        <div class="p-3">
+                            <h3 class="text-sm text-gray-800 mb-2 line-clamp-2" th:text="${relProduct.name}">Product</h3>
+                            <div class="text-red-600 font-bold">
+                                <span th:text="${#numbers.formatDecimal(relProduct.price, 0, 'COMMA', 0, 'POINT')}">0</span>₫
+                            </div>
+                        </div>
                     </a>
                 </div>
             </div>
-        </section>
-    </div>
+        </div>
+    </main>
 
-    <!-- Vue.js App for product detail interactions -->
-    <script>
-        const { createApp } = Vue;
-        
-        createApp({
-            data() {
-                return {
-                    quantity: 1,
-                    loading: false,
-                    productId: /*[[${product.id}]]*/ 0
-                }
-            },
-            mounted() {
-                this.setupTabs();
-            },
-            methods: {
-                increaseQuantity() {
-                    this.quantity++;
-                },
-                
-                decreaseQuantity() {
-                    if (this.quantity > 1) {
-                        this.quantity--;
-                    }
-                },
-                
-                async addToCart() {
-                    this.loading = true;
-                    
-                    try {
-                        const response = await axios.post('/api/v1/cart/add', null, {
-                            params: { 
-                                productId: this.productId, 
-                                quantity: this.quantity 
-                            },
-                            withCredentials: true
-                        });
-                        
-                        if (response.data.status === 200) {
-                            this.showNotification('Product added to cart!', 'success');
-                        }
-                    } catch (error) {
-                        if (error.response?.status === 401) {
-                            window.location.href = '/login';
-                        } else {
-                            this.showNotification('Failed to add product to cart', 'error');
-                        }
-                    } finally {
-                        this.loading = false;
-                    }
-                },
-                
-                setupTabs() {
-                    document.querySelectorAll('.tab-btn').forEach(btn => {
-                        btn.addEventListener('click', (e) => {
-                            const tabId = e.target.dataset.tab;
-                            
-                            // Remove active class from all tabs
-                            document.querySelectorAll('.tab-btn').forEach(b => {
-                                b.classList.remove('border-primary', 'text-on-surface');
-                                b.classList.add('text-on-surface-variant');
-                            });
-                            
-                            // Add active class to clicked tab
-                            e.target.classList.add('border-primary', 'text-on-surface');
-                            e.target.classList.remove('text-on-surface-variant');
-                            
-                            // Hide all tab contents
-                            document.querySelectorAll('.tab-content').forEach(content => {
-                                content.classList.add('hidden');
-                            });
-                            
-                            // Show selected tab content
-                            document.getElementById(tabId).classList.remove('hidden');
-                        });
-                    });
-                },
-                
-                showNotification(message, type) {
-                    const notification = document.createElement('div');
-                    notification.className = `fixed top-4 right-4 p-4 rounded-lg text-white z-50 ${type === 'success' ? 'bg-green-500' : 'bg-red-500'}`;
-                    notification.textContent = message;
-                    document.body.appendChild(notification);
-                    
-                    setTimeout(() => {
-                        notification.remove();
-                    }, 3000);
-                }
+    <!-- FOOTER -->
+    <footer class="bg-gray-900 text-gray-300 mt-16">
+        <div class="container mx-auto px-4 py-8 text-center">
+            <p class="text-sm">&copy; 2024 ShopMart. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script th:inline="javascript">
+        const productId = /*[[${product.id}]]*/ 0;
+        const maxStock = 999;
+
+        function showToast(message, type = 'success') {
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            
+            const iconClass = type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle';
+            const iconColor = type === 'success' ? 'text-green-500' : 'text-red-500';
+            const title = type === 'success' ? 'Thành công!' : 'Lỗi!';
+            
+            toast.innerHTML = `
+                <div class="flex items-center">
+                    <i class="fas ${iconClass} ${iconColor} text-2xl mr-3"></i>
+                    <div>
+                        <div class="font-semibold text-gray-900">${title}</div>
+                        <div class="text-sm text-gray-600">${message}</div>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.style.animation = 'slideIn 0.3s ease-out reverse';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        function increaseQty() {
+            const input = document.getElementById('quantity');
+            const currentValue = parseInt(input.value) || 1;
+            if (currentValue < maxStock) {
+                input.value = currentValue + 1;
             }
-        }).mount('#productDetail');
+        }
+
+        function decreaseQty() {
+            const input = document.getElementById('quantity');
+            const currentValue = parseInt(input.value) || 1;
+            if (currentValue > 1) {
+                input.value = currentValue - 1;
+            }
+        }
+
+        function addToCart() {
+            const quantity = parseInt(document.getElementById('quantity').value) || 1;
+            
+            // Check if user is authenticated
+            const isAuthenticated = /*[[${#authorization.expression('isAuthenticated()')}]]*/ false;
+            
+            if (!isAuthenticated) {
+                showToast('Vui lòng đăng nhập để thêm sản phẩm vào giỏ hàng', 'error');
+                setTimeout(() => {
+                    window.location.href = '/login';
+                }, 1500);
+                return;
+            }
+
+            // Show loading
+            const button = document.querySelector('button[onclick="addToCart()"]');
+            const originalText = button.innerHTML;
+            button.disabled = true;
+            button.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Đang thêm...';
+
+            // Call API to add to cart
+            axios.post('/api/v1/cart/add', null, {
+                params: {
+                    productId: productId,
+                    quantity: quantity
+                }
+            })
+            .then(response => {
+                console.log('Response:', response.data);
+                // Check status code instead of success field
+                if (response.data.status === 200 || response.status === 200) {
+                    showToast('Đã thêm sản phẩm vào giỏ hàng!', 'success');
+                    // Reload page to update cart count
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 1000);
+                } else {
+                    showToast(response.data.message || 'Có lỗi xảy ra', 'error');
+                    button.disabled = false;
+                    button.innerHTML = originalText;
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                let errorMessage = 'Có lỗi xảy ra khi thêm vào giỏ hàng';
+                
+                if (error.response) {
+                    console.error('Error response:', error.response);
+                    if (error.response.status === 401) {
+                        errorMessage = 'Vui lòng đăng nhập để thêm sản phẩm vào giỏ hàng';
+                        showToast(errorMessage, 'error');
+                        setTimeout(() => {
+                            window.location.href = '/login';
+                        }, 1500);
+                        return;
+                    } else if (error.response.data && error.response.data.message) {
+                        errorMessage = error.response.data.message;
+                    }
+                }
+                
+                showToast(errorMessage, 'error');
+                button.disabled = false;
+                button.innerHTML = originalText;
+            });
+        }
     </script>
-</div>
 </body>
 </html>

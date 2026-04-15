@@ -1,167 +1,389 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
-      layout:decorate="~{layout/layout}">
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Home | Precision Digital</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang chủ - ShopMart</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Vue 3 CDN -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    
+    <!-- Axios CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    
+    <!-- Cart Count Script -->
+    <script th:src="@{/js/cart-count.js}"></script>
+    
+    <style>
+        [v-cloak] { display: none; }
+        .hover-lift { transition: all 0.3s ease; }
+        .hover-lift:hover { transform: translateY(-4px); }
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        main {
+            flex: 1;
+        }
+    </style>
 </head>
-<body>
-<div layout:fragment="content">
-    <!-- Hero Section -->
-    <section class="relative h-[870px] flex items-center overflow-hidden bg-surface-container-low">
-        <div class="container mx-auto px-8 grid grid-cols-1 md:grid-cols-2 gap-12 items-center z-10">
-            <div class="space-y-8">
-                <div class="inline-block px-4 py-1.5 bg-primary-container/10 text-primary font-semibold text-sm tracking-wide rounded-full">
-                    NEW ARRIVAL
-                </div>
-                <h1 class="text-6xl md:text-8xl font-extrabold font-headline leading-[1.1] text-on-surface tracking-tighter">
-                    Smartphone <br/><span class="text-primary">X Elite</span>
-                </h1>
-                <p class="text-lg text-on-surface-variant max-w-md font-medium leading-relaxed">
-                    Redefining precision engineering. Experience the pinnacle of mobile performance and cinematic visual depth.
-                </p>
-                <div class="flex gap-4 pt-4">
-                    <a th:href="@{/products}" class="editorial-gradient text-on-primary px-8 py-4 rounded-lg font-semibold shadow-lg hover:shadow-primary/20 transition-all scale-100 active:scale-95">
-                        Shop Now
-                    </a>
-                    <button class="bg-surface-container-highest text-primary px-8 py-4 rounded-lg font-semibold hover:bg-surface-container-high transition-all">
-                        Learn More
-                    </button>
-                </div>
-            </div>
-            <div class="relative flex justify-center">
-                <img class="w-full max-w-lg object-contain drop-shadow-2xl" 
-                     alt="Modern smartphone with titanium finish" 
-                     src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-6zkx4EQwpkzZ9ZL2XEJ4HFqo4mAFMTBmH-NBUNE5GchHuVbt_KLYPcdMbAoUmJhurJS5GuwjKyKHgpIpVIcbse264OdSvoif116maRJt672hYQrSFzv6RlBIEybb_exwU7MYyNasQihnnCmkQ6Mvnl-OCVdzxoYKSco9EOuAbErho-mJ5U2Mt_sluro_TmfRWgTpAVePX4nRGf4tp7Uw5pm_gbTxCm4mUcEZWrHCZoydU3hsr3jNjj0QlTyPSy_lBNdxMiXZ6rM"/>
-            </div>
-        </div>
-        <div class="absolute -right-20 top-20 w-96 h-96 bg-primary/5 rounded-full blur-[100px]"></div>
-    </section>
-
-    <!-- Featured Categories -->
-    <section class="py-32 container mx-auto px-8">
-        <div class="mb-16">
-            <h2 class="text-4xl font-extrabold font-headline tracking-tighter mb-4">Explore Collections</h2>
-            <p class="text-on-surface-variant max-w-xl">Curated technology designed to integrate seamlessly into your professional ecosystem.</p>
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-4 md:grid-rows-2 gap-6 h-auto md:h-[600px]">
-            <div class="md:col-span-2 md:row-span-2 bg-surface-container-lowest p-10 rounded-xl relative group overflow-hidden flex flex-col justify-end">
-                <img class="absolute inset-0 w-full h-full object-cover opacity-10 group-hover:scale-105 transition-transform duration-700" 
-                     alt="Professional studio headphones" 
-                     src="https://lh3.googleusercontent.com/aida-public/AB6AXuB6bYn5g2aZoXNb7szm2wm5HZ7kwcocfgQfQBR9UtkZ08bTVpB41oDD-5Iq1iCt7JfKs6PbpBauSrt8swV4wetUyOs4vgpyJECYel2HraKLoue85t919spgYb5RyyjJLF2oU_C-D2EauukrDUFZ5HoglkWMo5R-L6ef_og6bi8lu13-LizGQG4XDgaxskLCkwc2LeoWzWwk8i5ftO2m3ZfKVcdw4-JyPzREakx98jVb2qVLrhwToO1MaIFc_ySgaxfNztgj7tWJE70"/>
-                <div class="z-10 relative">
-                    <span class="material-symbols-outlined text-primary text-4xl mb-6">headphones</span>
-                    <h3 class="text-3xl font-bold font-headline mb-2">Audio</h3>
-                    <p class="text-on-surface-variant mb-6">Lossless clarity for every note.</p>
-                    <a th:href="@{/products/category/audio}" class="text-primary font-bold inline-flex items-center gap-2 group">
-                        Explore <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
-                    </a>
-                </div>
-            </div>
-            <div class="md:col-span-2 bg-surface-container-lowest p-10 rounded-xl relative group overflow-hidden flex items-center">
-                <img class="absolute inset-0 w-full h-full object-cover opacity-10 group-hover:scale-105 transition-transform duration-700" 
-                     alt="High-end metallic laptop" 
-                     src="https://lh3.googleusercontent.com/aida-public/AB6AXuATZggAojL1F1V9CARuzPeY8NWXkvRk-uRJgL2mKIVPnwqn605KFh_KOiSuFxGOriaKmd4KOfS58co41fqqh-viO-PDxJx2iAljYry7ReEF74Sj8GA0-LGjRWHUn5ebYTlt-ySC1A04G1qitcrA8f2Y4-IuhqU-1r_ux51yGT8kHPfwJ21166q_v9SbIC5NGhZXYGiNGTvySYOd_2aUrPRtSngVUxExq7H43pWtzgeco157rFNob806mglO4BFd3bt949GsGPXYcPI"/>
-                <div class="z-10 relative w-full">
-                    <span class="material-symbols-outlined text-primary text-4xl mb-4">laptop_mac</span>
-                    <h3 class="text-2xl font-bold font-headline mb-2">Computing</h3>
-                    <a th:href="@{/products/category/computing}" class="text-primary font-bold inline-flex items-center gap-2">
-                        View Series <span class="material-symbols-outlined">chevron_right</span>
-                    </a>
-                </div>
-            </div>
-            <div class="bg-surface-container-low p-8 rounded-xl group hover:bg-primary-container/5 transition-colors">
-                <span class="material-symbols-outlined text-primary text-3xl mb-4">smartphone</span>
-                <h3 class="text-xl font-bold font-headline mb-2">Mobile</h3>
-                <p class="text-sm text-on-surface-variant">The future of portability.</p>
-            </div>
-            <div class="bg-surface-container-low p-8 rounded-xl group hover:bg-primary-container/5 transition-colors">
-                <span class="material-symbols-outlined text-primary text-3xl mb-4">tv</span>
-                <h3 class="text-xl font-bold font-headline mb-2">Visual</h3>
-                <p class="text-sm text-on-surface-variant">4K immersion redefine.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Editor's Choice -->
-    <section class="py-32 bg-surface-container-low">
-        <div class="container mx-auto px-8">
-            <div class="flex justify-between items-end mb-16">
-                <div>
-                    <h2 class="text-4xl font-extrabold font-headline tracking-tighter mb-4">Editor's Choice</h2>
-                    <p class="text-on-surface-variant">Rigorous testing. Unmatched quality. Our top picks for this month.</p>
-                </div>
-                <a th:href="@{/products}" class="text-primary font-bold border-b-2 border-primary/20 hover:border-primary transition-all pb-1">
-                    View Full Selection
+<body class="bg-gray-50">
+    
+    <!-- HEADER -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <nav class="container mx-auto px-4 py-4">
+            <div class="flex items-center justify-between">
+                <!-- Logo -->
+                <a th:href="@{/}" class="flex items-center space-x-2 text-2xl font-bold text-blue-600 hover:text-blue-700 transition">
+                    <i class="fas fa-shopping-bag"></i>
+                    <span>ShopMart</span>
                 </a>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
-                <div th:each="product : ${featuredProducts}" class="group">
-                    <div class="bg-surface-container-lowest p-8 rounded-xl mb-6 relative overflow-hidden">
-                        <img class="w-full aspect-square object-contain group-hover:scale-105 transition-transform duration-500" 
-                             th:src="${product.image}" 
-                             th:alt="${product.name}"/>
-                        <a th:href="@{/products/{id}(id=${product.id})}" 
-                           class="absolute bottom-4 left-4 right-4 bg-on-surface text-surface py-3 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 font-semibold text-sm text-center">
-                            Quick View
+                
+                <!-- Search Bar (Desktop) -->
+                <div class="hidden md:flex flex-1 max-w-2xl mx-8">
+                    <div class="relative w-full">
+                        <input 
+                            type="text" 
+                            placeholder="Tìm kiếm sản phẩm..." 
+                            class="w-full px-4 py-2 pr-12 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        >
+                        <button class="absolute right-0 top-0 h-full px-4 bg-blue-600 text-white rounded-r-lg hover:bg-blue-700 transition">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Right Menu -->
+                <div class="flex items-center space-x-6">
+                    <!-- Cart -->
+                    <a th:href="@{/cart}" class="relative text-gray-700 hover:text-blue-600 transition">
+                        <i class="fas fa-shopping-cart text-2xl"></i>
+                        <span class="cart-count absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold" style="display: none;">
+                            0
+                        </span>
+                    </a>
+                    
+                    <!-- User Menu (Authenticated) -->
+                    <div sec:authorize="isAuthenticated()" class="relative group">
+                        <button class="flex items-center space-x-2 text-gray-700 hover:text-blue-600 transition">
+                            <i class="fas fa-user-circle text-2xl"></i>
+                            <span class="hidden lg:block" sec:authentication="name">User</span>
+                            <i class="fas fa-chevron-down text-xs"></i>
+                        </button>
+                        
+                        <!-- Dropdown Menu -->
+                        <div class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg opacity-0 invisible pointer-events-none group-hover:opacity-100 group-hover:visible group-hover:pointer-events-auto transition-all duration-200 z-50">
+                            <a th:href="@{/user/profile}" class="block px-4 py-2 text-gray-700 hover:bg-blue-50 rounded-t-lg">
+                                <i class="fas fa-user mr-2"></i>Tài khoản
+                            </a>
+                            <a th:href="@{/user/orders}" class="block px-4 py-2 text-gray-700 hover:bg-blue-50">
+                                <i class="fas fa-box mr-2"></i>Đơn hàng
+                            </a>
+                            <div sec:authorize="hasRole('ADMIN')">
+                                <a th:href="@{/admin}" class="block px-4 py-2 text-gray-700 hover:bg-blue-50">
+                                    <i class="fas fa-cog mr-2"></i>Quản trị
+                                </a>
+                            </div>
+                            <hr class="my-1">
+                            <a th:href="@{/logout}" class="block px-4 py-2 text-red-600 hover:bg-red-50 rounded-b-lg">
+                                <i class="fas fa-sign-out-alt mr-2"></i>Đăng xuất
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- Login/Register (Guest) -->
+                    <div sec:authorize="!isAuthenticated()" class="flex items-center space-x-3">
+                        <a th:href="@{/login}" class="px-4 py-2 text-blue-600 hover:text-blue-700 font-medium transition">
+                            Đăng nhập
+                        </a>
+                        <a th:href="@{/register}" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition font-medium">
+                            Đăng ký
                         </a>
                     </div>
-                    <div class="flex justify-between items-start">
-                        <div>
-                            <h4 class="font-headline font-bold text-lg" th:text="${product.name}">Product Name</h4>
-                            <p class="text-on-surface-variant text-sm" th:text="${product.categoryName}">Category</p>
+                    
+                    <!-- Mobile Menu Toggle -->
+                    <button class="md:hidden text-gray-700 text-2xl">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Mobile Search -->
+            <div class="md:hidden mt-4">
+                <div class="relative">
+                    <input 
+                        type="text" 
+                        placeholder="Tìm kiếm sản phẩm..." 
+                        class="w-full px-4 py-2 pr-12 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    >
+                    <button class="absolute right-0 top-0 h-full px-4 bg-blue-600 text-white rounded-r-lg">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+        </nav>
+        
+        <!-- Category Menu -->
+        <div class="bg-blue-600 text-white">
+            <div class="container mx-auto px-4">
+                <ul class="flex space-x-8 py-3 overflow-x-auto">
+                    <li><a th:href="@{/}" class="hover:text-blue-200 transition whitespace-nowrap">Trang chủ</a></li>
+                    <li><a th:href="@{/products}" class="hover:text-blue-200 transition whitespace-nowrap">Sản phẩm</a></li>
+                    <li><a th:href="@{/products?category=electronics}" class="hover:text-blue-200 transition whitespace-nowrap">Điện tử</a></li>
+                    <li><a th:href="@{/products?category=fashion}" class="hover:text-blue-200 transition whitespace-nowrap">Thời trang</a></li>
+                    <li><a th:href="@{/products?category=home}" class="hover:text-blue-200 transition whitespace-nowrap">Nhà cửa</a></li>
+                    <li><a th:href="@{/products?category=sports}" class="hover:text-blue-200 transition whitespace-nowrap">Thể thao</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main>
+        
+        <!-- Hero Banner Section -->
+        <section class="bg-gradient-to-r from-blue-600 to-blue-800 text-white">
+            <div class="container mx-auto px-4 py-16">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <div class="space-y-6">
+                        <h1 class="text-4xl md:text-5xl font-bold leading-tight">
+                            Mua sắm thông minh<br>
+                            <span class="text-yellow-300">Giá tốt mỗi ngày</span>
+                        </h1>
+                        <p class="text-lg text-blue-100">
+                            Hàng ngàn sản phẩm chính hãng, giao hàng nhanh chóng, đổi trả dễ dàng
+                        </p>
+                        <div class="flex space-x-4">
+                            <a th:href="@{/products}" class="px-8 py-3 bg-yellow-400 text-gray-900 font-bold rounded-lg hover:bg-yellow-300 transition hover-lift">
+                                Mua ngay
+                            </a>
+                            <a th:href="@{/products?sale=true}" class="px-8 py-3 bg-white text-blue-600 font-bold rounded-lg hover:bg-gray-100 transition hover-lift">
+                                Khuyến mãi
+                            </a>
                         </div>
-                        <span class="font-bold text-primary" th:text="'$' + ${product.price}">$0.00</span>
+                    </div>
+                    <div class="hidden md:block">
+                        <img src="/images/banner/banner.jpg" 
+                             alt="Shopping Banner" 
+                             class="rounded-lg shadow-2xl">
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Brand Promise -->
-    <section class="py-24 container mx-auto px-8">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-16">
-            <div class="flex flex-col items-center text-center space-y-4">
-                <div class="w-16 h-16 rounded-full bg-primary/5 flex items-center justify-center text-primary">
-                    <span class="material-symbols-outlined text-3xl">local_shipping</span>
+        <!-- Features Section -->
+        <section class="container mx-auto px-4 py-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="bg-white p-6 rounded-lg shadow-sm text-center hover:shadow-md transition">
+                    <i class="fas fa-shipping-fast text-4xl text-blue-600 mb-3"></i>
+                    <h3 class="font-semibold text-gray-800">Giao hàng nhanh</h3>
+                    <p class="text-sm text-gray-500 mt-1">Trong 2 giờ</p>
                 </div>
-                <h3 class="text-xl font-bold font-headline">Free Shipping</h3>
-                <p class="text-on-surface-variant text-sm leading-relaxed max-w-xs">Complimentary express shipping on all orders over $500, handled with utmost care.</p>
-            </div>
-            <div class="flex flex-col items-center text-center space-y-4">
-                <div class="w-16 h-16 rounded-full bg-primary/5 flex items-center justify-center text-primary">
-                    <span class="material-symbols-outlined text-3xl">verified</span>
+                <div class="bg-white p-6 rounded-lg shadow-sm text-center hover:shadow-md transition">
+                    <i class="fas fa-shield-alt text-4xl text-green-600 mb-3"></i>
+                    <h3 class="font-semibold text-gray-800">Hàng chính hãng</h3>
+                    <p class="text-sm text-gray-500 mt-1">100% authentic</p>
                 </div>
-                <h3 class="text-xl font-bold font-headline">2-Year Warranty</h3>
-                <p class="text-on-surface-variant text-sm leading-relaxed max-w-xs">Our precision hardware is built to last. We stand by it with a comprehensive guarantee.</p>
-            </div>
-            <div class="flex flex-col items-center text-center space-y-4">
-                <div class="w-16 h-16 rounded-full bg-primary/5 flex items-center justify-center text-primary">
-                    <span class="material-symbols-outlined text-3xl">support_agent</span>
+                <div class="bg-white p-6 rounded-lg shadow-sm text-center hover:shadow-md transition">
+                    <i class="fas fa-undo text-4xl text-orange-600 mb-3"></i>
+                    <h3 class="font-semibold text-gray-800">Đổi trả dễ dàng</h3>
+                    <p class="text-sm text-gray-500 mt-1">Trong 7 ngày</p>
                 </div>
-                <h3 class="text-xl font-bold font-headline">Expert Support</h3>
-                <p class="text-on-surface-variant text-sm leading-relaxed max-w-xs">Direct access to technical specialists who understand your workflow.</p>
+                <div class="bg-white p-6 rounded-lg shadow-sm text-center hover:shadow-md transition">
+                    <i class="fas fa-headset text-4xl text-purple-600 mb-3"></i>
+                    <h3 class="font-semibold text-gray-800">Hỗ trợ 24/7</h3>
+                    <p class="text-sm text-gray-500 mt-1">Luôn sẵn sàng</p>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Newsletter Section -->
-    <section class="py-32 px-8">
-        <div class="max-w-5xl mx-auto editorial-gradient rounded-3xl p-16 relative overflow-hidden text-center text-on-primary">
-            <div class="relative z-10 max-w-2xl mx-auto">
-                <h2 class="text-4xl font-extrabold font-headline mb-6 tracking-tighter">Stay Ahead of the Curve</h2>
-                <p class="text-primary-container font-medium mb-10 opacity-90">Join our newsletter for exclusive early access to product launches and editorial insights into the future of digital tech.</p>
-                <form class="flex flex-col md:flex-row gap-4">
-                    <input class="flex-1 px-6 py-4 rounded-xl bg-white/10 border-white/20 text-white placeholder:text-white/60 focus:ring-2 focus:ring-white/40 focus:border-transparent outline-none transition-all font-body" 
-                           placeholder="Enter your professional email" type="email"/>
-                    <button class="bg-white text-primary px-10 py-4 rounded-xl font-bold hover:bg-opacity-90 transition-all shadow-xl">
-                        Subscribe
-                    </button>
-                </form>
+        <!-- Flash Sale Section -->
+        <section class="container mx-auto px-4 py-8">
+            <div class="bg-gradient-to-r from-red-500 to-orange-500 rounded-lg p-6 text-white">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="flex items-center space-x-3">
+                        <i class="fas fa-bolt text-3xl"></i>
+                        <h2 class="text-2xl font-bold">FLASH SALE</h2>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <span class="text-sm">Kết thúc trong:</span>
+                        <div class="flex space-x-1">
+                            <span class="bg-white text-red-600 px-3 py-1 rounded font-bold">02</span>
+                            <span>:</span>
+                            <span class="bg-white text-red-600 px-3 py-1 rounded font-bold">45</span>
+                            <span>:</span>
+                            <span class="bg-white text-red-600 px-3 py-1 rounded font-bold">30</span>
+                        </div>
+                    </div>
+                </div>
+                <a th:href="@{/products?sale=true}" class="text-yellow-300 hover:text-yellow-200 font-semibold">
+                    Xem tất cả <i class="fas fa-arrow-right ml-1"></i>
+                </a>
             </div>
-            <div class="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -mr-20 -mt-20 blur-3xl"></div>
-            <div class="absolute bottom-0 left-0 w-64 h-64 bg-black/5 rounded-full -ml-20 -mb-20 blur-3xl"></div>
+        </section>
+
+        <!-- Featured Products Section -->
+        <section class="container mx-auto px-4 py-8">
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="text-2xl font-bold text-gray-800">Sản phẩm nổi bật</h2>
+                <a th:href="@{/products}" class="text-blue-600 hover:text-blue-700 font-semibold">
+                    Xem tất cả <i class="fas fa-arrow-right ml-1"></i>
+                </a>
+            </div>
+
+            <!-- Products Grid -->
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
+                
+                <!-- Product Card (Dynamic from Database) -->
+                <div th:each="product : ${featuredProducts}" class="bg-white rounded-lg shadow-sm hover:shadow-lg transition hover-lift overflow-hidden">
+                    <a th:href="@{/products/{id}(id=${product.id})}" class="block">
+                        <div class="relative">
+                            <img th:src="${product.image != null ? product.image : 'https://via.placeholder.com/300x300/E5E7EB/6B7280?text=Product'}" 
+                                 th:alt="${product.name}"
+                                 class="w-full h-48 object-cover">
+                            <span th:if="${product.price < 2000000}" class="absolute top-2 left-2 bg-red-500 text-white text-xs px-2 py-1 rounded">
+                                Sale
+                            </span>
+                        </div>
+                        <div class="p-4">
+                            <h3 class="text-sm text-gray-800 mb-2 line-clamp-2 h-10" th:text="${product.name}">
+                                Product Name
+                            </h3>
+                            <div class="flex items-center space-x-2 mb-2">
+                                <span class="text-red-600 font-bold text-lg">
+                                    <span th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT')}">0</span>₫
+                                </span>
+                            </div>
+                            <div class="flex items-center text-xs text-gray-500">
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <span class="ml-1">4.8</span>
+                                <span class="ml-auto">Còn hàng</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Categories Section -->
+        <section class="container mx-auto px-4 py-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6">Danh mục nổi bật</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                <a th:href="@{/products?category=electronics}" class="bg-white rounded-lg p-6 text-center hover:shadow-lg transition hover-lift">
+                    <i class="fas fa-laptop text-4xl text-blue-600 mb-3"></i>
+                    <h3 class="font-semibold text-gray-800">Điện tử</h3>
+                </a>
+                <a th:href="@{/products?category=fashion}" class="bg-white rounded-lg p-6 text-center hover:shadow-lg transition hover-lift">
+                    <i class="fas fa-tshirt text-4xl text-pink-600 mb-3"></i>
+                    <h3 class="font-semibold text-gray-800">Thời trang</h3>
+                </a>
+                <a th:href="@{/products?category=home}" class="bg-white rounded-lg p-6 text-center hover:shadow-lg transition hover-lift">
+                    <i class="fas fa-home text-4xl text-green-600 mb-3"></i>
+                    <h3 class="font-semibold text-gray-800">Nhà cửa</h3>
+                </a>
+                <a th:href="@{/products?category=sports}" class="bg-white rounded-lg p-6 text-center hover:shadow-lg transition hover-lift">
+                    <i class="fas fa-dumbbell text-4xl text-orange-600 mb-3"></i>
+                    <h3 class="font-semibold text-gray-800">Thể thao</h3>
+                </a>
+                <a th:href="@{/products?category=beauty}" class="bg-white rounded-lg p-6 text-center hover:shadow-lg transition hover-lift">
+                    <i class="fas fa-spa text-4xl text-purple-600 mb-3"></i>
+                    <h3 class="font-semibold text-gray-800">Làm đẹp</h3>
+                </a>
+                <a th:href="@{/products?category=books}" class="bg-white rounded-lg p-6 text-center hover:shadow-lg transition hover-lift">
+                    <i class="fas fa-book text-4xl text-red-600 mb-3"></i>
+                    <h3 class="font-semibold text-gray-800">Sách</h3>
+                </a>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-gray-900 text-gray-300 mt-16">
+        <div class="container mx-auto px-4 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <!-- Company Info -->
+                <div>
+                    <h3 class="text-white text-xl font-bold mb-4 flex items-center">
+                        <i class="fas fa-shopping-bag mr-2 text-blue-500"></i>
+                        ShopMart
+                    </h3>
+                    <p class="text-sm mb-4">Nền tảng mua sắm trực tuyến hàng đầu Việt Nam. Mang đến trải nghiệm mua sắm tuyệt vời nhất.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-blue-500 transition">
+                            <i class="fab fa-facebook text-2xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-blue-500 transition">
+                            <i class="fab fa-instagram text-2xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-blue-500 transition">
+                            <i class="fab fa-youtube text-2xl"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Customer Service -->
+                <div>
+                    <h4 class="text-white font-semibold mb-4">Chăm sóc khách hàng</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="hover:text-blue-500 transition">Trung tâm trợ giúp</a></li>
+                        <li><a href="#" class="hover:text-blue-500 transition">Hướng dẫn mua hàng</a></li>
+                        <li><a href="#" class="hover:text-blue-500 transition">Chính sách đổi trả</a></li>
+                        <li><a href="#" class="hover:text-blue-500 transition">Chính sách bảo hành</a></li>
+                    </ul>
+                </div>
+                
+                <!-- About -->
+                <div>
+                    <h4 class="text-white font-semibold mb-4">Về ShopMart</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="hover:text-blue-500 transition">Giới thiệu</a></li>
+                        <li><a href="#" class="hover:text-blue-500 transition">Tuyển dụng</a></li>
+                        <li><a href="#" class="hover:text-blue-500 transition">Điều khoản</a></li>
+                        <li><a href="#" class="hover:text-blue-500 transition">Chính sách bảo mật</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Contact -->
+                <div>
+                    <h4 class="text-white font-semibold mb-4">Liên hệ</h4>
+                    <ul class="space-y-3 text-sm">
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt mt-1 mr-3 text-blue-500"></i>
+                            <span>123 Đường ABC, Quận 1, TP.HCM</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-phone mr-3 text-blue-500"></i>
+                            <span>1900 1234</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-envelope mr-3 text-blue-500"></i>
+                            <span>support@shopmart.vn</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <hr class="border-gray-700 my-8">
+            
+            <div class="text-center text-sm">
+                <p>&copy; 2024 ShopMart. All rights reserved.</p>
+            </div>
         </div>
-    </section>
-</div>
+    </footer>
+
 </body>
 </html>
