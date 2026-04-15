@@ -35,35 +35,41 @@ public class SecurityConfig {
         http
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
-                // Public endpoints
+                // Public endpoints - không cần đăng nhập
                 .requestMatchers("/", "/home", "/products/**", "/categories/**").permitAll()
                 .requestMatchers("/api/v1/products/**", "/api/v1/categories/**").permitAll()
-                .requestMatchers("/api/v1/auth/**").permitAll()
+                .requestMatchers("/api/v1/auth/**", "/api/v1/config/**").permitAll()
                 .requestMatchers("/login", "/register", "/logout").permitAll()
-                .requestMatchers("/css/**", "/js/**", "/images/**", "/static/**").permitAll()
                 
-                // User endpoints (ROLE_USER or ROLE_ADMIN)
+                // Static resources - CSS, JS, Images
+                .requestMatchers("/css/**", "/js/**", "/images/**", "/static/**").permitAll()
+                .requestMatchers("/webjars/**", "/favicon.ico").permitAll()
+                
+                // Swagger/OpenAPI Documentation
+                .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-ui.html").permitAll()
+                
+                // User endpoints - yêu cầu ROLE_USER hoặc ROLE_ADMIN
                 .requestMatchers("/cart/**", "/checkout/**", "/orders/**", "/account/**").hasAnyRole("USER", "ADMIN")
                 .requestMatchers("/api/v1/cart/**", "/api/v1/orders/**").hasAnyRole("USER", "ADMIN")
                 .requestMatchers("/api/v1/users/profile/**").hasAnyRole("USER", "ADMIN")
                 
-                // Admin endpoints (ROLE_ADMIN only)
+                // Admin endpoints - chỉ ROLE_ADMIN
                 .requestMatchers("/admin/**").hasRole("ADMIN")
                 .requestMatchers("/api/v1/admin/**").hasRole("ADMIN")
                 .requestMatchers("/api/v1/users/**").hasRole("ADMIN")
                 
-                // All other requests require authentication
+                // Tất cả request khác yêu cầu authentication
                 .anyRequest().authenticated()
             )
             .formLogin(form -> form
                 .loginPage("/login")
-                .loginProcessingUrl("/api/v1/auth/login")
+                .loginProcessingUrl("/perform-login")
                 .successHandler(authenticationSuccessHandler())
                 .failureHandler(authenticationFailureHandler())
                 .permitAll()
             )
             .logout(logout -> logout
-                .logoutUrl("/api/v1/auth/logout")
+                .logoutUrl("/logout")
                 .logoutSuccessUrl("/")
                 .invalidateHttpSession(true)
                 .deleteCookies("JSESSIONID")
@@ -80,30 +86,30 @@ public class SecurityConfig {
     @Bean
     public AuthenticationSuccessHandler authenticationSuccessHandler() {
         return (request, response, authentication) -> {
-            response.setContentType("application/json");
-            response.setCharacterEncoding("UTF-8");
+            String redirectUrl = "/";
             
-            String role = authentication.getAuthorities().iterator().next().getAuthority();
-            String redirectUrl = role.equals("ROLE_ADMIN") ? "/admin" : "/";
+            // Kiểm tra role để redirect phù hợp
+            boolean isAdmin = authentication.getAuthorities().stream()
+                    .anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals("ROLE_ADMIN"));
             
-            String jsonResponse = String.format(
-                "{\"status\": 200, \"message\": \"Login successful\", \"data\": {\"redirectUrl\": \"%s\", \"role\": \"%s\"}}",
-                redirectUrl, role
-            );
+            if (isAdmin) {
+                redirectUrl = "/admin";
+            }
             
-            response.getWriter().write(jsonResponse);
+            // Kiểm tra nếu có redirect parameter
+            String targetUrl = request.getParameter("redirect");
+            if (targetUrl != null && !targetUrl.isEmpty()) {
+                redirectUrl = targetUrl;
+            }
+            
+            response.sendRedirect(redirectUrl);
         };
     }
 
     @Bean
     public AuthenticationFailureHandler authenticationFailureHandler() {
         return (request, response, exception) -> {
-            response.setContentType("application/json");
-            response.setCharacterEncoding("UTF-8");
-            response.setStatus(401);
-            
-            String jsonResponse = "{\"status\": 401, \"message\": \"Invalid username or password\", \"data\": null}";
-            response.getWriter().write(jsonResponse);
+            response.sendRedirect("/login?error=true");
         };
     }
 }

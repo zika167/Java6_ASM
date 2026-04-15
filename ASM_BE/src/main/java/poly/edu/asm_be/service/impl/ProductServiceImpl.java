@@ -1,9 +1,11 @@
 package poly.edu.asm_be.service.impl;
 
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import poly.edu.asm_be.dto.ProductDTO;
 import poly.edu.asm_be.entity.Category;
 import poly.edu.asm_be.entity.Product;
@@ -17,6 +19,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class ProductServiceImpl implements ProductService {
     
     private final ProductRepository productRepository;
@@ -39,7 +42,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public ProductDTO getProductById(Long id) {
         Product product = productRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Product not found"));
+                .orElseThrow(() -> new EntityNotFoundException("Product not found with id: " + id));
         return convertToDTO(product);
     }
     
@@ -53,7 +56,7 @@ public class ProductServiceImpl implements ProductService {
     
     @Override
     public List<ProductDTO> searchProducts(String keyword) {
-        return productRepository.findByNameContainingIgnoreCaseAndIsActiveTrue(keyword)
+        return productRepository.searchProducts(keyword)
                 .stream()
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());
@@ -77,7 +80,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public ProductDTO updateProduct(Long id, ProductDTO productDTO) {
         Product existingProduct = productRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Product not found"));
+                .orElseThrow(() -> new EntityNotFoundException("Product not found with id: " + id));
         
         existingProduct.setName(productDTO.getName());
         existingProduct.setPrice(productDTO.getPrice());
@@ -87,7 +90,7 @@ public class ProductServiceImpl implements ProductService {
         
         if (productDTO.getCategoryId() != null) {
             Category category = categoryRepository.findById(productDTO.getCategoryId())
-                    .orElseThrow(() -> new RuntimeException("Category not found"));
+                    .orElseThrow(() -> new EntityNotFoundException("Category not found with id: " + productDTO.getCategoryId()));
             existingProduct.setCategory(category);
         }
         
@@ -97,6 +100,9 @@ public class ProductServiceImpl implements ProductService {
     
     @Override
     public void deleteProduct(Long id) {
+        if (!productRepository.existsById(id)) {
+            throw new EntityNotFoundException("Product not found with id: " + id);
+        }
         productRepository.deleteById(id);
     }
     
@@ -135,7 +141,7 @@ public class ProductServiceImpl implements ProductService {
         
         if (dto.getCategoryId() != null) {
             Category category = categoryRepository.findById(dto.getCategoryId())
-                    .orElseThrow(() -> new RuntimeException("Category not found"));
+                    .orElseThrow(() -> new EntityNotFoundException("Category not found with id: " + dto.getCategoryId()));
             product.setCategory(category);
         }
         

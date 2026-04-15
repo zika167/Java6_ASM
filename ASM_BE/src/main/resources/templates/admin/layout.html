@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" 
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title layout:title-pattern="$CONTENT_TITLE | Admin">Admin Dashboard</title>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@500;700;800&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    
+    <!-- Static CSS -->
+    <link th:href="@{/css/main.css}" rel="stylesheet"/>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#004ac6",
+                        "primary-container": "#2563eb",
+                        "on-primary": "#ffffff",
+                        "surface": "#f8f9ff",
+                        "on-surface": "#0b1c30",
+                        "surface-container": "#e5eeff",
+                        "surface-container-low": "#eff4ff",
+                        "surface-container-high": "#dce9ff",
+                        "surface-container-highest": "#d3e4fe",
+                        "surface-container-lowest": "#ffffff",
+                        "on-surface-variant": "#434655",
+                        "outline": "#737686",
+                        "outline-variant": "#c3c6d7",
+                        "error": "#ba1a1a",
+                        "on-error": "#ffffff",
+                        "success": "#006229",
+                        "on-success": "#ffffff"
+                    },
+                    fontFamily: {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"]
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface">
+
+<div class="flex h-screen">
+    <!-- Sidebar -->
+    <aside th:fragment="sidebar" class="w-64 bg-surface-container-lowest shadow-lg flex flex-col">
+        <!-- Logo -->
+        <div class="p-6 border-b border-outline-variant/20">
+            <h1 class="text-xl font-bold font-headline text-primary">Admin Panel</h1>
+            <p class="text-sm text-on-surface-variant">Precision Digital</p>
+        </div>
+        
+        <!-- Navigation -->
+        <nav class="flex-1 p-4">
+            <ul class="space-y-2">
+                <li>
+                    <a th:href="@{/admin}" 
+                       class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-surface-container transition-colors"
+                       th:classappend="${#request.requestURI == '/admin'} ? 'bg-primary text-on-primary' : 'text-on-surface'">
+                        <span class="material-symbols-outlined">dashboard</span>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a th:href="@{/admin/products}" 
+                       class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-surface-container transition-colors"
+                       th:classappend="${#request.requestURI == '/admin/products'} ? 'bg-primary text-on-primary' : 'text-on-surface'">
+                        <span class="material-symbols-outlined">inventory_2</span>
+                        <span>Products</span>
+                    </a>
+                </li>
+                <li>
+                    <a th:href="@{/admin/categories}" 
+                       class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-surface-container transition-colors"
+                       th:classappend="${#request.requestURI == '/admin/categories'} ? 'bg-primary text-on-primary' : 'text-on-surface'">
+                        <span class="material-symbols-outlined">category</span>
+                        <span>Categories</span>
+                    </a>
+                </li>
+                <li>
+                    <a th:href="@{/admin/orders}" 
+                       class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-surface-container transition-colors"
+                       th:classappend="${#request.requestURI == '/admin/orders'} ? 'bg-primary text-on-primary' : 'text-on-surface'">
+                        <span class="material-symbols-outlined">shopping_cart</span>
+                        <span>Orders</span>
+                    </a>
+                </li>
+                <li>
+                    <a th:href="@{/admin/users}" 
+                       class="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-surface-container transition-colors"
+                       th:classappend="${#request.requestURI == '/admin/users'} ? 'bg-primary text-on-primary' : 'text-on-surface'">
+                        <span class="material-symbols-outlined">people</span>
+                        <span>Users</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        
+        <!-- User Info -->
+        <div class="p-4 border-t border-outline-variant/20">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-primary rounded-full flex items-center justify-center">
+                    <span class="material-symbols-outlined text-on-primary">person</span>
+                </div>
+                <div class="flex-1">
+                    <p class="font-semibold text-sm" sec:authentication="principal.user.fullname">Admin User</p>
+                    <p class="text-xs text-on-surface-variant" sec:authentication="principal.user.email">admin@example.com</p>
+                </div>
+                <a th:href="@{/logout}" class="text-on-surface-variant hover:text-error transition-colors">
+                    <span class="material-symbols-outlined">logout</span>
+                </a>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="flex-1 flex flex-col overflow-hidden">
+        <!-- Top Bar -->
+        <header th:fragment="topbar" class="bg-surface-container-lowest shadow-sm border-b border-outline-variant/20 p-4">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h2 class="text-2xl font-bold font-headline" layout:title-pattern="$CONTENT_TITLE">Dashboard</h2>
+                    <p class="text-sm text-on-surface-variant">Manage your e-commerce platform</p>
+                </div>
+                <div class="flex items-center gap-4">
+                    <button class="p-2 hover:bg-surface-container rounded-lg transition-colors">
+                        <span class="material-symbols-outlined">notifications</span>
+                    </button>
+                    <a th:href="@{/}" class="px-4 py-2 bg-primary text-on-primary rounded-lg hover:opacity-90 transition-opacity">
+                        View Site
+                    </a>
+                </div>
+            </div>
+        </header>
+
+        <!-- Page Content -->
+        <main class="flex-1 overflow-auto p-6">
+            <div layout:fragment="content">
+                <!-- Page content will be inserted here -->
+            </div>
+        </main>
+    </div>
+</div>
+
+<!-- Vue.js and Axios -->
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script th:src="@{/js/main.js}"></script>
+
+</body>
+</html>

@@ -1,5 +1,6 @@
 package poly.edu.asm_be.api;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
@@ -10,6 +11,7 @@ import poly.edu.asm_be.dto.ApiResponse;
 import poly.edu.asm_be.dto.OrderDTO;
 import poly.edu.asm_be.entity.Order;
 import poly.edu.asm_be.service.OrderService;
+import poly.edu.asm_be.service.CustomUserDetailsService;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -30,12 +32,15 @@ public class OrderController {
     
     @GetMapping("/{id}")
     public ResponseEntity<ApiResponse<OrderDTO>> getOrderById(@PathVariable Long id) {
-        try {
-            OrderDTO order = orderService.getOrderById(id);
-            return ResponseEntity.ok(ApiResponse.success(order));
-        } catch (RuntimeException e) {
-            return ResponseEntity.notFound().build();
-        }
+        OrderDTO order = orderService.getOrderById(id);
+        return ResponseEntity.ok(ApiResponse.success(order));
+    }
+    
+    @GetMapping("/my-orders")
+    public ResponseEntity<ApiResponse<List<OrderDTO>>> getMyOrders() {
+        Long userId = getCurrentUserId();
+        List<OrderDTO> orders = orderService.getOrdersByUserId(userId);
+        return ResponseEntity.ok(ApiResponse.success(orders));
     }
     
     @GetMapping("/user/{userId}")
@@ -58,31 +63,28 @@ public class OrderController {
         return ResponseEntity.ok(ApiResponse.success(orders));
     }
     
-    @GetMapping("/my-orders")
-    public ResponseEntity<ApiResponse<List<OrderDTO>>> getMyOrders() {
-        try {
-            Long userId = getCurrentUserId();
-            List<OrderDTO> orders = orderService.getOrdersByUserId(userId);
-            return ResponseEntity.ok(ApiResponse.success(orders));
-        } catch (RuntimeException e) {
-            return ResponseEntity.badRequest()
-                    .body(ApiResponse.error(400, e.getMessage()));
-        }
+    @PostMapping
+    public ResponseEntity<ApiResponse<OrderDTO>> createOrder(@Valid @RequestBody OrderDTO orderDTO) {
+        // Set current user as order owner
+        Long userId = getCurrentUserId();
+        orderDTO.setUserId(userId);
+        
+        OrderDTO createdOrder = orderService.createOrder(orderDTO);
+        return ResponseEntity.ok(ApiResponse.success("Order created successfully", createdOrder));
     }
     
-    @PostMapping
-    public ResponseEntity<ApiResponse<OrderDTO>> createOrder(@RequestBody OrderDTO orderDTO) {
-        try {
-            // Set current user as order owner
-            Long userId = getCurrentUserId();
-            orderDTO.setUserId(userId);
-            
-            OrderDTO createdOrder = orderService.createOrder(orderDTO);
-            return ResponseEntity.ok(ApiResponse.success("Order created successfully", createdOrder));
-        } catch (RuntimeException e) {
-            return ResponseEntity.badRequest()
-                    .body(ApiResponse.error(400, e.getMessage()));
-        }
+    @PutMapping("/{id}/status")
+    public ResponseEntity<ApiResponse<OrderDTO>> updateOrderStatus(
+            @PathVariable Long id,
+            @RequestParam Order.OrderStatus status) {
+        OrderDTO updatedOrder = orderService.updateOrderStatus(id, status);
+        return ResponseEntity.ok(ApiResponse.success("Order status updated successfully", updatedOrder));
+    }
+    
+    @DeleteMapping("/{id}")
+    public ResponseEntity<ApiResponse<Void>> deleteOrder(@PathVariable Long id) {
+        orderService.deleteOrder(id);
+        return ResponseEntity.ok(ApiResponse.success("Order deleted successfully", null));
     }
     
     private Long getCurrentUserId() {
@@ -91,33 +93,9 @@ public class OrderController {
             throw new RuntimeException("User not authenticated");
         }
         
-        poly.edu.asm_be.service.CustomUserDetailsService.CustomUserPrincipal principal = 
-            (poly.edu.asm_be.service.CustomUserDetailsService.CustomUserPrincipal) authentication.getPrincipal();
+        CustomUserDetailsService.CustomUserPrincipal principal = 
+            (CustomUserDetailsService.CustomUserPrincipal) authentication.getPrincipal();
         
         return principal.getUser().getId();
-    }
-    
-    @PutMapping("/{id}/status")
-    public ResponseEntity<ApiResponse<OrderDTO>> updateOrderStatus(
-            @PathVariable Long id,
-            @RequestParam Order.OrderStatus status) {
-        try {
-            OrderDTO updatedOrder = orderService.updateOrderStatus(id, status);
-            return ResponseEntity.ok(ApiResponse.success("Order status updated successfully", updatedOrder));
-        } catch (RuntimeException e) {
-            return ResponseEntity.badRequest()
-                    .body(ApiResponse.error(400, e.getMessage()));
-        }
-    }
-    
-    @DeleteMapping("/{id}")
-    public ResponseEntity<ApiResponse<Void>> deleteOrder(@PathVariable Long id) {
-        try {
-            orderService.deleteOrder(id);
-            return ResponseEntity.ok(ApiResponse.success("Order deleted successfully", null));
-        } catch (RuntimeException e) {
-            return ResponseEntity.badRequest()
-                    .body(ApiResponse.error(400, e.getMessage()));
-        }
     }
 }

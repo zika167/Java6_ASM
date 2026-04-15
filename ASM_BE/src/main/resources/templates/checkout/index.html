@@ -186,22 +186,22 @@
                     <div class="space-y-3 py-6 border-y border-outline-variant/15">
                         <div class="flex justify-between text-sm">
                             <span class="text-on-surface-variant">Subtotal</span>
-                            <span class="font-semibold text-on-surface">${{ subtotal.toFixed(2) }}</span>
+                            <span class="font-semibold text-on-surface">${{ orderSummary.subtotal.toFixed(2) }}</span>
                         </div>
                         <div class="flex justify-between text-sm">
                             <span class="text-on-surface-variant">Shipping</span>
-                            <span class="font-semibold text-on-surface">${{ shipping.toFixed(2) }}</span>
+                            <span class="font-semibold text-on-surface">${{ orderSummary.shipping.toFixed(2) }}</span>
                         </div>
                         <div class="flex justify-between text-sm">
                             <span class="text-on-surface-variant">Tax (Estimated)</span>
-                            <span class="font-semibold text-on-surface">${{ tax.toFixed(2) }}</span>
+                            <span class="font-semibold text-on-surface">${{ orderSummary.tax.toFixed(2) }}</span>
                         </div>
                     </div>
 
                     <!-- Grand Total -->
                     <div class="flex justify-between items-center py-6">
                         <span class="text-lg font-bold text-on-surface">Total</span>
-                        <span class="text-2xl font-extrabold text-primary">${{ grandTotal.toFixed(2) }}</span>
+                        <span class="text-2xl font-extrabold text-primary">${{ orderSummary.total.toFixed(2) }}</span>
                     </div>
 
                     <!-- Place Order Button -->
@@ -253,6 +253,17 @@
                 return {
                     loading: true,
                     cartItems: [],
+                    orderSummary: {
+                        subtotal: 0,
+                        shipping: 0,
+                        tax: 0,
+                        total: 0
+                    },
+                    checkoutConfig: {
+                        shippingFee: 0,
+                        taxRate: 0,
+                        freeShippingThreshold: 0
+                    },
                     shippingInfo: {
                         fullName: '',
                         email: '',
@@ -270,18 +281,6 @@
                 }
             },
             computed: {
-                subtotal() {
-                    return this.cartItems.reduce((total, item) => total + item.subtotal, 0);
-                },
-                shipping() {
-                    return this.subtotal > 500 ? 0 : 12.50;
-                },
-                tax() {
-                    return this.subtotal * 0.08; // 8% tax
-                },
-                grandTotal() {
-                    return this.subtotal + this.shipping + this.tax;
-                },
                 canPlaceOrder() {
                     return this.cartItems.length > 0 && 
                            this.shippingInfo.fullName && 
@@ -293,18 +292,44 @@
                 }
             },
             async mounted() {
+                await this.loadCheckoutConfig();
                 await this.loadCart();
                 await this.loadUserInfo();
             },
             methods: {
+                async loadCheckoutConfig() {
+                    try {
+                        const response = await axios.get('/api/v1/config/checkout');
+                        
+                        if (response.data.status === 200) {
+                            this.checkoutConfig = response.data.data;
+                        }
+                    } catch (error) {
+                        console.error('Failed to load checkout config:', error);
+                        // Use fallback values if API fails
+                        this.checkoutConfig = {
+                            shippingFee: 12.50,
+                            taxRate: 0.08,
+                            freeShippingThreshold: 500.00
+                        };
+                    }
+                },
+
                 async loadCart() {
                     try {
-                        const response = await axios.get('/api/v1/cart', {
+                        const response = await axios.get('/api/v1/cart/details', {
                             withCredentials: true
                         });
                         
                         if (response.data.status === 200) {
-                            this.cartItems = response.data.data || [];
+                            const cart = response.data.data;
+                            this.cartItems = cart.cartItems || [];
+                            
+                            // Calculate order summary from API data using config
+                            this.orderSummary.subtotal = cart.totalAmount || 0;
+                            this.orderSummary.shipping = this.orderSummary.subtotal >= this.checkoutConfig.freeShippingThreshold ? 0 : this.checkoutConfig.shippingFee;
+                            this.orderSummary.tax = this.orderSummary.subtotal * this.checkoutConfig.taxRate;
+                            this.orderSummary.total = this.orderSummary.subtotal + this.orderSummary.shipping + this.orderSummary.tax;
                             
                             // Redirect to cart if empty
                             if (this.cartItems.length === 0) {
@@ -375,8 +400,7 @@
                     try {
                         // Prepare order data
                         const orderData = {
-                            userId: null, // Will be set by backend from session
-                            totalAmount: this.grandTotal,
+                            totalAmount: this.orderSummary.total,
                             status: 'PENDING',
                             address: this.shippingInfo.address,
                             orderDetails: this.cartItems.map(item => ({

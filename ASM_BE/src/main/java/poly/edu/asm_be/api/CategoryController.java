@@ -1,5 +1,6 @@
 package poly.edu.asm_be.api;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,19 +25,15 @@ public class CategoryController {
     }
     
     @GetMapping("/all")
-    public ResponseEntity<ApiResponse<List<CategoryDTO>>> getAllCategoriesIncludeInactive() {
+    public ResponseEntity<ApiResponse<List<CategoryDTO>>> getAllCategoriesIncludingInactive() {
         List<CategoryDTO> categories = categoryService.getAllCategories();
         return ResponseEntity.ok(ApiResponse.success(categories));
     }
     
     @GetMapping("/{id}")
     public ResponseEntity<ApiResponse<CategoryDTO>> getCategoryById(@PathVariable Long id) {
-        try {
-            CategoryDTO category = categoryService.getCategoryById(id);
-            return ResponseEntity.ok(ApiResponse.success(category));
-        } catch (RuntimeException e) {
-            return ResponseEntity.notFound().build();
-        }
+        CategoryDTO category = categoryService.getCategoryById(id);
+        return ResponseEntity.ok(ApiResponse.success(category));
     }
     
     @GetMapping("/search")
@@ -46,37 +43,22 @@ public class CategoryController {
     }
     
     @PostMapping
-    public ResponseEntity<ApiResponse<CategoryDTO>> createCategory(@RequestBody CategoryDTO categoryDTO) {
-        try {
-            CategoryDTO createdCategory = categoryService.createCategory(categoryDTO);
-            return ResponseEntity.ok(ApiResponse.success("Category created successfully", createdCategory));
-        } catch (RuntimeException e) {
-            return ResponseEntity.badRequest()
-                    .body(ApiResponse.error(400, e.getMessage()));
-        }
+    public ResponseEntity<ApiResponse<CategoryDTO>> createCategory(@Valid @RequestBody CategoryDTO categoryDTO) {
+        CategoryDTO createdCategory = categoryService.createCategory(categoryDTO);
+        return ResponseEntity.ok(ApiResponse.success("Category created successfully", createdCategory));
     }
     
     @PutMapping("/{id}")
     public ResponseEntity<ApiResponse<CategoryDTO>> updateCategory(
             @PathVariable Long id,
-            @RequestBody CategoryDTO categoryDTO) {
-        try {
-            CategoryDTO updatedCategory = categoryService.updateCategory(id, categoryDTO);
-            return ResponseEntity.ok(ApiResponse.success("Category updated successfully", updatedCategory));
-        } catch (RuntimeException e) {
-            return ResponseEntity.badRequest()
-                    .body(ApiResponse.error(400, e.getMessage()));
-        }
+            @Valid @RequestBody CategoryDTO categoryDTO) {
+        CategoryDTO updatedCategory = categoryService.updateCategory(id, categoryDTO);
+        return ResponseEntity.ok(ApiResponse.success("Category updated successfully", updatedCategory));
     }
     
     @DeleteMapping("/{id}")
     public ResponseEntity<ApiResponse<Void>> deleteCategory(@PathVariable Long id) {
-        try {
-            categoryService.deleteCategory(id);
-            return ResponseEntity.ok(ApiResponse.success("Category deleted successfully", null));
-        } catch (RuntimeException e) {
-            return ResponseEntity.badRequest()
-                    .body(ApiResponse.error(400, e.getMessage()));
-        }
+        categoryService.deleteCategory(id);
+        return ResponseEntity.ok(ApiResponse.success("Category deleted successfully", null));
     }
 }

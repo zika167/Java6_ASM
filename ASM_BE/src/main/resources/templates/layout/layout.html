@@ -13,6 +13,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@500;700;800&display=swap" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
     
+    <!-- Static CSS -->
+    <link th:href="@{/css/main.css}" rel="stylesheet"/>
+    
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <script id="tailwind-config">
@@ -198,6 +201,7 @@
 <!-- Vue.js for dynamic features -->
 <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script th:src="@{/js/main.js}"></script>
 
 </body>
 </html>

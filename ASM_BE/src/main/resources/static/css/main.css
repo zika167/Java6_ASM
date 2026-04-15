@@ -1,0 +1,255 @@
+/* Main CSS for Precision Digital E-Commerce */
+
+/* Custom Material Design Colors */
+:root {
+    --primary: #004ac6;
+    --primary-container: #2563eb;
+    --on-primary: #ffffff;
+    --surface: #f8f9ff;
+    --on-surface: #0b1c30;
+    --surface-container: #e5eeff;
+    --surface-container-low: #eff4ff;
+    --surface-container-high: #dce9ff;
+    --surface-container-highest: #d3e4fe;
+    --surface-container-lowest: #ffffff;
+    --on-surface-variant: #434655;
+    --outline: #737686;
+    --outline-variant: #c3c6d7;
+    --error: #ba1a1a;
+    --on-error: #ffffff;
+    --success: #006229;
+    --on-success: #ffffff;
+}
+
+/* Material Symbols Icons */
+.material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+/* Custom Gradients */
+.editorial-gradient {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-container) 100%);
+}
+
+/* Glass Navigation */
+.glass-nav {
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+/* Loading Animation */
+.loading-spinner {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* Custom Button Styles */
+.btn-primary {
+    background: var(--primary);
+    color: var(--on-primary);
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.btn-primary:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+}
+
+.btn-primary:active {
+    transform: scale(0.98);
+}
+
+/* Card Styles */
+.card {
+    background: var(--surface-container-lowest);
+    border-radius: 1rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease;
+}
+
+.card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Form Styles */
+.form-input {
+    background: var(--surface-container-lowest);
+    border: 1px solid var(--outline-variant);
+    border-radius: 0.5rem;
+    padding: 0.75rem 1rem;
+    transition: all 0.2s ease;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px rgba(0, 74, 198, 0.1);
+}
+
+/* Notification Styles */
+.notification {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    padding: 1rem 1.5rem;
+    border-radius: 0.5rem;
+    color: white;
+    font-weight: 500;
+    z-index: 1000;
+    animation: slideIn 0.3s ease;
+}
+
+.notification.success {
+    background: var(--success);
+}
+
+.notification.error {
+    background: var(--error);
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .glass-nav {
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        background: var(--surface);
+    }
+}
+
+/* Admin Dashboard Styles */
+.admin-sidebar {
+    background: var(--surface-container-lowest);
+    border-right: 1px solid var(--outline-variant);
+}
+
+.admin-nav-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    color: var(--on-surface);
+}
+
+.admin-nav-item:hover {
+    background: var(--surface-container);
+}
+
+.admin-nav-item.active {
+    background: var(--primary);
+    color: var(--on-primary);
+}
+
+/* Table Styles */
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--surface-container-lowest);
+    border-radius: 0.75rem;
+    overflow: hidden;
+}
+
+.data-table th {
+    background: var(--surface-container);
+    padding: 1rem 1.5rem;
+    text-align: left;
+    font-weight: 600;
+    color: var(--on-surface);
+}
+
+.data-table td {
+    padding: 1rem 1.5rem;
+    border-top: 1px solid var(--outline-variant);
+}
+
+.data-table tr:hover {
+    background: var(--surface-container-low);
+}
+
+/* Modal Styles */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 1rem;
+}
+
+.modal-content {
+    background: var(--surface-container-lowest);
+    border-radius: 1rem;
+    max-width: 90vw;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+/* Status Badge Styles */
+.status-badge {
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.status-badge.active {
+    background: rgba(0, 98, 41, 0.1);
+    color: var(--success);
+}
+
+.status-badge.inactive {
+    background: rgba(186, 26, 26, 0.1);
+    color: var(--error);
+}
+
+.status-badge.pending {
+    background: rgba(245, 158, 11, 0.1);
+    color: #d97706;
+}
+
+.status-badge.confirmed {
+    background: rgba(59, 130, 246, 0.1);
+    color: #2563eb;
+}
+
+.status-badge.shipping {
+    background: rgba(139, 92, 246, 0.1);
+    color: #7c3aed;
+}
+
+.status-badge.delivered {
+    background: rgba(34, 197, 94, 0.1);
+    color: #16a34a;
+}
+
+.status-badge.cancelled {
+    background: rgba(239, 68, 68, 0.1);
+    color: #dc2626;
+}

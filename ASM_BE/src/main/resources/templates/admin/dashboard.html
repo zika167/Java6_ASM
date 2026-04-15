@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+      layout:decorate="~{admin/layout}">
+<head>
+    <title>Dashboard</title>
+</head>
+<body>
+<div layout:fragment="content" id="dashboardApp">
+    <!-- Stats Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-sm text-on-surface-variant">Total Products</p>
+                    <p class="text-2xl font-bold">{{ stats.totalProducts }}</p>
+                </div>
+                <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
+                    <span class="material-symbols-outlined text-primary">inventory_2</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-sm text-on-surface-variant">Total Orders</p>
+                    <p class="text-2xl font-bold">{{ stats.totalOrders }}</p>
+                </div>
+                <div class="w-12 h-12 bg-success/10 rounded-lg flex items-center justify-center">
+                    <span class="material-symbols-outlined text-success">shopping_cart</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-sm text-on-surface-variant">Total Users</p>
+                    <p class="text-2xl font-bold">{{ stats.totalUsers }}</p>
+                </div>
+                <div class="w-12 h-12 bg-primary-container/10 rounded-lg flex items-center justify-center">
+                    <span class="material-symbols-outlined text-primary-container">people</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-sm text-on-surface-variant">Revenue</p>
+                    <p class="text-2xl font-bold">${{ stats.totalRevenue.toFixed(2) }}</p>
+                </div>
+                <div class="w-12 h-12 bg-success/10 rounded-lg flex items-center justify-center">
+                    <span class="material-symbols-outlined text-success">trending_up</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recent Orders -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm">
+            <div class="flex items-center justify-between mb-6">
+                <h3 class="text-lg font-bold">Recent Orders</h3>
+                <a th:href="@{/admin/orders}" class="text-primary hover:underline text-sm">View All</a>
+            </div>
+            
+            <div v-if="loading" class="flex justify-center py-8">
+                <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+            </div>
+            
+            <div v-else class="space-y-4">
+                <div v-for="order in recentOrders" :key="order.id" 
+                     class="flex items-center justify-between p-4 bg-surface-container rounded-lg">
+                    <div>
+                        <p class="font-semibold">#{{ order.id }}</p>
+                        <p class="text-sm text-on-surface-variant">{{ order.username }}</p>
+                    </div>
+                    <div class="text-right">
+                        <p class="font-semibold">${{ order.totalAmount.toFixed(2) }}</p>
+                        <span class="text-xs px-2 py-1 rounded-full"
+                              :class="getStatusClass(order.status)">
+                            {{ order.status }}
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Low Stock Products -->
+        <div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm">
+            <div class="flex items-center justify-between mb-6">
+                <h3 class="text-lg font-bold">Recent Products</h3>
+                <a th:href="@{/admin/products}" class="text-primary hover:underline text-sm">View All</a>
+            </div>
+            
+            <div v-if="loading" class="flex justify-center py-8">
+                <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+            </div>
+            
+            <div v-else class="space-y-4">
+                <div v-for="product in recentProducts" :key="product.id" 
+                     class="flex items-center gap-4 p-4 bg-surface-container rounded-lg">
+                    <div class="w-12 h-12 bg-surface-container-high rounded-lg overflow-hidden">
+                        <img :src="product.image || '/images/placeholder.jpg'" 
+                             :alt="product.name" 
+                             class="w-full h-full object-cover"/>
+                    </div>
+                    <div class="flex-1">
+                        <p class="font-semibold">{{ product.name }}</p>
+                        <p class="text-sm text-on-surface-variant">{{ product.categoryName }}</p>
+                    </div>
+                    <div class="text-right">
+                        <p class="font-semibold">${{ product.price.toFixed(2) }}</p>
+                        <span class="text-xs px-2 py-1 rounded-full"
+                              :class="product.isActive ? 'bg-success/10 text-success' : 'bg-error/10 text-error'">
+                            {{ product.isActive ? 'Active' : 'Inactive' }}
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Error Messages -->
+    <div v-if="message" 
+         class="fixed top-4 right-4 p-4 rounded-lg text-white z-50 transition-all duration-300"
+         :class="messageType === 'error' ? 'bg-error' : 'bg-success'">
+        {{ message }}
+    </div>
+</div>
+
+<script layout:fragment="scripts">
+    const { createApp } = Vue;
+    
+    createApp({
+        data() {
+            return {
+                loading: true,
+                stats: {
+                    totalProducts: 0,
+                    totalOrders: 0,
+                    totalUsers: 0,
+                    totalRevenue: 0
+                },
+                recentOrders: [],
+                recentProducts: [],
+                message: '',
+                messageType: 'success'
+            }
+        },
+        async mounted() {
+            await this.loadDashboardData();
+        },
+        methods: {
+            async loadDashboardData() {
+                try {
+                    // Load stats
+                    const [productsRes, ordersRes, usersRes] = await Promise.all([
+                        axios.get('/api/v1/admin/products', { withCredentials: true }),
+                        axios.get('/api/v1/admin/orders', { withCredentials: true }),
+                        axios.get('/api/v1/admin/users', { withCredentials: true })
+                    ]);
+                    
+                    if (productsRes.data.status === 200) {
+                        this.stats.totalProducts = productsRes.data.data.length;
+                        this.recentProducts = productsRes.data.data.slice(0, 5);
+                    }
+                    
+                    if (ordersRes.data.status === 200) {
+                        this.stats.totalOrders = ordersRes.data.data.length;
+                        this.recentOrders = ordersRes.data.data.slice(0, 5);
+                        this.stats.totalRevenue = ordersRes.data.data
+                            .reduce((sum, order) => sum + order.totalAmount, 0);
+                    }
+                    
+                    if (usersRes.data.status === 200) {
+                        this.stats.totalUsers = usersRes.data.data.length;
+                    }
+                    
+                } catch (error) {
+                    this.showMessage('Failed to load dashboard data', 'error');
+                } finally {
+                    this.loading = false;
+                }
+            },
+            
+            getStatusClass(status) {
+                const classes = {
+                    'PENDING': 'bg-yellow-100 text-yellow-800',
+                    'CONFIRMED': 'bg-blue-100 text-blue-800',
+                    'SHIPPING': 'bg-purple-100 text-purple-800',
+                    'DELIVERED': 'bg-green-100 text-green-800',
+                    'CANCELLED': 'bg-red-100 text-red-800'
+                };
+                return classes[status] || 'bg-gray-100 text-gray-800';
+            },
+            
+            showMessage(text, type = 'success') {
+                this.message = text;
+                this.messageType = type;
+                
+                setTimeout(() => {
+                    this.message = '';
+                }, 3000);
+            }
+        }
+    }).mount('#dashboardApp');
+</script>
+</body>
+</html>

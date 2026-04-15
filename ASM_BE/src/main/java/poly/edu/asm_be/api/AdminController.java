@@ -1,5 +1,6 @@
 package poly.edu.asm_be.api;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -35,38 +36,23 @@ public class AdminController {
     }
 
     @PostMapping("/products")
-    public ResponseEntity<ApiResponse<ProductDTO>> createProduct(@RequestBody ProductDTO productDTO) {
-        try {
-            ProductDTO createdProduct = productService.createProduct(productDTO);
-            return ResponseEntity.ok(ApiResponse.success("Product created successfully", createdProduct));
-        } catch (RuntimeException e) {
-            return ResponseEntity.badRequest()
-                    .body(ApiResponse.error(400, e.getMessage()));
-        }
+    public ResponseEntity<ApiResponse<ProductDTO>> createProduct(@Valid @RequestBody ProductDTO productDTO) {
+        ProductDTO createdProduct = productService.createProduct(productDTO);
+        return ResponseEntity.ok(ApiResponse.success("Product created successfully", createdProduct));
     }
 
     @PutMapping("/products/{id}")
     public ResponseEntity<ApiResponse<ProductDTO>> updateProduct(
             @PathVariable Long id,
-            @RequestBody ProductDTO productDTO) {
-        try {
-            ProductDTO updatedProduct = productService.updateProduct(id, productDTO);
-            return ResponseEntity.ok(ApiResponse.success("Product updated successfully", updatedProduct));
-        } catch (RuntimeException e) {
-            return ResponseEntity.badRequest()
-                    .body(ApiResponse.error(400, e.getMessage()));
-        }
+            @Valid @RequestBody ProductDTO productDTO) {
+        ProductDTO updatedProduct = productService.updateProduct(id, productDTO);
+        return ResponseEntity.ok(ApiResponse.success("Product updated successfully", updatedProduct));
     }
 
     @DeleteMapping("/products/{id}")
     public ResponseEntity<ApiResponse<Void>> deleteProduct(@PathVariable Long id) {
-        try {
-            productService.deleteProduct(id);
-            return ResponseEntity.ok(ApiResponse.success("Product deleted successfully", null));
-        } catch (RuntimeException e) {
-            return ResponseEntity.badRequest()
-                    .body(ApiResponse.error(400, e.getMessage()));
-        }
+        productService.deleteProduct(id);
+        return ResponseEntity.ok(ApiResponse.success("Product deleted successfully", null));
     }
 
     // Category Management
@@ -77,38 +63,23 @@ public class AdminController {
     }
 
     @PostMapping("/categories")
-    public ResponseEntity<ApiResponse<CategoryDTO>> createCategory(@RequestBody CategoryDTO categoryDTO) {
-        try {
-            CategoryDTO createdCategory = categoryService.createCategory(categoryDTO);
-            return ResponseEntity.ok(ApiResponse.success("Category created successfully", createdCategory));
-        } catch (RuntimeException e) {
-            return ResponseEntity.badRequest()
-                    .body(ApiResponse.error(400, e.getMessage()));
-        }
+    public ResponseEntity<ApiResponse<CategoryDTO>> createCategory(@Valid @RequestBody CategoryDTO categoryDTO) {
+        CategoryDTO createdCategory = categoryService.createCategory(categoryDTO);
+        return ResponseEntity.ok(ApiResponse.success("Category created successfully", createdCategory));
     }
 
     @PutMapping("/categories/{id}")
     public ResponseEntity<ApiResponse<CategoryDTO>> updateCategory(
             @PathVariable Long id,
-            @RequestBody CategoryDTO categoryDTO) {
-        try {
-            CategoryDTO updatedCategory = categoryService.updateCategory(id, categoryDTO);
-            return ResponseEntity.ok(ApiResponse.success("Category updated successfully", updatedCategory));
-        } catch (RuntimeException e) {
-            return ResponseEntity.badRequest()
-                    .body(ApiResponse.error(400, e.getMessage()));
-        }
+            @Valid @RequestBody CategoryDTO categoryDTO) {
+        CategoryDTO updatedCategory = categoryService.updateCategory(id, categoryDTO);
+        return ResponseEntity.ok(ApiResponse.success("Category updated successfully", updatedCategory));
     }
 
     @DeleteMapping("/categories/{id}")
     public ResponseEntity<ApiResponse<Void>> deleteCategory(@PathVariable Long id) {
-        try {
-            categoryService.deleteCategory(id);
-            return ResponseEntity.ok(ApiResponse.success("Category deleted successfully", null));
-        } catch (RuntimeException e) {
-            return ResponseEntity.badRequest()
-                    .body(ApiResponse.error(400, e.getMessage()));
-        }
+        categoryService.deleteCategory(id);
+        return ResponseEntity.ok(ApiResponse.success("Category deleted successfully", null));
     }
 
     // User Management
@@ -121,25 +92,15 @@ public class AdminController {
     @PutMapping("/users/{id}")
     public ResponseEntity<ApiResponse<UserDTO>> updateUser(
             @PathVariable Long id,
-            @RequestBody UserDTO userDTO) {
-        try {
-            UserDTO updatedUser = userService.updateUser(id, userDTO);
-            return ResponseEntity.ok(ApiResponse.success("User updated successfully", updatedUser));
-        } catch (RuntimeException e) {
-            return ResponseEntity.badRequest()
-                    .body(ApiResponse.error(400, e.getMessage()));
-        }
+            @Valid @RequestBody UserDTO userDTO) {
+        UserDTO updatedUser = userService.updateUser(id, userDTO);
+        return ResponseEntity.ok(ApiResponse.success("User updated successfully", updatedUser));
     }
 
     @DeleteMapping("/users/{id}")
     public ResponseEntity<ApiResponse<Void>> deleteUser(@PathVariable Long id) {
-        try {
-            userService.deleteUser(id);
-            return ResponseEntity.ok(ApiResponse.success("User deleted successfully", null));
-        } catch (RuntimeException e) {
-            return ResponseEntity.badRequest()
-                    .body(ApiResponse.error(400, e.getMessage()));
-        }
+        userService.deleteUser(id);
+        return ResponseEntity.ok(ApiResponse.success("User deleted successfully", null));
     }
 
     // Order Management
@@ -159,23 +120,13 @@ public class AdminController {
     public ResponseEntity<ApiResponse<OrderDTO>> updateOrderStatus(
             @PathVariable Long id,
             @RequestParam Order.OrderStatus status) {
-        try {
-            OrderDTO updatedOrder = orderService.updateOrderStatus(id, status);
-            return ResponseEntity.ok(ApiResponse.success("Order status updated successfully", updatedOrder));
-        } catch (RuntimeException e) {
-            return ResponseEntity.badRequest()
-                    .body(ApiResponse.error(400, e.getMessage()));
-        }
+        OrderDTO updatedOrder = orderService.updateOrderStatus(id, status);
+        return ResponseEntity.ok(ApiResponse.success("Order status updated successfully", updatedOrder));
     }
 
     @DeleteMapping("/orders/{id}")
     public ResponseEntity<ApiResponse<Void>> deleteOrder(@PathVariable Long id) {
-        try {
-            orderService.deleteOrder(id);
-            return ResponseEntity.ok(ApiResponse.success("Order deleted successfully", null));
-        } catch (RuntimeException e) {
-            return ResponseEntity.badRequest()
-                    .body(ApiResponse.error(400, e.getMessage()));
-        }
+        orderService.deleteOrder(id);
+        return ResponseEntity.ok(ApiResponse.success("Order deleted successfully", null));
     }
 }
