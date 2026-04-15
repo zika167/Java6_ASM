@@ -16,10 +16,10 @@ import poly.edu.asm_be.service.CustomUserDetailsService;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@RestController
+@RestController("orderApiController")
 @RequestMapping("/api/v1/orders")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "*", allowCredentials = "true")
+@CrossOrigin(origins = "*")
 public class OrderController {
     
     private final OrderService orderService;

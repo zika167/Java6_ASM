@@ -17,10 +17,10 @@ import poly.edu.asm_be.service.UserService;
 
 import java.util.List;
 
-@RestController
+@RestController("adminApiController")
 @RequestMapping("/api/v1/admin")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "*", allowCredentials = "true")
+@CrossOrigin(origins = "*")
 public class AdminController {
 
     private final ProductService productService;

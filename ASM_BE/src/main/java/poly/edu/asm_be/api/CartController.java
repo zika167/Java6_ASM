@@ -14,10 +14,10 @@ import poly.edu.asm_be.service.CustomUserDetailsService;
 
 import java.util.List;
 
-@RestController
+@RestController("cartApiController")
 @RequestMapping("/api/v1/cart")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "*", allowCredentials = "true")
+@CrossOrigin(origins = "*")
 public class CartController {
     
     private final CartService cartService;

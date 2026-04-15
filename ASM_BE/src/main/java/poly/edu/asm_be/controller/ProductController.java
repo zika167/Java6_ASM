@@ -17,7 +17,7 @@ import poly.edu.asm_be.service.ProductService;
 
 import java.util.List;
 
-@Controller
+@Controller("productPageController")
 @RequestMapping("/products")
 @RequiredArgsConstructor
 public class ProductController {

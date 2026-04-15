@@ -45,9 +45,6 @@ public class SecurityConfig {
                 .requestMatchers("/css/**", "/js/**", "/images/**", "/static/**").permitAll()
                 .requestMatchers("/webjars/**", "/favicon.ico").permitAll()
                 
-                // Swagger/OpenAPI Documentation
-                .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-ui.html").permitAll()
-                
                 // User endpoints - yêu cầu ROLE_USER hoặc ROLE_ADMIN
                 .requestMatchers("/cart/**", "/checkout/**", "/orders/**", "/account/**").hasAnyRole("USER", "ADMIN")
                 .requestMatchers("/api/v1/cart/**", "/api/v1/orders/**").hasAnyRole("USER", "ADMIN")

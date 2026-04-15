@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.*;
 import poly.edu.asm_be.dto.*;
 import poly.edu.asm_be.service.AuthService;
 
-@RestController
+@RestController("authApiController")
 @RequestMapping("/api/v1/auth")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "*", allowCredentials = "true")
+@CrossOrigin(origins = "*")
 public class AuthController {
 
     private final AuthService authService;

@@ -18,6 +18,7 @@ import poly.edu.asm_be.repository.CartItemRepository;
 import poly.edu.asm_be.repository.CartRepository;
 import poly.edu.asm_be.repository.ProductRepository;
 import poly.edu.asm_be.repository.UserRepository;
+import poly.edu.asm_be.service.CartService;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
@@ -45,7 +46,7 @@ class CartServiceImplTest {
     private UserRepository userRepository;
 
     @InjectMocks
-    private CartServiceImpl cartService;
+    private CartService cartService;
 
     private User testUser;
     private Product testProduct;

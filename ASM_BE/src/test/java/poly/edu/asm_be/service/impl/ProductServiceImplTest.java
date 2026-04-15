@@ -13,6 +13,7 @@ import poly.edu.asm_be.entity.Category;
 import poly.edu.asm_be.entity.Product;
 import poly.edu.asm_be.repository.CategoryRepository;
 import poly.edu.asm_be.repository.ProductRepository;
+import poly.edu.asm_be.service.ProductService;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
@@ -34,7 +35,7 @@ class ProductServiceImplTest {
     private CategoryRepository categoryRepository;
 
     @InjectMocks
-    private ProductServiceImpl productService;
+    private ProductService productService;
 
     private Product testProduct;
     private Category testCategory;
